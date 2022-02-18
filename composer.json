@@ -1,7 +1,7 @@
 {
-  "name": "inter-mediator/im-trial",
-  "version": "2",
-  "time": "2022-01-14",
+  "name": "inter-mediator/im-account",
+  "version": "1",
+  "time": "2022-02-17",
   "repositories": [
     {
       "type": "git",
@@ -12,7 +12,7 @@
   "prefer-stable": true,
   "require": {
     "php": ">=7.1.0",
-    "inter-mediator/inter-mediator": "*"
+    "inter-mediator/inter-mediator": ">=10"
   },
   "autoload": {},
   "description": "INTER-Mediator Trial Application, also suitable for studying INTER-Mediator",
@@ -20,7 +20,7 @@
   "keywords": [
     "INTER-Mediator",
     "application",
-    "bbs",
+    "account",
     "sample"
   ],
   "homepage": "https://inter-mediator.com",

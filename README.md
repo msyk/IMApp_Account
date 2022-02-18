@@ -1,10 +1,10 @@
-# IMApp_Trial
+# IMApp_Account
 Accounting web application by INTER-Mediator.
 
-# Preparation
+## Preparation
 Installing PHP, git, composer, SQLite and Node.js with npm.
 
-# Setup
+## Setup
 This web app based on the composer. So you clone this repository, following to execute the composer command on the root of the repository.
 ```
 git clone https://github.com/inter-mediator/IMApp_Account

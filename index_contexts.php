@@ -18,10 +18,10 @@ require_once './vendor/inter-mediator/inter-mediator/INTER-Mediator.php';
 IM_Entry(
     [
         [
-            'name' => 'information',
+            'name' => 'authuser',
             'key' => 'id',
-            'records' => 1,
-            'maxrecords' => 1,
+            'records' => 100,
+            'maxrecords' => 100,
         ],
     ],
     [
@@ -34,5 +34,5 @@ IM_Entry(
         ],
     ],
     ['db-class' => 'PDO',],
-    false
+    2
 );

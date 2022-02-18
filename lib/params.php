@@ -25,7 +25,8 @@ $dbPassword = 'password';
 
 /* PDO awares below:
  */
-$dbDSN = 'sqlite:~/.im_db/imapp_account.sqlite3';
+$homeDir = \INTERMediator\IMUtil::getServerUserHome();
+$dbDSN = "sqlite:{$homeDir}/.im_db/imapp_account.sqlite3";
 $dbOption = array();
 
 /* Security
