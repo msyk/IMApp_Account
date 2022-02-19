@@ -5,7 +5,7 @@
   "repositories": [
     {
       "type": "git",
-      "url": "https://github.com/INTER-Mediator/IMApp_Account.git"
+      "url": "https://github.com/msyk/IMApp_Account.git"
     }
   ],
   "minimum-stability": "dev",
