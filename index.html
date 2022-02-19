@@ -17,13 +17,27 @@
     <script src="index.js"></script>
 </head>
 <body>
-<table>
-    <tbody>
-    <tr>
-        <td data-im="authuser@id"></td>
-        <td data-im="authuser@username"></td>
-    </tr>
-    </tbody>
-</table>
+<div id="nonsupportmessage">
+    <div style="text-align:center;color:yellow;background-color:black;">
+        This page is going to show for a moment.
+        If you see this permanently, please enable JavaScript and reload.
+        Otherwise it's possible to use any unsupported web browser.
+    </div>
+    <div style="text-align:center;color:yellow;background-color:black;">
+        現在、ページの構成中です。
+        もし、この表示が長時間表示されているなら、JavaScriptを有効にして再度読み込んでください。
+        サポート対象外のWebブラウザーを使っている場合も、これを表示し続けることがあります。
+    </div>
+</div>
+<div id="container" style="display: none">
+    <table>
+        <tbody>
+        <tr>
+            <td data-im="authuser@id"></td>
+            <td data-im="authuser@username"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 </body>
 </html>

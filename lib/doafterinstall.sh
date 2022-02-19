@@ -22,3 +22,4 @@ if [ -e "${IM_DB_FILE}" ]; then
   fi
 fi
 sqlite3 "${IM_DB_FILE}" <"${myDir}/basic_schema.sql"
+echo "The database file is istalled as '${IM_DB_FILE}'."

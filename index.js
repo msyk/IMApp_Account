@@ -7,7 +7,11 @@
  * Please see the full license for details:
  * https://github.com/INTER-Mediator/INTER-Mediator/blob/master/dist-docs/License.txt
  */
-window.onload = function () {
-    INTERMediatorLog.suppressErrorMessageOnPage = true;
-    INTERMediator.construct(true);
+INTERMediatorOnPage.doBeforeConstruct = function () {
+    INTERMediatorLog.suppressDebugMessageOnPage = true;
 };
+
+INTERMediatorOnPage.doAfterConstruct = function () {
+    const node = document.getElementById('container')
+    node.style.display = 'block'
+}
