@@ -1,7 +1,8 @@
 #!/bin/sh
 
+DB_PREFIX="imapp_account"
 IM_DB_DIR="${HOME}/.im_db"
-IM_DB_FILE="${IM_DB_DIR}/imapp_account.sqlite3"
+IM_DB_FILE="${IM_DB_DIR}/${DB_PREFIX}.sqlite3"
 myDir=$(
   cd $(dirname "$0")
   pwd
@@ -22,4 +23,6 @@ if [ -e "${IM_DB_FILE}" ]; then
   fi
 fi
 sqlite3 "${IM_DB_FILE}" <"${myDir}/basic_schema.sql"
+sqlite3 "${IM_DB_FILE}" <"${myDir}/initial_data.sql"
+
 echo "The database file is istalled as '${IM_DB_FILE}'."

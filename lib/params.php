@@ -102,7 +102,7 @@ $slackParameters = [
 
 /* Authorization
  * =================== */
-//$passwordHash = '1';  // '2m' supports SHA-256 and Wrapping SHA-1 with SHA-256,
+$passwordHash = '2';  // '2m' supports SHA-256 and Wrapping SHA-1 with SHA-256,
 // '2' supports SHA-256 password hash only,
 // No specification or other string support SHA-1, SHA-256, and wrapping.
 //$alwaysGenSHA2 = true; // On the password changing, generate SHA-2 hash. The default is false.

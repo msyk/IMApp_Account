@@ -4,3 +4,5 @@
 .vagrant
 vendor/
 node_modules/
+db-backup
+

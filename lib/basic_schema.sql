@@ -63,10 +63,15 @@ CREATE TABLE item
 
 CREATE TABLE assort_pattern
 (
-    assort_pattern_id INTEGER PRIMARY KEY, /* 仕分けパターン番号 */
+    assort_pattern_id INTEGER PRIMARY KEY AUTOINCREMENT, /* 仕分けパターン番号 */
     pattern_name      TEXT,
     debit_id          INTEGER, /* 借方コード */
     credit_id         INTEGER /* 貸方コード */
+);
+
+CREATE TABLE fiscal_year
+(
+    year INTEGER PRIMARY KEY
 );
 
 CREATE TABLE company
@@ -113,44 +118,11 @@ CREATE INDEX authuser_email
 CREATE INDEX authuser_limitdt
     ON authuser (limitdt);
 
-INSERT INTO authuser(id, username, hashedpasswd)
-VALUES (1, 'user1', 'd83eefa0a9bd7190c94e7911688503737a99db0154455354');
-INSERT INTO authuser(id, username, hashedpasswd)
-VALUES (2, 'user2', '5115aba773983066bcf4a8655ddac8525c1d3c6354455354');
-INSERT INTO authuser(id, username, hashedpasswd)
-VALUES (3, 'user3', 'd1a7981108a73e9fbd570e23ecca87c2c5cb967554455354');
-INSERT INTO authuser(id, username, hashedpasswd)
-VALUES (4, 'user4', '8c1b394577d0191417e8d962c5f6e3ca15068f8254455354');
-INSERT INTO authuser(id, username, hashedpasswd)
-VALUES (5, 'user5', 'ee403ef2642f2e63dca12af72856620e6a24102d54455354');
-INSERT INTO authuser(id, username, hashedpasswd)
-VALUES (6, 'mig2m', 'cd85a299c154c4714b23ce4b63618527289296ba6642c2685651ad8b9f20ce02285d7b34');
-INSERT INTO authuser(id, username, hashedpasswd)
-VALUES (7, 'mig2', 'fcc2ab4678963966614b5544a40f4b814ba3da41b3b69df6622e51b74818232864235970');
-/*
-# The user1 has the password 'user1'. It's salted with the string 'TEXT'.
-# All users have the password the same as user name. All are salted with 'TEXT'
-# The following command lines are used to generate above hashed-hexed-password.
-#
-#  $ echo -n 'user1TEST' | openssl sha1 -sha1
-#  d83eefa0a9bd7190c94e7911688503737a99db01
-#  echo -n 'TEST' | xxd -ps
-#  54455354
-#  - combine above two results:
-#  d83eefa0a9bd7190c94e7911688503737a99db0154455354
-*/
 CREATE TABLE authgroup
 (
     id        INTEGER PRIMARY KEY AUTOINCREMENT,
     groupname TEXT
 );
-
-INSERT INTO authgroup(id, groupname)
-VALUES (1, 'group1');
-INSERT INTO authgroup(id, groupname)
-VALUES (2, 'group2');
-INSERT INTO authgroup(id, groupname)
-VALUES (3, 'group3');
 
 CREATE TABLE authcor
 (
@@ -167,23 +139,6 @@ CREATE INDEX authcor_group_id
     ON authcor (group_id);
 CREATE INDEX authcor_dest_group_id
     ON authcor (dest_group_id);
-
-INSERT INTO authcor(user_id, dest_group_id)
-VALUES (1, 1);
-INSERT INTO authcor(user_id, dest_group_id)
-VALUES (2, 1);
-INSERT INTO authcor(user_id, dest_group_id)
-VALUES (3, 1);
-INSERT INTO authcor(user_id, dest_group_id)
-VALUES (4, 2);
-INSERT INTO authcor(user_id, dest_group_id)
-VALUES (5, 2);
-INSERT INTO authcor(user_id, dest_group_id)
-VALUES (4, 3);
-INSERT INTO authcor(user_id, dest_group_id)
-VALUES (5, 3);
-INSERT INTO authcor(group_id, dest_group_id)
-VALUES (1, 3);
 
 CREATE TABLE issuedhash
 (
