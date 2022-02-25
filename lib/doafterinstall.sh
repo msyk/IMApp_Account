@@ -22,7 +22,8 @@ if [ -e "${IM_DB_FILE}" ]; then
     exit 9
   fi
 fi
-sqlite3 "${IM_DB_FILE}" <"${myDir}/basic_schema.sql"
-sqlite3 "${IM_DB_FILE}" <"${myDir}/initial_data.sql"
+sqlite3 "${IM_DB_FILE}" <"${myDir}/schema_basic.sql"
+sqlite3 "${IM_DB_FILE}" <"${myDir}/schema_views.sql"
+sqlite3 "${IM_DB_FILE}" <"${myDir}/schema_initial_data.sql"
 
 echo "The database file is istalled as '${IM_DB_FILE}'."

@@ -18,21 +18,63 @@ require_once './vendor/inter-mediator/inter-mediator/INTER-Mediator.php';
 IM_Entry(
     [
         [
-            'name' => 'authuser',
-            'key' => 'id',
+            'name' => 'account_list',
+            'table' => 'account',
+            'key' => 'account_id',
             'records' => 100,
-            'maxrecords' => 100,
+            'maxrecords' => 100000,
+            'paging' => true,
+            'repeat-control' => 'confirm-insert comfirm-delete cofirm-copy',
+            'navi-control' => 'master-hide',
+        ],
+        [
+            'name' => 'account_detail',
+            'view' => 'account_list',
+            'table' => 'account',
+            'key' => 'account_id',
+            'records' => 1,
+            'navi-control' => 'detail-update',
+            'calculation' => [
+                ['field' => "item_total_calc", 'expression' => "sum(detail_list@item_price_calc)",],
+                ['field' => "tax_total_calc", 'expression' => "sum(detail_list@tax_price_calc)",],
+                ['field' => "net_total_calc", 'expression' => "sum(detail_list@net_price_calc)",],
+            ],
+        ],
+        [
+            'name' => 'detail_list',
+            'view' => 'detail_calc',
+            'table' => 'detail',
+            'key' => 'detail_id',
+            'records' => 100000,
+            'maxrecords' => 100000,
+            'repeat-control' => 'confirm-insert comfirm-delete cofirm-copy',
+            'relation' => [['foreign-key' => 'account_id', 'join-field' => 'account_id', 'operator' => '='],],
+            'calculation' => [
+                ['field' => "item_price_calc", 'expression' => "unit_price * qty * alloc_rate * if(tax_rate>0,choice(abs(account_detail@tax_kind+0),1,1 + tax_rate,1),choice(abs(account_detail@tax_kind+0),1,1 + account_detail@tax_rate,1))",],
+                ['field' => "tax_price_calc", 'expression' => "unit_price * qty * alloc_rate * if(tax_rate>0,choice(abs(account_detail@tax_kind+0),tax_rate/(1 + tax_rate),tax_rate,0),choice(abs(account_detail@tax_kind+0),account_detail@tax_rate/(1 + account_detail@tax_rate),account_detail@tax_rate,0))",],
+                ['field' => "net_price_calc", 'expression' => "unit_price * qty * alloc_rate * if(tax_rate>0,choice(abs(account_detail@tax_kind+0),1/(1 + tax_rate),1,1),choice(abs(account_detail@tax_kind+0),1/(1 + account_detail@tax_rate),1,1))",],
+            ],
+         ],
+        [
+            'name' => 'assort_pattern',
+            'view' => 'assort_pattern',
+            'key' => 'assort_pattern_id',
+            'records' => 10000,
+        ],
+        [
+            'name' => 'assort_pattern_lookup',
+            'view' => 'assort_pattern',
+            'key' => 'assort_pattern_id',
+            'relation' => [['foreign-key' => 'assort_pattern_id', 'join-field' => 'assort_pattern_id', 'operator' => '=',]]
+        ],
+        [
+            'name' => 'item',
+            'key' => 'item_id',
+            'query' => [['field' => 'show', 'value' => 1],],
+            'sort' => [['field' => 'item_id', 'direction' => 'asc'],],
         ],
     ],
-    [
-        'formatter' => [
-            [
-                'field' => 'information@lastupdated',
-                'converter-class' => 'MySQLDateTime',
-                'parameter' => '%Y年%m月%d日',
-            ]
-        ],
-    ],
+    [],
     ['db-class' => 'PDO',],
     2
 );
