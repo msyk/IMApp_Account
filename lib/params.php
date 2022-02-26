@@ -172,15 +172,15 @@ $dontRecordDownloadNoGet = false;
 
 /* S3 Support
  * =================== */
-$accessRegion = "ap-northeast-1"; // This means the Tokyo region.
+//$accessRegion = "ap-northeast-1"; // This means the Tokyo region.
 // Set the code of the endpoint from https://docs.aws.amazon.com/general/latest/gr/rande.html
-$rootBucket = "inter-mediator-developping";
-$applyingACL = "bucket-owner-read";
+//$rootBucket = "inter-mediator-developping";
+$applyingACL = "bucket-owner-full-control";
 // You can choose from two way, specifying key and secret or setting them into the profile file
 // 'private|public-read|public-read-write|authenticated-read|aws-exec-read|bucket-owner-read|bucket-owner-full-control'
-$s3AccessProfile = "im-develop";
-$s3AccessKey = "AKIAXXXXXXXXXXXXXXXX";
-$s3AccessSecret = "XXXXXXXXXXXXXXXXX/XXXXXXXXXXXXXXXXXXXXXX";
+//$s3AccessProfile = "im-develop";
+//$s3AccessKey = "AKIAXXXXXXXXXXXXXXXX";
+//$s3AccessSecret = "XXXXXXXXXXXXXXXXX/XXXXXXXXXXXXXXXXXXXXXX";
 // Profile can push any credentials out of codes. The profile is prior than key/secret.
 // https://docs.aws.amazon.com/ja_jp/sdk-for-php/v3/developer-guide/guide_credentials_profiles.html
 $s3urlCustomize = true; // The default value is TRUE.

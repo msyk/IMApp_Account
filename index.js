@@ -9,6 +9,7 @@
  */
 INTERMediatorOnPage.doBeforeConstruct = function () {
     INTERMediatorLog.suppressDebugMessageOnPage = true;
+    //IMParts_Catalog.jquery_fileupload.fullUpdate = false;
 };
 
 INTERMediatorOnPage.doAfterConstruct = function () {

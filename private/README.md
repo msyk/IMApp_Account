@@ -17,5 +17,4 @@ $accessRegion = "ap-northeast-1"; // This means the Tokyo region.
 $rootBucket = "inter-mediator-account";
 $s3AccessKey = "AKIAXXXXXXXXXXXXXXXX";
 $s3AccessSecret = "XXXXXXXXXXXXXXXXX/XXXXXXXXXXXXXXXXXXXXXX";
-
 ```

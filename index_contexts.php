@@ -39,6 +39,9 @@ IM_Entry(
                 ['field' => "tax_total_calc", 'expression' => "sum(detail_list@tax_price_calc)",],
                 ['field' => "net_total_calc", 'expression' => "sum(detail_list@net_price_calc)",],
             ],
+            'file-upload' => [
+                ['container' => 'S3',],
+            ],
         ],
         [
             'name' => 'detail_list',
@@ -54,7 +57,7 @@ IM_Entry(
                 ['field' => "tax_price_calc", 'expression' => "unit_price * qty * alloc_rate * if(tax_rate>0,choice(abs(account_detail@tax_kind+0),tax_rate/(1 + tax_rate),tax_rate,0),choice(abs(account_detail@tax_kind+0),account_detail@tax_rate/(1 + account_detail@tax_rate),account_detail@tax_rate,0))",],
                 ['field' => "net_price_calc", 'expression' => "unit_price * qty * alloc_rate * if(tax_rate>0,choice(abs(account_detail@tax_kind+0),1/(1 + tax_rate),1,1),choice(abs(account_detail@tax_kind+0),1/(1 + account_detail@tax_rate),1,1))",],
             ],
-         ],
+        ],
         [
             'name' => 'assort_pattern',
             'view' => 'assort_pattern',
