@@ -255,3 +255,11 @@ $prohibitDebugMode = false;
 // In case of using INTER-Mediator with other frameworks, you might specify any special URL to call.
 // So you can set the another url to the $callURL variables and it can be replaced with $_SERVER['SCRIPT_NAME'].
 //$callURL = "http://yourdomai/your/path/to/definition-file.php"
+
+/*******/
+
+$myDir = dirname(__FILE__);
+$addingSettings = dirname($myDir). DIRECTORY_SEPARATOR . "private/aws_settings.php";
+if(file_exists($addingSettings)) {
+    include($addingSettings);
+}

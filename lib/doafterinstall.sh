@@ -22,8 +22,11 @@ if [ -e "${IM_DB_FILE}" ]; then
     exit 9
   fi
 fi
-sqlite3 "${IM_DB_FILE}" <"${myDir}/schema_basic.sql"
-sqlite3 "${IM_DB_FILE}" <"${myDir}/schema_views.sql"
-sqlite3 "${IM_DB_FILE}" <"${myDir}/schema_initial_data.sql"
-
-echo "The database file is istalled as '${IM_DB_FILE}'."
+sqlite3 "${IM_DB_FILE}" < "${myDir}/schema_basic.sql"
+sqlite3 "${IM_DB_FILE}" < "${myDir}/schema_views.sql"
+sqlite3 "${IM_DB_FILE}" < "${myDir}/schema_initial_data.sql"
+PRIV_SRC="${appRootDir}/private/my_initial_data.sql"
+if [ -e "${PRIV_SRC}" ]; then
+  sqlite3 "${IM_DB_FILE}" < "${PRIV_SRC}"
+fi
+echo "The database file is installed as '${IM_DB_FILE}'."
