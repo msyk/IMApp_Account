@@ -84,6 +84,14 @@ CREATE TABLE company
     postal_code TEXT,
     address     TEXT
 );
+
+CREATE TABLE preference
+(
+    preference_id   INTEGER PRIMARY KEY AUTOINCREMENT,
+    myself          TEXT,
+    bank_info       TEXT,
+    show_tax_detail INTEGER DEFAULT 0 NOT NULL
+);
 /* Observable */
 CREATE TABLE registeredcontext
 (

@@ -25,7 +25,7 @@ IM_Entry(
             'maxrecords' => 100000,
             'paging' => true,
             'repeat-control' => 'confirm-insert comfirm-delete cofirm-copy',
-            'navi-control' => 'master-hide',
+            //'navi-control' => 'master-hide',
         ],
         [
             'name' => 'account_detail',
@@ -33,7 +33,7 @@ IM_Entry(
             'table' => 'account',
             'key' => 'account_id',
             'records' => 1,
-            'navi-control' => 'detail-update',
+            //'navi-control' => 'detail-update',
             'calculation' => [
                 ['field' => "item_total_calc", 'expression' => "sum(detail_list@item_price_calc)",],
                 ['field' => "tax_total_calc", 'expression' => "sum(detail_list@tax_price_calc)",],
@@ -69,6 +69,18 @@ IM_Entry(
             'view' => 'assort_pattern',
             'key' => 'assort_pattern_id',
             'relation' => [['foreign-key' => 'assort_pattern_id', 'join-field' => 'assort_pattern_id', 'operator' => '=',]]
+        ],
+        [
+            'name' => 'company',
+            'view' => 'company',
+            'key' => 'company_id',
+            'records' => 10000,
+        ],
+        [
+            'name' => 'company_lookup',
+            'view' => 'company',
+            'key' => 'company_id',
+            'relation' => [['foreign-key' => 'company_id', 'join-field' => 'company_id', 'operator' => '=',]]
         ],
         [
             'name' => 'item',

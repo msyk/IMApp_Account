@@ -11,6 +11,7 @@ git clone https://github.com/inter-mediator/IMApp_Account
 cd IMApp_Account
 composer install
 ```
+If you want to store this app on your own repository, you can clone from the template repository which is GitHub feature. So you can store it as private repository.
 
 ## Getting Started App
 The quick way to host the web app, the php command's server mode is convenient.
@@ -18,6 +19,10 @@ The quick way to host the web app, the php command's server mode is convenient.
 php -S localhost:9000
 ```
 After that, you can access the application with url http://localhost:9000/ from any browser that executing on the same host.
+
+## Setup for S3
+
+I'd like to read the README.md file in private directory. If you create the file named 'aws_setting.php' in it with S3 available account, you can store the files to S3.
 
 ## Database Operations
 

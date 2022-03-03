@@ -8,9 +8,14 @@
  * https://github.com/INTER-Mediator/INTER-Mediator/blob/master/dist-docs/License.txt
  */
 INTERMediatorOnPage.doBeforeConstruct = function () {
-    INTERMediatorLog.suppressDebugMessageOnPage = true;
+  INTERMediatorLog.suppressDebugMessageOnPage = true;
+  const params = INTERMediatorOnPage.getURLParametersAsArray()
+  INTERMediator.clearCondition('account_detail')
+  if (params['id']) {
+    INTERMediator.addCondition('account_detail', {field: 'account_id', operator: '=', value: parseInt(params['id'])})
+  }
 };
 
 INTERMediatorOnPage.doAfterConstruct = function () {
-      document.getElementById('container').style.display = 'block'
+  document.getElementById('container').style.display = 'block'
 }

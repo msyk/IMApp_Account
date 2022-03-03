@@ -50,8 +50,8 @@
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
                     <a class="nav-link active" aria-current="page" href="index.html">総勘定元帳</a>
-                    <a class="nav-link" href="#">Features</a>
-                    <a class="nav-link" href="#">Pricing</a>
+                    <a class="nav-link" href="#">科目集計</a>
+                    <a class="nav-link" href="#">月次集計</a>
                     <div class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
                            data-bs-toggle="dropdown" aria-expanded="false">
@@ -61,7 +61,8 @@
                             <li><a class="dropdown-item" href="master_item.html">勘定科目</a></li>
                             <li><a class="dropdown-item" href="master_assort.html">仕分パターン</a></li>
                             <li><a class="dropdown-item" href="master_customer.html">顧客</a></li>
-                        </ul>
+                            <li><a class="dropdown-item" href="master_year.html">年度</a></li>
+                            <li><a class="dropdown-item" href="master_preference.html">設定</a></li>                        </ul>
                     </div>
                 </div>
             </div>
@@ -88,7 +89,11 @@
         </thead>
         <tbody>
         <tr>
-            <td></td>
+            <td>
+                <a href="index_detail.html?id=" data-im="account_list@account_id@#href">
+                    <button class="btn btn-info">詳細</button>
+                </a>
+            </td>
             <td data-im="account_list@issued_date"></td>
             <td data-im="account_list@kind_str"></td>
             <td data-im="account_list@company"></td>
@@ -103,136 +108,6 @@
             <td data-im="account_list@tax_total" data-im-format="number(0)"
                 data-im-format-options="useseparator"></td>
             <td></td>
-        </tr>
-        </tbody>
-    </table>
-    <table>
-        <tbody>
-        <tr>
-            <th>日付</th>
-            <td><input type="date" data-im="account_detail@issued_date"></td>
-            <th>会社名</th>
-            <td colspan="5">
-                <input type="text" data-im="account_detail@company" placeholder="会社名">
-                <input type="text" data-im="account_detail@section" placeholder="部署名">
-                <input type="text" data-im="account_detail@person" placeholder="担当者名"><br>
-                <input type="text" data-im="account_detail@postal_code" placeholder="郵便番号">
-                <input type="text" data-im="account_detail@address" placeholder="住所">
-            </td>
-            <td rowspan="8" style="vertical-align: top">
-                <div><iframe src="index_contexts.php?media=" data-im="account_detail@invoice_path@#src"
-                             style="width: 500px;height: 600px"></iframe></div>
-                <div data-im="account_detail@invoice_path" data-im-widget="jquery_fileupload"></div>
-                <a href="index_contexts.php?media="  data-im="account_detail@invoice_path@#href" target="_blank">
-                    <button class="btn btn-info">ファイルを別ウインドウに単独表示</button>
-                </a>
-            </td>
-        </tr>
-        <tr>
-            <th>説明</th>
-            <td colspan="3"><input type="text" data-im="account_detail@description" style="width: 500px;"></td>
-            <th>書類タイトル</th>
-            <td colspan="3">
-                <select data-im="account_detail@title">
-                    <option value="請求書">請求書</option>
-                    <option value="領収書">領収書</option>
-                    <option value="見積書">見積書</option>
-                </select>
-            </td>
-        </tr>
-        <tr>
-            <th>区分</th>
-            <td>
-                <select data-im="account_detail@tax_kind">
-                    <option value="0">内税</option>
-                    <option value="1">外税</option>
-                    <option value="2">非課税</option>
-                </select>
-            </td>
-            <th>仕分け</th>
-            <td>
-                <select data-im="account_detail@assort_pattern_id">
-                    <option data-im="assort_pattern@pattern_name assort_pattern@assort_pattern_id@value"></option>
-                </select>
-
-            </td>
-            <th>借方科目</th>
-            <td>
-                <select data-im="account_detail@debit_id"
-                        data-im-control="lookup:account_detail@assort_pattern_id:assort_pattern_lookup@debit_id">
-                    <option data-im="item@item_name item@item_id@value"></option>
-                </select>
-            </td>
-            <th>貸方科目</th>
-            <td>
-                <select data-im="account_detail@credit_id"
-                        data-im-control="lookup:account_detail@assort_pattern_id:assort_pattern_lookup@credit_id">
-                    <option data-im="item@item_name item@item_id@value"></option>
-                </select>
-            </td>
-        </tr>
-        <tr>
-            <th>合計金額</th>
-            <td data-im="account_detail@item_total_calc" data-im-format="number(0)"
-                data-im-format-options="useseparator"></td>
-            <th>税抜金額</th>
-            <td data-im="account_detail@net_total_calc" data-im-format="number(0)"
-                data-im-format-options="useseparator"></td>
-            <th>税額</th>
-            <td data-im="account_detail@tax_total_calc" data-im-format="number(0)"
-                data-im-format-options="useseparator"></td>
-            <th>消費税率</th>
-            <td>
-                <select data-im="account_detail@tax_rate">
-                    <option value="0.08">8%</option>
-                    <option value="0.1">10%</option>
-                </select>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="8">
-                <table>
-                    <thead>
-                    <tr>
-                        <th>説明</th>
-                        <th>単価</th>
-                        <th>個数</th>
-                        <th>合計金額</th>
-                        <th>消費税率</th>
-                        <th>税抜価格</th>
-                        <th>消費税額</th>
-                        <th></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td><input type="text" data-im="detail_list@description"
-                                   style="width: 300px;"></td>
-                        <td><input type="text" data-im="detail_list@unit_price"
-                                   style="width: 80px;text-align: right"></td>
-                        <td><input type="text" data-im="detail_list@qty"
-                                   style="width: 80px;text-align: right"></td>
-                        <td data-im="detail_list@item_price_calc"
-                            style="text-align: right" data-im-format="number(0)"
-                            data-im-format-options="useseparator"></td>
-                        <td>
-                            <select data-im="detail_list@tax_rate">
-                                <option value=""></option>
-                                <option value="0.08">8%</option>
-                                <option value="0.1">10%</option>
-                            </select>
-                        </td>
-                        <td data-im="detail_list@net_price_calc" data-im-format="number(2)"
-                            data-im-format-options="useseparator"
-                            style="text-align: right"></td>
-                        <td data-im="detail_list@tax_price_calc"
-                            style="text-align: right" data-im-format="number(2)"
-                            data-im-format-options="useseparator"></td>
-                        <td></td>
-                    </tr>
-                    </tbody>
-                </table>
-            </td>
         </tr>
         </tbody>
     </table>

@@ -466,3 +466,12 @@ VALUES (2033);
 INSERT INTO fiscal_year(year)
 VALUES (2034);
 
+INSERT INTO company(company, section, person, postal_code, address)
+VALUES ('会社1', '部署1', '担当者名1', '999-9999', '東京都埼玉区都会町345-678 大都会ビル12F');
+INSERT INTO company(company, section, person, postal_code, address)
+VALUES ('会社2', '部署2', '担当者名2', '999-9999', '東京都埼玉区都会町345-678 大都会ビル11F');
+
+INSERT INTO preference(myself, bank_info, show_tax_detail)
+VALUES ('○○○○<br>〒999-9999 さいたま市青区大都会1-2-3<br>048-199-1999(tel/fax)<br>msyk@msyk.net',
+        '以下の銀行口座に振込をお願いします。<br><br>みずほ銀行（0001）南浦和支店（306）<br>口座番号：9999999<br>名義：○○○○（○○○○）',
+        0);

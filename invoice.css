@@ -1,0 +1,86 @@
+.date {
+    text-align: right;
+}
+
+.title {
+    font-size: 1.8em;
+    text-align: center;
+    background-color: #bebebe;
+    letter-spacing: .5rem;
+    margin: 0 0 14px 0;
+}
+
+.customer {
+    font-size: 1.1em;
+}
+
+.pretable {
+    display: flex;
+    justify-content: space-between;
+    margin: 14px 0;
+}
+predoc{
+}
+.predoc div:nth-of-type(1) {
+    font-size: 0.8em;
+}
+.predoc div:nth-of-type(2) {
+    font-weight: bold;
+    margin-top: 8px;
+}
+
+.predoc div:nth-of-type(3) {
+    border-bottom: 2px dotted black;
+    min-height: 20px;
+}
+
+.myself {
+}
+
+table {
+    width: 100%;
+    border: none;
+}
+
+th {
+    margin: 0;
+    padding: 0;
+    border: none;
+    text-align: right;
+    max-width: 80px;
+    min-width: 60px;
+    height: 30px;
+    max-height: 30px;
+}
+
+td {
+    margin: 0;
+    padding: 0;
+    text-align: right;
+    max-width: 80px;
+    min-width: 60px;
+}
+
+.left {
+    text-align: left;
+    max-width: 1000000px;
+    min-width: 1px;
+}
+
+.left-margin {
+    padding-left: 8px;
+}
+
+#IM_CREDIT {
+    display: none;
+}
+
+.bank-info{
+    text-align: left;
+    font-size: 0.8em;
+    padding: 8px;
+}
+
+.boxing {
+    border: 3px solid black;
+}

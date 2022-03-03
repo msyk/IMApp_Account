@@ -53,6 +53,11 @@ IM_Entry(
             'query' => [['field' => 'show', 'value' => 1],],
             'sort' => [['field' => 'item_id', 'direction' => 'asc'],],
         ],
+        [
+            'name' => 'preference',
+            'key' => 'preference_id',
+            'records' => 1,
+        ],
     ],
     [],
     ['db-class' => 'PDO',],
