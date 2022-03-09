@@ -24,6 +24,7 @@ $ sudo chown _www /var/db/im/sample.sq3
 CREATE TABLE account
 (
     account_id        INTEGER PRIMARY KEY AUTOINCREMENT,
+    parent_account_id INTEGER,
     kind              TEXT, /* 領収書, 請求書 */
     tax_kind          INTEGER DEFAULT 0, /* 0=内税, 1=外税, 2=非課税 */
     issued_date       DATE,

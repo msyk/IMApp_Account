@@ -8,9 +8,14 @@
  * https://github.com/INTER-Mediator/INTER-Mediator/blob/master/dist-docs/License.txt
  */
 INTERMediatorOnPage.doBeforeConstruct = function () {
-    INTERMediatorLog.suppressDebugMessageOnPage = true;
+  INTERMediatorLog.suppressDebugMessageOnPage = true;
+  INTERMediatorOnPage.buttonClassCopy = "btn btn-info"
+  INTERMediatorOnPage.buttonClassDelete = "btn btn-info"
+  INTERMediatorOnPage.buttonClassInsert = "btn btn-info"
+  INTERMediatorOnPage.buttonClassMaster = "btn btn-info"
+  INTERMediatorOnPage.buttonClassBackNavi = "btn btn-info"
 };
 
 INTERMediatorOnPage.doAfterConstruct = function () {
-      document.getElementById('container').style.display = 'block'
+  document.getElementById('container').style.display = 'block'
 }

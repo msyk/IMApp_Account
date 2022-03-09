@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<!--
+/*
+ * INTER-Mediator
+ * Copyright (c) INTER-Mediator Directive Committee (http://inter-mediator.org)
+ * This project started at the end of 2009 by Masayuki Nii msyk@msyk.net.
+ *
+ * INTER-Mediator is supplied under MIT License.
+ * Please see the full license for details:
+ * https://github.com/INTER-Mediator/INTER-Mediator/blob/master/dist-docs/License.txt
+ */  -->
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>INTER-Mediator Account</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+</head>
+<body>
+<nav class="navbar navbar-expand-md navbar-dark bg-primary">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">INTER-Mediator会計</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="index.html">総勘定元帳</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">科目集計</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">月次集計</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                       data-toggle="dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        マスター処理
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <li><a class="dropdown-item" href="master_item.html">勘定科目</a></li>
+                        <li><a class="dropdown-item" href="master_assort.html">仕分パターン</a></li>
+                        <li><a class="dropdown-item" href="master_customer.html">顧客</a></li>
+                        <li><a class="dropdown-item" href="master_year.html">年度</a></li>
+                        <li><a class="dropdown-item" href="regulation-0021006-031_e.html">事務処理規程(個人)</a></li>
+                        <li><a class="dropdown-item" href="master_preference.html">設定</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<h3>電子取引データの訂正及び削除の防止に関する事務処理規程</h3>
+<p>　この規程は、電子計算機を使用して作成する国税関係帳簿書類の保存方法の特例に関する法律第７条に定められた電子取引の取引情報に係る電磁的記録の保存義務を適正に履行するために必要な事項を定め、これに基づき保存することとする。</p>
+<p>（訂正削除の原則禁止）<br>
+    　保存する取引関係情報の内容について、訂正及び削除をすることは原則禁止とする。</p>
+<p>（訂正削除を行う場合）<br>
+    　業務処理上やむを得ない理由（正当な理由がある場合に限る。）によって保存する取引関係情報を訂正又は削除する場合は、「取引情報訂正・削除申請書」に以下の内容を記載の上、事後に訂正・削除履歴の確認作業が行えるよう整然とした形で、当該取引関係情報の保存期間に合わせて保存することをもって当該取引情報の訂正及び削除を行う。
+</p>
+<ul style="list-style:none">
+    <li>一　申請日</li>
+    <li>二　取引伝票番号</li>
+    <li>三　取引件名</li>
+    <li>四　取引先名</li>
+    <li>五　訂正・削除日付</li>
+    <li>六　訂正・削除内容</li>
+    <li>七　訂正・削除理由</li>
+    <li>八　処理担当者名</li>
+</ul>
+　
+<p>　この規程は、令和４年１月１日から施行する。</p>
+<hr>
+<ul>
+    <li>改正電子帳簿保存法 電子取引では、4つの「保存要件」が決められていて、それに従う必要がある（参考：<a href="https://invox.jp/storage/dencho">「改正電子帳簿保存法
+        電子取引」への“超”実践的な対応方法</a>）。そのうち、保存上の措置として、最も実現しやすいものが「訂正削除の防止に関する事務処理規程の備え付け」であり、このページが存在することで保存上の措置は完了している。
+    </li>
+    <li>このページの元になっているのは、国税庁のWebサイトで得られる、ホーム＞法令等＞その他法令解釈に関する情報＞電子帳簿保存法関係＞<a
+            href="https://www.nta.go.jp/law/joho-zeikaishaku/sonota/jirei/0021006-031.htm">参考資料（各種規程等のサンプル）</a>＞電子取引データの訂正及び削除の防止に関する事務処理規程（個人事業者の例）である。
+    </li>
+    <li>このような文書を作れば良いことについては、<a href="https://www.nta.go.jp/law/joho-zeikaishaku/sonota/jirei/pdf/0021006-031_03.pdf">電子帳簿保存法一問一答
+        【電子取引関係】</a>の問24『電子取引の取引情報に係る電磁的記録の保存に当たり、規則第４条第１項第４号に規定する「正当な理由がない訂正及び削除の防止に関する事務処理の規程」を定めて運用する措置を行うことを考えていますが、具体的にどのような規程を整備すればよいのでしょうか。』に記載がある。回答には法人向けの文書例がある。
+    </li>
+</ul>
+</body>
+</html>
