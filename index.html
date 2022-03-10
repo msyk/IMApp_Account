@@ -94,23 +94,45 @@
     <table>
         <thead>
         <tr style="border-bottom: 1px dotted #808080">
-            <th></th>
-            <th><input type="text" size="5" placeholder="No検索"></th>
-            <th colspan="3"><input type="date" style="width:130px">〜<input type="date" style="width:130px"></th>
-            <th><input type="text" size="10" placeholder="会社名検索"></th>
+            <th>
+                <select data-im="_@limitnumber:account_list">
+                    <option value="10">10</option>
+                    <option value="50">50</option>
+                    <option value="200">200</option>
+                    <option value="5000">5000</option>
+                </select>
+            </th>
+            <th><input type="text" size="5" placeholder="No検索" data-im="_@condition:account_list:account_id:=">
+            </th>
+            <th colspan="3"><input type="date" style="width:130px" data-im="_@condition:account_list:issued_date:>=">
+                <span>〜</span>
+                <input type="date" style="width:130px" data-im="_@condition:account_list:issued_date:<="></th>
+            <th><input type="text" size="10" placeholder="会社名検索" data-im="_@condition:account_list:company:*match*"></th>
             <th colspan="3">
-                <input type="text" size="7" placeholder="合計金額">〜<input type="text" size="7" placeholder="検索">
-                <button class="btn btn-info">検索</button>
-                <button class="btn btn-info">クリア</button>
+                <input type="text" size="7" placeholder="合計金額" data-im="_@condition:account_list:item_total:>=">
+                <span>〜</span>
+                <input type="text" size="7" placeholder="検索" data-im="_@condition:account_list:item_total:<=">
+                <button class="btn btn-info" data-im="_@update:account_list">検索</button>
+                <button class="btn btn-info" onclick="clearConditions()">クリア</button>
             </th>
         </tr>
         <tr>
             <th></th>
             <th>No</th>
-            <th>日付 ▲▼</th>
+            <th>日付
+                <span style="cursor: pointer" data-im="_@addorder:account_list:issued_date:asc">▲</span>
+                <span style="cursor: pointer" data-im="_@addorder:account_list:issued_date:desc">▼</span>
+            </th>
             <th>区分</th>
-            <th>仕分け ▲▼<br>借方／貸方科目</th>
-            <th>会社名 ▲▼<br>説明</th>
+            <th>仕分け
+                <span style="cursor: pointer" data-im="_@addorder:account_list:pattern_name:asc">▲</span>
+                <span style="cursor: pointer" data-im="_@addorder:account_list:pattern_name:desc">▼</span>
+                <br>借方／貸方科目
+            </th>
+            <th>会社名 <span style="cursor: pointer" data-im="_@addorder:account_list:company:asc">▲</span>
+                <span style="cursor: pointer" data-im="_@addorder:account_list:company:desc">▼</span>
+                <br>説明
+            </th>
             <th>合計金額</th>
             <th>税抜金額<br>税額</th>
             <th></th>

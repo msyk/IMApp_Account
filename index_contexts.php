@@ -21,11 +21,12 @@ IM_Entry(
             'name' => 'account_list',
             'table' => 'account',
             'key' => 'account_id',
-            'records' => 100,
+            'records' => 200,
             'maxrecords' => 100000,
             'paging' => true,
             'repeat-control' => 'confirm-insert comfirm-delete cofirm-copy',
             //'navi-control' => 'master-hide',
+            'button-names'=>['insert'=>'新規会計項目作成']
         ],
         [
             'name' => 'account_detail',

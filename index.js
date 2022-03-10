@@ -19,3 +19,13 @@ INTERMediatorOnPage.doBeforeConstruct = function () {
 INTERMediatorOnPage.doAfterConstruct = function () {
   document.getElementById('container').style.display = 'block'
 }
+
+function clearConditions() {
+  IMLibLocalContext.setValue('condition:account_list:account_id:=','')
+  IMLibLocalContext.setValue('condition:account_list:issued_date:>=','')
+  IMLibLocalContext.setValue('condition:account_list:issued_date:<=','')
+  IMLibLocalContext.setValue('condition:account_list:company:*match*','')
+  IMLibLocalContext.setValue('condition:account_list:item_total:>=','')
+  IMLibLocalContext.setValue('condition:account_list:item_total:<=','')
+  INTERMediator.constructMain(IMLibContextPool.contextFromName('account_list'))
+}
