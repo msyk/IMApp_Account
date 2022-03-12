@@ -1,4 +1,4 @@
-DROP VIEW detail_calc;
+DROP VIEW IF EXISTS detail_calc;
 CREATE VIEW detail_calc AS
 SELECT detail_id,
        detail.account_id,
@@ -50,7 +50,7 @@ FROM detail
          INNER JOIN account ON detail.account_id = account.account_id
          LEFT JOIN item AS debit_item ON debit_item.item_id = account.debit_id
 ;
-DROP VIEW account_calc;
+DROP VIEW IF EXISTS account_calc;
 CREATE VIEW account_calc AS
 SELECT account.account_id,
        SUM(detail_calc.item_price) AS item_total,
@@ -60,7 +60,7 @@ FROM account
          INNER JOIN detail_calc ON detail_calc.account_id = account.account_id
 GROUP BY account.account_id
 ;
-DROP VIEW parent_calc;
+DROP VIEW  IF EXISTS parent_calc;
 CREATE VIEW parent_calc AS
 SELECT account.parent_account_id,
        SUM(detail_calc.item_price) AS item_total,
@@ -70,7 +70,7 @@ FROM account
          INNER JOIN detail_calc ON detail_calc.account_id = account.account_id
 GROUP BY account.parent_account_id
 ;
-DROP VIEW account_list;
+DROP VIEW IF EXISTS account_list;
 CREATE VIEW account_list AS
 SELECT account.account_id,
        account.parent_account_id,
@@ -96,6 +96,7 @@ SELECT account.account_id,
        account.debit_id, /* 借方コード */
        debit_item.item_name                                               AS debit_item_name,
        debit_item.alloc_rate, /* 組み込み比率 */
+       debit_item.is_purchase,
        account.credit_id, /* 貸方コード */
        credit_item.item_name                                              AS credit_item_name,
        account.assort_pattern_id                                          AS assort_pattern_id, /* 仕分けパターン番号 */

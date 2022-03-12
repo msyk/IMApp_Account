@@ -38,6 +38,11 @@
     <script src="index_contexts.php"></script>
     <script src="index.js"></script>
     <script src="vendor/inter-mediator/inter-mediator/node_modules/inter-mediator-plugin-jqueryfileupload/index.js"></script>
+    <style>
+        .IM_NAV_insert_button   {
+            font-size: 1.3em;
+        }
+    </style>
 </head>
 <body>
 <div id="nonsupportmessage">
@@ -102,7 +107,7 @@
                     <option value="5000">5000</option>
                 </select>
             </th>
-            <th><input type="text" size="5" placeholder="No検索" data-im="_@condition:account_list:account_id:=">
+            <th><input type="text" size="5" placeholder="No検索" data-im="_@condition:account_list:account_id,parent_account_id:=">
             </th>
             <th colspan="3"><input type="date" style="width:130px" data-im="_@condition:account_list:issued_date:>=">
                 <span>〜</span>
@@ -112,13 +117,13 @@
                 <input type="text" size="7" placeholder="合計金額" data-im="_@condition:account_list:item_total:>=">
                 <span>〜</span>
                 <input type="text" size="7" placeholder="検索" data-im="_@condition:account_list:item_total:<=">
-                <button class="btn btn-info" data-im="_@update:account_list">検索</button>
-                <button class="btn btn-info" onclick="clearConditions()">クリア</button>
+                <button class="btn btn-success" data-im="_@update:account_list">検索</button>
+                <button class="btn btn-warning" onclick="clearConditions()">クリア</button>
             </th>
         </tr>
         <tr>
             <th></th>
-            <th>No</th>
+            <th>No<br>親No</th>
             <th>日付
                 <span style="cursor: pointer" data-im="_@addorder:account_list:issued_date:asc">▲</span>
                 <span style="cursor: pointer" data-im="_@addorder:account_list:issued_date:desc">▼</span>
@@ -133,21 +138,29 @@
                 <span style="cursor: pointer" data-im="_@addorder:account_list:company:desc">▼</span>
                 <br>説明
             </th>
-            <th>合計金額</th>
+            <th>合計金額<br>小項目合計</th>
             <th>税抜金額<br>税額</th>
-            <th></th>
+            <th>
+                <button class="btn btn-success" onclick="exportAccount()">エクスポート</button>
+            </th>
         </tr>
         </thead>
         <tbody>
         <tr style="border-bottom: 1px solid #808080">
             <td>
                 <a href="index_detail.html?id=" data-im="account_list@account_id@#href">
-                    <button class="btn btn-info">詳細</button>
+                    <button class="btn btn-primary">詳細</button>
                 </a>
             </td>
-            <td data-im="account_list@account_id"></td>
+            <td>
+                <span data-im="account_list@account_id"></span><br>
+                <span data-im="account_list@parent_account_id" style="color: #c75315"></span>
+            </td>
             <td data-im="account_list@issued_date"></td>
-            <td data-im="account_list@kind_str"></td>
+            <td>
+                <span data-im="account_list@kind_str"></span><br>
+                <span data-im="account_list@attached" style="color: #c75315"></span>
+            </td>
             <td>
                 <span data-im="account_list@pattern_name" style="font-size: 0.8em"></span><br>
                 <span data-im="account_list@debit_item_name"></span>／<span
@@ -159,7 +172,9 @@
             </td>
             <td style="text-align: right">
                 <span data-im="account_list@item_total" data-im-format="number(0)"
-                      data-im-format-options="useseparator"></span>
+                      data-im-format-options="useseparator"></span><br>
+                <span data-im="account_list@parent_total" data-im-format="number(0)"
+                      data-im-format-options="useseparator" style="color: #c75315"></span>
             </td>
             <td style="text-align: right">
                 <span data-im="account_list@net_total" data-im-format="number(0)"

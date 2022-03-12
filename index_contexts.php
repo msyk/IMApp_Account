@@ -26,7 +26,18 @@ IM_Entry(
             'paging' => true,
             'repeat-control' => 'confirm-insert comfirm-delete cofirm-copy',
             //'navi-control' => 'master-hide',
-            'button-names'=>['insert'=>'新規会計項目作成']
+            'button-names' => ['insert' => '新規会計項目作成'],
+            'calculation' => [
+                ['field' => "attached", 'expression' => "if(invoice_path='','','証票有')",],
+            ],
+        ],
+        [
+            'name' => 'account_all',
+            'table' => 'dummy',
+            'view'=>'account_list',
+            'key' => 'account_id',
+            'records' => 100000000,
+            'maxrecords' => 100000000,
         ],
         [
             'name' => 'account_detail',
@@ -58,6 +69,14 @@ IM_Entry(
                 ['field' => "tax_price_calc", 'expression' => "unit_price * qty * alloc_rate * if(tax_rate>0,choice(abs(account_detail@tax_kind+0),tax_rate/(1 + tax_rate),tax_rate,0),choice(abs(account_detail@tax_kind+0),account_detail@tax_rate/(1 + account_detail@tax_rate),account_detail@tax_rate,0))",],
                 ['field' => "net_price_calc", 'expression' => "unit_price * qty * alloc_rate * if(tax_rate>0,choice(abs(account_detail@tax_kind+0),1/(1 + tax_rate),1,1),choice(abs(account_detail@tax_kind+0),1/(1 + account_detail@tax_rate),1,1))",],
             ],
+        ],
+        [
+            'name' => 'account_add',
+            'view' => 'account',
+            'table' => 'account',
+            'key' => 'account_id',
+            'records' => 100000,
+            'maxrecords' => 100000,
         ],
         [
             'name' => 'detail_add',

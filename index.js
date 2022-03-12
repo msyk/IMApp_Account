@@ -10,10 +10,10 @@
 INTERMediatorOnPage.doBeforeConstruct = function () {
   INTERMediatorLog.suppressDebugMessageOnPage = true;
   INTERMediatorOnPage.buttonClassCopy = "btn btn-info"
-  INTERMediatorOnPage.buttonClassDelete = "btn btn-info"
-  INTERMediatorOnPage.buttonClassInsert = "btn btn-info"
-  INTERMediatorOnPage.buttonClassMaster = "btn btn-info"
-  INTERMediatorOnPage.buttonClassBackNavi = "btn btn-info"
+  INTERMediatorOnPage.buttonClassDelete = "btn btn-warning"
+  INTERMediatorOnPage.buttonClassInsert = "btn btn-success"
+  INTERMediatorOnPage.buttonClassMaster = "btn btn-primary"
+  INTERMediatorOnPage.buttonClassBackNavi = "btn btn-primary"
 };
 
 INTERMediatorOnPage.doAfterConstruct = function () {
@@ -21,11 +21,16 @@ INTERMediatorOnPage.doAfterConstruct = function () {
 }
 
 function clearConditions() {
-  IMLibLocalContext.setValue('condition:account_list:account_id:=','')
-  IMLibLocalContext.setValue('condition:account_list:issued_date:>=','')
-  IMLibLocalContext.setValue('condition:account_list:issued_date:<=','')
-  IMLibLocalContext.setValue('condition:account_list:company:*match*','')
-  IMLibLocalContext.setValue('condition:account_list:item_total:>=','')
-  IMLibLocalContext.setValue('condition:account_list:item_total:<=','')
+  IMLibLocalContext.clearAllConditions()
+  // IMLibLocalContext.setValue('condition:account_list:account_id:=','')
+  // IMLibLocalContext.setValue('condition:account_list:issued_date:>=','')
+  // IMLibLocalContext.setValue('condition:account_list:issued_date:<=','')
+  // IMLibLocalContext.setValue('condition:account_list:company:*match*','')
+  // IMLibLocalContext.setValue('condition:account_list:item_total:>=','')
+  // IMLibLocalContext.setValue('condition:account_list:item_total:<=','')
   INTERMediator.constructMain(IMLibContextPool.contextFromName('account_list'))
+}
+
+function exportAccount(){
+  location.href = 'index_contexts.php?media=class://AccountCSV/account_all'
 }

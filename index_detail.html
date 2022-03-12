@@ -16,6 +16,7 @@
     <title>INTER-Mediator Account</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
             integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
             crossorigin="anonymous"></script>
@@ -25,7 +26,6 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
             integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
             crossorigin="anonymous"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" rel="stylesheet">
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/9.28.0/css/jquery.fileupload.min.css"/>
     <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
@@ -102,7 +102,7 @@
             <tr>
                 <td colspan="9">
                     <a href="index.html">
-                        <button class="btn btn-info">総勘定元帳に戻る</button>
+                        <button class="btn btn-primary">総勘定元帳に戻る</button>
                     </a>
                 </td>
             </tr>
@@ -228,16 +228,19 @@
                         </thead>
                         <tbody>
                         <tr>
-                            <td><input type="text" data-im="detail_list@description"
-                                       style="width: 300px;"></td>
-                            <td><input type="text" data-im="detail_list@unit_price"
-                                       style="width: 80px;text-align: right"></td>
-                            <td><input type="text" data-im="detail_list@qty"
-                                       style="width: 80px;text-align: right"></td>
+                            <td style="border-bottom: solid 1px gray">
+                                <input type="text" data-im="detail_list@description" style="width: 300px;">
+                            </td>
+                            <td style="border-bottom: solid 1px gray">
+                                <input type="text" data-im="detail_list@unit_price" style="width: 80px;text-align: right">
+                            </td>
+                            <td style="border-bottom: solid 1px gray">
+                                <input type="text" data-im="detail_list@qty" style="width: 80px;text-align: right">
+                            </td>
                             <td data-im="detail_list@item_price_calc"
-                                style="text-align: right" data-im-format="number(0)"
+                                style="text-align: right; border-bottom: solid 1px gray" data-im-format="number(0)"
                                 data-im-format-options="useseparator"></td>
-                            <td>
+                            <td style="border-bottom: solid 1px gray">
                                 <select data-im="detail_list@tax_rate">
                                     <option value=""></option>
                                     <option value="0.08">8%</option>
@@ -246,9 +249,9 @@
                             </td>
                             <td data-im="detail_list@net_price_calc" data-im-format="number(2)"
                                 data-im-format-options="useseparator"
-                                style="text-align: right"></td>
+                                style="text-align: right; border-bottom: solid 1px gray"></td>
                             <td data-im="detail_list@tax_price_calc"
-                                style="text-align: right" data-im-format="number(2)"
+                                style="text-align: right; border-bottom: solid 1px gray" data-im-format="number(2)"
                                 data-im-format-options="useseparator"></td>
                             <td></td>
                         </tr>
@@ -260,7 +263,7 @@
         </table>
         <div data-im-control="repeater" style="background-color: #d2d2d2">
             <h3>証票</h3>
-            <div>
+            <div style="text-align: center">
                 <iframe src="index_contexts.php?media=" data-im="account_detail@invoice_path@#src"
                         style="width: 500px;height: 600px"></iframe>
             </div>
