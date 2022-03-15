@@ -400,38 +400,38 @@ VALUES (999, '当期未処分利益', 1, 0, 0);
 INSERT INTO item(item_id, item_name, alloc_rate, show, is_purchase)
 VALUES (667, '医療費', 0, 1, 0);
 INSERT INTO item(item_id, item_name, alloc_rate, show, is_purchase)
-VALUES (1, '帳簿外', 0, 0, 0);
+VALUES (1, '帳簿外', 0, 1, 0);
 INSERT INTO item(item_id, item_name, alloc_rate, show, is_purchase)
-VALUES (2, '【要選択】', 0, 0, 0);
+VALUES (2, '【要選択】', 0, 1, 0);
 INSERT INTO item(item_id, item_name, alloc_rate, show, is_purchase)
 VALUES (669, '通信インフラ', 1, 1, 1);
 
 INSERT INTO assort_pattern(assort_pattern_id, pattern_name, debit_id, credit_id)
-VALUES (1, '現金で購入', 100, 2);
+VALUES (1, '現金で購入', 2, 100);
 INSERT INTO assort_pattern(assort_pattern_id, pattern_name, debit_id, credit_id)
-VALUES (2, '現金を引き出し', 115, 100);
+VALUES (2, '現金を引き出し', 100, 115);
 INSERT INTO assort_pattern(assort_pattern_id, pattern_name, debit_id, credit_id)
-VALUES (3, '現金での報酬', 700, 100);
+VALUES (3, '現金での報酬', 100, 700);
 INSERT INTO assort_pattern(assort_pattern_id, pattern_name, debit_id, credit_id)
-VALUES (4, '振り込み（請求書あり）', 141, 115);
+VALUES (4, '振り込み（請求書あり）', 115, 141);
 INSERT INTO assort_pattern(assort_pattern_id, pattern_name, debit_id, credit_id)
-VALUES (5, '振り込み（請求書なし）', 700, 115);
+VALUES (5, '振り込み（請求書なし）', 115, 700);
 INSERT INTO assort_pattern(assort_pattern_id, pattern_name, debit_id, credit_id)
-VALUES (6, '引き落とし・支払い', 115, 2);
+VALUES (6, '引き落とし・支払い', 2, 115);
 INSERT INTO assort_pattern(assort_pattern_id, pattern_name, debit_id, credit_id)
-VALUES (7, 'クレジット購入', 405, 2);
+VALUES (7, 'クレジット購入', 2, 405);
 INSERT INTO assort_pattern(assort_pattern_id, pattern_name, debit_id, credit_id)
-VALUES (8, '請求した', 700, 141);
+VALUES (8, '請求した', 141, 700);
 INSERT INTO assort_pattern(assort_pattern_id, pattern_name, debit_id, credit_id)
-VALUES (9, 'クレジットの支払い', 115, 405);
+VALUES (9, 'クレジットの支払い', 405, 115);
 INSERT INTO assort_pattern(assort_pattern_id, pattern_name, debit_id, credit_id)
-VALUES (10, '請求された', 405, 2);
+VALUES (10, '請求された', 2, 405);
 INSERT INTO assort_pattern(assort_pattern_id, pattern_name, debit_id, credit_id)
-VALUES (11, '請求に対する支払', 115, 405);
+VALUES (11, '請求に対する支払', 405, 115);
 INSERT INTO assort_pattern(assort_pattern_id, pattern_name, debit_id, credit_id)
-VALUES (12, '源泉徴収（振り込み時）', 115, 980);
+VALUES (12, '源泉徴収（振り込み時）', 980, 115);
 INSERT INTO assort_pattern(assort_pattern_id, pattern_name, debit_id, credit_id)
-VALUES (13, '減価償却', 219, 680);
+VALUES (13, '減価償却', 680, 219);
 INSERT INTO assort_pattern(assort_pattern_id, pattern_name, debit_id, credit_id)
 VALUES (14, '見積もり', 0, 0);
 INSERT INTO assort_pattern(assort_pattern_id, pattern_name, debit_id, credit_id)

@@ -26,10 +26,21 @@ INTERMediatorOnPage.doAfterConstruct = function () {
   document.getElementById('container').style.display = 'block'
 }
 
+function backToList() {
+  IMLibQueue.setTask((complete) => {
+    complete()
+    location.href = "index.html"
+  }, false, true)
+}
+
 function clearFile(aid) {
   if (parseInt(aid) > 0) {
     const context = IMLibContextPool.contextFromName('account_detail')
     context.setDataAtLastRecord('invoice_path', '')
+    IMLibQueue.setTask((complete) => {
+      complete()
+      INTERMediator.constructMain()
+    }, false, true)
   }
 }
 
@@ -54,7 +65,7 @@ function csvReadSAISON() {
 }
 
 function csvReadVpass() {
-  csvReadImpl(6)
+  csvReadImpl(2)
 }
 
 function csvReadImpl(pCol) {
@@ -101,7 +112,7 @@ function generateDetailToAccount() {
   let counter = 0
   for (const key in context.store) {
     accountId = null
-    if (context.store[key].description.indexOf(',') >= 0) {
+    if (context.store[key].description.indexOf(',') >= 0 && context.store[key].qty == 1) {
       const itemDate = context.store[key].description.split(',')[0].trim().replaceAll('/', '-')
       const itemDesc = context.store[key].description.split(',')[1].trim()
       const up = context.store[key].unit_price

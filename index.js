@@ -31,6 +31,15 @@ function clearConditions() {
   INTERMediator.constructMain(IMLibContextPool.contextFromName('account_list'))
 }
 
-function exportAccount(){
+function exportAccount() {
   location.href = 'index_contexts.php?media=class://AccountCSV/account_all'
+}
+
+function setCondition(n) {
+  if (parseInt(n) > 0 && parseInt(n) < 3) {
+    const y = (new Date()).getFullYear() - parseInt(n) + 1
+    IMLibLocalContext.setValue('condition:account_list:issued_date:>=',`${y}-01-01`)
+    IMLibLocalContext.setValue('condition:account_list:issued_date:<=',`${y}-12-31`)
+    INTERMediator.constructMain()
+  }
 }

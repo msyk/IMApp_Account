@@ -35,6 +35,21 @@
 <div id="container" style="display: none">
     <div data-im-control="enclosure">
         <div data-im-control="repeater">
+            <div class="label" data-im="account_detail@label_style@style.display">
+                <div style="margin: 8px; font-size: 0.8em;">
+                    <span class="label_box">宛先</span>
+                    <span>〒</span><span data-im="account_detail@postal_code"></span><br>
+                    <span data-im="account_detail@address"></span><br>
+                    <span data-im="account_detail@company" style="font-size: 1.2em;"></span><br>
+                    <span data-im="account_detail@section"></span><br>
+                    <span data-im="account_detail@person" style="font-size: 1.2em;"></span><span
+                        data-im="account_detail@post_person"></span>
+                    <div class="myself" data-im-control="enclosure" style="margin-top: 4px;">
+                        <span class="label_box">差出</span>
+                        <span data-im="preference@sender_info@innerHTML" data-im-control="repeater"></span>
+                    </div>
+                </div>
+            </div>
             <div class="date" data-im="account_detail@issued_date" data-im-format="datetime(%Y年%M月%D日)"></div>
             <div class="title" data-im="account_detail@title"></div>
             <div class="customer">
@@ -63,7 +78,7 @@
                     <th class="left">説明</th>
                     <th>単価</th>
                     <th>個数</th>
-                    <th>合計金額</th>
+                    <th>税込金額</th>
                     <th class="left"></th>
                     <th data-im="account_detail@detail_style@style.display">税抜価格</th>
                     <th data-im="account_detail@detail_style@style.display">消費税額</th>

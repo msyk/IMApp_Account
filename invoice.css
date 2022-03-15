@@ -19,11 +19,14 @@
     justify-content: space-between;
     margin: 14px 0;
 }
-predoc{
+
+predoc {
 }
+
 .predoc div:nth-of-type(1) {
     font-size: 0.8em;
 }
+
 .predoc div:nth-of-type(2) {
     font-weight: bold;
     margin-top: 8px;
@@ -75,7 +78,7 @@ td {
     display: none;
 }
 
-.bank-info{
+.bank-info {
     text-align: left;
     font-size: 0.8em;
     padding: 8px;
@@ -83,4 +86,19 @@ td {
 
 .boxing {
     border: 3px solid black;
+}
+
+.label {
+    position: absolute;
+    left: 8.7cm;
+    top: 22.8cm;
+    width: 9.0cm;
+    height: 4.3cm;
+    border: solid 0.5px gray;
+}
+
+.label_box {
+    color: white;
+    background-color: #808080;
+    padding: 1px;
 }

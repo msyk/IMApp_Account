@@ -44,15 +44,37 @@ CREATE TABLE account
     assort_pattern_id INTEGER /* 仕分けパターン番号 */
 );
 
+CREATE UNIQUE INDEX account_account_id
+    ON account (account_id);
+CREATE INDEX account_parent_account_id
+    ON account (parent_account_id);
+CREATE INDEX account_issued_date
+    ON account (issued_date);
+CREATE INDEX account_company
+    ON account (company);
+CREATE INDEX account_description
+    ON account (description);
+CREATE INDEX account_debit_id
+    ON account (debit_id);
+CREATE INDEX account_credit_id
+    ON account (credit_id);
+CREATE INDEX account_assort_pattern_id
+    ON account (assort_pattern_id);
+
 CREATE TABLE detail
 (
     detail_id   INTEGER PRIMARY KEY AUTOINCREMENT,
     account_id  INTEGER,
     description TEXT,
-    unit_price  INTEGER NOT NULL DEFAULT 0,
-    qty         INTEGER NOT NULL DEFAULT 0,
+    unit_price  REAL NOT NULL DEFAULT 0,
+    qty         REAL NOT NULL DEFAULT 0,
     tax_rate    REAL
 );
+
+CREATE UNIQUE INDEX detail_detail_id
+    ON detail (detail_id);
+CREATE INDEX detail_account_id
+    ON detail (account_id);
 
 CREATE TABLE item
 (
@@ -63,6 +85,9 @@ CREATE TABLE item
     is_purchase INTEGER /* 仕入れに入れる項目 */
 );
 
+CREATE UNIQUE INDEX item_item_id
+    ON item (item_id);
+
 CREATE TABLE assort_pattern
 (
     assort_pattern_id INTEGER PRIMARY KEY AUTOINCREMENT, /* 仕分けパターン番号 */
@@ -70,6 +95,9 @@ CREATE TABLE assort_pattern
     debit_id          INTEGER, /* 借方コード */
     credit_id         INTEGER /* 貸方コード */
 );
+
+CREATE UNIQUE INDEX assort_pattern_id
+    ON assort_pattern (assort_pattern_id);
 
 CREATE TABLE fiscal_year
 (
@@ -86,12 +114,17 @@ CREATE TABLE company
     address     TEXT
 );
 
+CREATE UNIQUE INDEX company_id
+    ON company (company_id);
+
 CREATE TABLE preference
 (
     preference_id   INTEGER PRIMARY KEY AUTOINCREMENT,
     myself          TEXT,
     bank_info       TEXT,
-    show_tax_detail INTEGER DEFAULT 0 NOT NULL
+    show_tax_detail INTEGER DEFAULT 0 NOT NULL,
+    show_label      INTEGER DEFAULT 1 NOT NULL,
+    sender_info     TEXT
 );
 /* Observable */
 CREATE TABLE registeredcontext
@@ -111,6 +144,14 @@ CREATE TABLE registeredpks
     FOREIGN KEY (context_id) REFERENCES registeredcontext (id) ON DELETE CASCADE
 );
 
+CREATE UNIQUE INDEX registeredcontext_id
+    ON registeredcontext (id);
+CREATE UNIQUE INDEX registeredpks_context_id
+    ON registeredpks (context_id);
+CREATE  INDEX registeredpks_pk
+    ON registeredpks (pk);
+
+
 CREATE TABLE authuser
 (
     id           INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -121,6 +162,8 @@ CREATE TABLE authuser
     limitdt      DateTime
 );
 
+CREATE UNIQUE INDEX authuser_id
+    ON authuser (id);
 CREATE INDEX authuser_username
     ON authuser (username);
 CREATE INDEX authuser_email
@@ -134,6 +177,9 @@ CREATE TABLE authgroup
     groupname TEXT
 );
 
+CREATE UNIQUE INDEX authgroup_id
+    ON authgroup (id);
+
 CREATE TABLE authcor
 (
     id            INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -143,6 +189,8 @@ CREATE TABLE authcor
     privname      TEXT
 );
 
+CREATE UNIQUE INDEX authcor_id
+    ON authcor (id);
 CREATE INDEX authcor_user_id
     ON authcor (user_id);
 CREATE INDEX authcor_group_id
@@ -159,6 +207,8 @@ CREATE TABLE issuedhash
     expired    DateTime
 );
 
+CREATE UNIQUE INDEX issuedhash_id
+    ON issuedhash (id);
 CREATE INDEX issuedhash_user_id
     ON issuedhash (user_id);
 CREATE INDEX issuedhash_expired
@@ -187,3 +237,5 @@ CREATE TABLE operationlog
     result        TEXT,
     error         TEXT
 );
+CREATE UNIQUE INDEX operationlog_id
+    ON operationlog (id);

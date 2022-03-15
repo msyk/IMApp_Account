@@ -24,7 +24,8 @@ IM_Entry(
             'records' => 200,
             'maxrecords' => 100000,
             'paging' => true,
-            'repeat-control' => 'confirm-insert comfirm-delete cofirm-copy',
+            'default-values'=>[['field'=>'issued_date','value'=>IM_TODAY]],
+            'repeat-control' => 'confirm-insert confirm-delete confirm-copy',
             //'navi-control' => 'master-hide',
             'button-names' => ['insert' => '新規会計項目作成'],
             'calculation' => [
@@ -50,6 +51,7 @@ IM_Entry(
                 ['field' => "item_total_calc", 'expression' => "sum(detail_list@item_price_calc)",],
                 ['field' => "tax_total_calc", 'expression' => "sum(detail_list@tax_price_calc)",],
                 ['field' => "net_total_calc", 'expression' => "sum(detail_list@net_price_calc)",],
+                ['field' => "s3_style", 'expression' => "if(invoice_path,'inline','none')",],
             ],
             'file-upload' => [
                 ['container' => 'S3',],
@@ -62,7 +64,7 @@ IM_Entry(
             'key' => 'detail_id',
             'records' => 100000,
             'maxrecords' => 100000,
-            'repeat-control' => 'confirm-insert comfirm-delete cofirm-copy',
+            'repeat-control' => 'confirm-insert confirm-delete confirm-copy',
             'relation' => [['foreign-key' => 'account_id', 'join-field' => 'account_id', 'operator' => '='],],
             'calculation' => [
                 ['field' => "item_price_calc", 'expression' => "unit_price * qty * alloc_rate * if(tax_rate>0,choice(abs(account_detail@tax_kind+0),1,1 + tax_rate,1),choice(abs(account_detail@tax_kind+0),1,1 + account_detail@tax_rate,1))",],

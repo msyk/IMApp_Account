@@ -1,7 +1,5 @@
 <?php
 
-use \INTERMediator\DB\Proxy;
-
 class AccountCSV
 {
     private $keysAndLabels = [

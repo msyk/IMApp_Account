@@ -39,8 +39,12 @@
     <script src="index.js"></script>
     <script src="vendor/inter-mediator/inter-mediator/node_modules/inter-mediator-plugin-jqueryfileupload/index.js"></script>
     <style>
-        .IM_NAV_insert_button   {
+        .IM_NAV_insert_button {
             font-size: 1.3em;
+        }
+
+        #_im_progress {
+            pointer-events: none;
         }
     </style>
 </head>
@@ -67,8 +71,8 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="index.html">総勘定元帳</a>
+                    <li class="nav-item  active">
+                        <a class="nav-link active" aria-current="page" href="index.html">総勘定元帳</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">科目集計</a>
@@ -77,7 +81,7 @@
                         <a class="nav-link" href="#">月次集計</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
                            data-toggle="dropdown" data-bs-toggle="dropdown" aria-expanded="false">
                             マスター処理
                         </a>
@@ -107,12 +111,19 @@
                     <option value="5000">5000</option>
                 </select>
             </th>
-            <th><input type="text" size="5" placeholder="No検索" data-im="_@condition:account_list:account_id,parent_account_id:=">
+            <th>
+                <input type="text" size="5" placeholder="No検索"
+                       data-im="_@condition:account_list:account_id,parent_account_id:=">
             </th>
-            <th colspan="3"><input type="date" style="width:130px" data-im="_@condition:account_list:issued_date:>=">
+            <th colspan="3">
+                <input type="date" style="width:130px" data-im="_@condition:account_list:issued_date:>=">
                 <span>〜</span>
-                <input type="date" style="width:130px" data-im="_@condition:account_list:issued_date:<="></th>
-            <th><input type="text" size="10" placeholder="会社名検索" data-im="_@condition:account_list:company:*match*"></th>
+                <input type="date" style="width:130px" data-im="_@condition:account_list:issued_date:<=">
+                <button class="btn btn-success" onclick="setCondition(1)">今年</button>
+                <button class="btn btn-success" onclick="setCondition(2)">前年</button>
+            </th>
+            <th><input type="text" size="10" placeholder="会社名検索" data-im="_@condition:account_list:company:*match*">
+            </th>
             <th colspan="3">
                 <input type="text" size="7" placeholder="合計金額" data-im="_@condition:account_list:item_total:>=">
                 <span>〜</span>
@@ -167,8 +178,8 @@
                     data-im="account_list@credit_item_name"></span>
             </td>
             <td>
-                <span data-im="account_list@company"></span><br>
-                <span style="font-size: 0.8em" data-im="account_list@description"></span>
+                <span style="font-size: 0.9em; color: darkgreen" data-im="account_list@company"></span><br>
+                <span data-im="account_list@description"></span>
             </td>
             <td style="text-align: right">
                 <span data-im="account_list@item_total" data-im-format="number(0)"

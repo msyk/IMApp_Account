@@ -28,6 +28,15 @@
     <title>INTER-Mediator Sample</title>
     <script src="master_contexts.php"></script>
     <script src="index.js"></script>
+    <style>
+        #_im_progress {
+            pointer-events: none;
+        }
+        th{
+            vertical-align: top;
+            border-bottom: 2px solid white;
+        }
+    </style>
 </head>
 <body>
 <div id="nonsupportmessage">
@@ -85,16 +94,31 @@
         <tr>
             <th>印刷帳票・自分自身</th>
             <td><textarea type="text" data-im="preference@myself" style="width:600px; height:200px"></textarea><br>
-            HTMLで記述可能</td>
+            HTMLで記述可能
+            </td>
         </tr>
         <tr>
             <th>印刷帳票・銀行口座案内</th>
             <td><textarea type="text" data-im="preference@bank_info" style="width:600px; height:200px"></textarea><br>
-                HTMLで記述可能</td>
+                HTMLで記述可能
+            </td>
         </tr>
         <tr>
             <th>印刷帳票</th>
             <td><input type="checkbox" data-im="preference@show_tax_detail" value="1">消費税を詳しく</td>
+        </tr>
+        <tr>
+            <th>印刷帳票の宛先ラベル</th>
+            <td>
+                <input type="checkbox" data-im="preference@show_label" value="1">表示する<br>
+            </td>
+        </tr>
+        <tr>
+            <th>宛先ラベル差出人</th>
+            <td>
+                <textarea type="text" data-im="preference@sender_info" style="width:600px; height:80px"></textarea><br>
+                HTMLで記述可能
+            </td>
         </tr>
         </tbody>
     </table>
