@@ -24,10 +24,10 @@ IM_Entry(
             'records' => 200,
             'maxrecords' => 100000,
             'paging' => true,
-            'default-values'=>[
-                ['field'=>'issued_date','value'=>IM_TODAY],
-                ['field'=>'debit_id','value'=>2],
-                ['field'=>'credit_id','value'=>2],
+            'default-values' => [
+                ['field' => 'issued_date', 'value' => IM_TODAY],
+                ['field' => 'debit_id', 'value' => 2],
+                ['field' => 'credit_id', 'value' => 2],
             ],
             'repeat-control' => 'confirm-insert confirm-delete confirm-copy',
             //'navi-control' => 'master-hide',
@@ -39,7 +39,7 @@ IM_Entry(
         [
             'name' => 'account_all',
             'table' => 'dummy',
-            'view'=>'account_list',
+            'view' => 'account_list',
             'key' => 'account_id',
             'records' => 100000000,
             'maxrecords' => 100000000,
