@@ -24,7 +24,11 @@ IM_Entry(
             'records' => 200,
             'maxrecords' => 100000,
             'paging' => true,
-            'default-values'=>[['field'=>'issued_date','value'=>IM_TODAY]],
+            'default-values'=>[
+                ['field'=>'issued_date','value'=>IM_TODAY],
+                ['field'=>'debit_id','value'=>2],
+                ['field'=>'credit_id','value'=>2],
+            ],
             'repeat-control' => 'confirm-insert confirm-delete confirm-copy',
             //'navi-control' => 'master-hide',
             'button-names' => ['insert' => '新規会計項目作成'],
