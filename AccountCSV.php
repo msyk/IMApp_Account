@@ -29,8 +29,8 @@ class AccountCSV
         "is_purchase" => "借方科目仕入れ",
         "credit_id" => "貸方科目コード",
         "credit_item_name" => "貸方科目",
-        "assort_pattern_id" => "仕分けコード",
-        "pattern_name" => "仕分けパターン",
+        "assort_pattern_id" => "仕訳コード",
+        "pattern_name" => "仕訳パターン",
     ];
 
     public function processing($contextData, $options)

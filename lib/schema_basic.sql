@@ -41,7 +41,7 @@ CREATE TABLE account
     tax_rate          REAL    DEFAULT 0.1,
     debit_id          INTEGER DEFAULT 700, /* 借方コード */
     credit_id         INTEGER DEFAULT 141, /* 貸方コード */
-    assort_pattern_id INTEGER /* 仕分けパターン番号 */
+    assort_pattern_id INTEGER /* 仕訳パターン番号 */
 );
 
 CREATE UNIQUE INDEX account_account_id
@@ -90,7 +90,7 @@ CREATE UNIQUE INDEX item_item_id
 
 CREATE TABLE assort_pattern
 (
-    assort_pattern_id INTEGER PRIMARY KEY AUTOINCREMENT, /* 仕分けパターン番号 */
+    assort_pattern_id INTEGER PRIMARY KEY AUTOINCREMENT, /* 仕訳パターン番号 */
     pattern_name      TEXT,
     debit_id          INTEGER, /* 借方コード */
     credit_id         INTEGER /* 貸方コード */

@@ -99,7 +99,7 @@ SELECT account.account_id,
        debit_item.is_purchase,
        account.credit_id, /* 貸方コード */
        credit_item.item_name                                              AS credit_item_name,
-       account.assort_pattern_id                                          AS assort_pattern_id, /* 仕分けパターン番号 */
+       account.assort_pattern_id                                          AS assort_pattern_id, /* 仕訳パターン番号 */
        pattern_name,
        assort_pattern.debit_id, /* 借方コード */
        assort_pattern.credit_id /* 貸方コード */

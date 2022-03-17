@@ -122,8 +122,8 @@ function generateDetailToAccount() {
           {field: 'issued_date', value: itemDate},
           {field: 'parent_account_id', value: parentId},
           {field: 'assort_pattern_id', value: 7},
-          {field: 'debit_id', value: 405},
-          {field: 'credit_id', value: 2},
+          {field: 'debit_id', value: 2},
+          {field: 'credit_id', value: 405},
           {field: 'company', value: itemDesc}
         ]
         INTERMediator_DBAdapter.db_createRecord_async({name: 'account_add', dataset: data}, (result) => {
