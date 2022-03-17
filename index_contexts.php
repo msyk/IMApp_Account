@@ -35,6 +35,7 @@ IM_Entry(
             'calculation' => [
                 ['field' => "attached", 'expression' => "if(invoice_path='','','証票有')",],
             ],
+            'numeric-fields' => ['item_total'],
         ],
         [
             'name' => 'account_all',

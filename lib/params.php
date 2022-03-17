@@ -141,8 +141,8 @@ $passwordHash = '2';  // '2m' supports SHA-256 and Wrapping SHA-1 with SHA-256,
 /* Service Server Behavior
  * ===================
  * Port number and host name for service server */
-$notUseServiceServer = false;  // Default is FALSE!. If it sets to false, every features with Service Server don't work.
-$activateClientService = true;  // Default is TRUE!!.
+$notUseServiceServer = true;  // Default is FALSE!. If it sets to false, every features with Service Server don't work.
+$activateClientService = false;  // Default is TRUE!!.
 $serviceServerProtocol = "ws";  // The Service Server url components to connect from client.
 $serviceServerHost = "";    // "" for public ip address.
 $serviceServerPort = "11478";
