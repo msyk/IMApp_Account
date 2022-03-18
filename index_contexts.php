@@ -28,6 +28,7 @@ IM_Entry(
                 ['field' => 'issued_date', 'value' => IM_TODAY],
                 ['field' => 'debit_id', 'value' => 2],
                 ['field' => 'credit_id', 'value' => 2],
+                ['field' => 'invoice_path', 'value' => ""],
             ],
             'repeat-control' => 'confirm-insert confirm-delete confirm-copy',
             //'navi-control' => 'master-hide',

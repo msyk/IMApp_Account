@@ -118,7 +118,7 @@ $passwordHash = '2';  // '2m' supports SHA-256 and Wrapping SHA-1 with SHA-256,
 //$resetPage = '...url...';
 //$enrollPage = '...url...';
 
-//$suppressDefaultValuesOnCopy = false; // If you don't want to set default values on copying records, set this true
+$suppressDefaultValuesOnCopy = true; // If you don't want to set default values on copying records, set this true
 //$suppressDefaultValuesOnCopyAssoc = false; // If you don't want to set default values on copying records of the associated records, set this true
 //$suppressAuthTargetFillingOnCreate = false; // If you don' want to set the target field of authentication on carete operation, set this true.
 
