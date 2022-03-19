@@ -95,6 +95,7 @@ td {
     width: 9.0cm;
     height: 4.3cm;
     border: solid 0.5px gray;
+    line-height: 110%;
 }
 
 .label_box {

@@ -24,6 +24,7 @@ IM_Entry(
             'key' => 'account_id',
             'records' => 1,
             'calculation' => [
+                ['field' => "section_style", 'expression' => "if(section,'inline','none')",],
                 ['field' => "detail_style", 'expression' => "if(preference@show_tax_detail=1,'table-cell','none')",],
                 ['field' => "not_detail_style", 'expression' => "if(preference@show_tax_detail=1,'none','inline')",],
                 ['field' => "label_style", 'expression' => "if(preference@show_label=1,'table-cell','none')",],
