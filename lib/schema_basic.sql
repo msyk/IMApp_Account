@@ -39,8 +39,8 @@ CREATE TABLE account
     invoice_path      TEXT,
     title             TEXT,
     tax_rate          REAL    DEFAULT 0.1,
-    debit_id          INTEGER DEFAULT 700, /* 借方コード */
-    credit_id         INTEGER DEFAULT 141, /* 貸方コード */
+    debit_id          INTEGER, /* 借方コード */
+    credit_id         INTEGER, /* 貸方コード */
     assort_pattern_id INTEGER /* 仕訳パターン番号 */
 );
 
