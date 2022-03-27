@@ -1,35 +1,55 @@
 # IMApp_Account
-Accounting web application by INTER-Mediator.
 
-## Preparation
-Installing PHP, git, composer, SQLite and Node.js with npm.
+新居雅行 (nii@msyk.net)
 
-## Setup
-This web app based on the composer. So you clone this repository, following to execute the composer command on the root of the repository.
+[![en](https://img.shields.io/badge/lang-en-red.svg)](https://github.com/msyk/IMApp_Account/blob/master/README.en.md)
+
+主に個人事業主をターゲットとした会計アプリケーション。INTER-Mediatorで開発しました。
+
+この会計アプリケーションは作成者の新居が自分で必要な用途で作ったものであって、特定の方向けに作ったものではありません。全ソースが公開されているので、自由に改変して使っていただいて構いません。機能についての要望があればもちろんお伺いしますが、自分で便利であると思ったものは実装するかもしれませんが、そうでないものは実装しないかもしれません。もし、ご自分用に改造して欲しいという場合は、原則として請負業務としてお引き受けすることはやぶさかではありません。
+
+## 動作するための準備
+PHP、git、composer、SQLite、Node.jsが稼働するようにしておいてください。必要なら、Apache等Webアプリケーションも用意してください。
+私は普段はMacしか使っていません。Linux上でも同様に動きます。Windows OSに関しては、Windows Subsystem for Linux (WSL)上でのインストールと稼働が可能なことは確認しました。
+
+## セットアップ
+このアプリケーションはcomposerによってセットアップされます。レポジトリをクローンnして、以下のようにcomposerコマンドを実行します。
 ```
 git clone https://github.com/msyk/IMApp_Account
 cd IMApp_Account
 composer install
 ```
-If you want to store this app on your own repository, you can clone from the template repository which is GitHub feature. So you can store it as private repository.
+独自のレポジトリにこのアプリケーションを収めたいなら、GitHubのテンプレートレポジトリの機能を利用できます。そうすれば、プライベートなレポジトリにアプリケーションや場合によってはバックアップデータを保持できます。
 
-## Getting Started App
-The quick way to host the web app, the php command's server mode is convenient.
+## アプリケーションの開始
+アプリケーションを開始する簡単な方法は、phpのサーバモードを使うのが良いでしょう。
 ```
 php -S localhost:9000
 ```
-After that, you can access the application with url http://localhost:9000/ from any browser that executing on the same host.
+コマンド入力後、同じMac/PC等のブラウザで「http://localhost:9000/」を開くと、アプリケーションにアクセスできます。
 
 ## Setup for S3
 
-I'd like to read the README.md file in private directory. If you create the file named 'aws_setting.php' in it with S3 available account, you can store the files to S3.
+S3に証票類のファイルを保存できますが、詳細は、privateディレクトリにあるREADME.mdファイルを読んでよください。このディレクトリに、S3のアカウント情報などを保存したaws_setting.phpというファイルを作ります。S3側は単にバケットを作るだけでOKですが、IAMサービスでS3のフルアクセス機能を持ったユーザを作っておく必要があります。
 
 ## Database Operations
 
-Within the ```composer install```, the database is going to initialize on the .im_db directory of home. If the file already exists, you can choose overwriting or leave it.
+```composer install```コマンドを実行すれば、データベースファイルがホーム直下の.im_dbディレクトリ内に作られ、スキーマが適用されます。もし、そのファイルが袖に存在すれば、コマンド内で上書きするかそのままにするかを選択できます。
 
-The command ```composer db-backup``` copies the database file to db-backup directory in the repository. Also the timestamp is going to add to the backuped file name.
+```composer db-backup```コマンドを実行すれば、現状のデータベースファイルをレポジトリのdb-backupディレクトリにコピーします。ファイル名にはタイムスタンプの文字列が追加されます。
 
-The command ```composer db-restore``` restores the latest database file to .im_db directory of home.
+```composer db-restore```コマンドを実行すれば、db-backupディレクトリにある一番新しファイルを.im_dbディレクトリにコピーします。
 
-The db-backup directory of this repository is out of git management initially. If you want store the contents of db-backup to repository, you have to folk or new repository and modify the .gitignore file.
+```composer update```コマンドを実行すれば、INTER-Mediatorを含むPHPやJavaScriptのライブラリを更新します。
+
+# 独自のレポジトリでの運用
+
+このレポジトリはパブリックなので、当然ながらセンシティブな情報はここにはアップロードできません。このレポジトリがプライベートであることで問題が解決するなら、GitHubのテンプレート機能を使ってみましょう。プライベートなレポジトリであれば、もしあなたが気にしないのであれば、プライベートな情報を保持できます。例えば、データのバックアップや独自のページを追加できます。一方、そのために、オリジナルのレポジトリは切り離され、オリジナルのレポジトリへの更新結果を反映させるのは簡単な作業ではなくなります。
+
+- プライベートなレポジトリを作成するには、このレポジトリのトップページにある「Use this Template」をクリックして、レポジトリを作ります。
+- 作ったレポジトリを、クローンして利用してください。
+- ```composer db-backup```や```composer db-restore```コマンドにより、レポジトリ内にデータのバックアップを作成したり、リストアができます。
+- privateディレクトリのREADME.mdファイルをご覧ください。
+- 作成したファイルなどをレポジトリ側に反映させるために、.gitignoreファイルから、 「db-backup」「private/*.sql」「private/*.php」の記述を削除してください。
+
+レポジトリにプライベートな情報を保存するのは安全でしょうか？　この問いへの回答は確かに難しいのですが、少なくとも管理の甘いオンプレミスなサーバよりよほど安全ではないかとは言えるのではないかと思います。

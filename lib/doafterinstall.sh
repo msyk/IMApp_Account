@@ -14,7 +14,7 @@ mkdir -p "${IM_DB_DIR}"
 if [ -e "${IM_DB_FILE}" ]; then
   echo "The database file alread exists as '${IM_DB_FILE}'."
   read -p "If you want to delete the db file and reinstall the db schema, type 'YES'. -->" choice
-  if [ " ${choice}" = " YES" ]; then
+  if [ "${choice}" = "YES" ]; then
     rm "${IM_DB_FILE}"
   else
     echo "The db file didn't touch so far."
