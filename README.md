@@ -7,7 +7,7 @@ Installing PHP, git, composer, SQLite and Node.js with npm.
 ## Setup
 This web app based on the composer. So you clone this repository, following to execute the composer command on the root of the repository.
 ```
-git clone https://github.com/inter-mediator/IMApp_Account
+git clone https://github.com/msyk/IMApp_Account
 cd IMApp_Account
 composer install
 ```
