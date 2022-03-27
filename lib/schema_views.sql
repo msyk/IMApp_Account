@@ -14,38 +14,44 @@ SELECT detail_id,
        debit_item.item_name,
        debit_item.alloc_rate, /* 組み込み比率 */
        unit_price * qty * debit_item.alloc_rate
-           * IIF(detail.tax_rate > 0,
-                 CASE tax_kind
-                     WHEN 0 THEN 1
-                     WHEN 1 THEN 1 + detail.tax_rate
-                     ELSE 1 END,
-                 CASE tax_kind
-                     WHEN 0 THEN 1
-                     WHEN 1 THEN 1 + account.tax_rate
-                     ELSE 1 END)
-                           AS item_price,
+           * CASE detail.tax_rate > 0
+                 WHEN TRUE THEN
+                     CASE tax_kind
+                         WHEN 0 THEN 1
+                         WHEN 1 THEN 1 + detail.tax_rate
+                         ELSE 1 END
+                 ELSE
+                     CASE tax_kind
+                         WHEN 0 THEN 1
+                         WHEN 1 THEN 1 + account.tax_rate
+                         ELSE 1 END
+           END             AS item_price,
        unit_price * qty * debit_item.alloc_rate
-           * IIF(detail.tax_rate > 0,
-                 CASE tax_kind
-                     WHEN 0 THEN detail.tax_rate / (1 + detail.tax_rate)
-                     WHEN 1 THEN detail.tax_rate
-                     ELSE 0 END,
-                 CASE tax_kind
-                     WHEN 0 THEN account.tax_rate / (1 + account.tax_rate)
-                     WHEN 1 THEN account.tax_rate
-                     ELSE 0 END)
-                           AS tax_price,
+           * CASE detail.tax_rate > 0
+                 WHEN TRUE THEN
+                     CASE tax_kind
+                         WHEN 0 THEN detail.tax_rate / (1 + detail.tax_rate)
+                         WHEN 1 THEN detail.tax_rate
+                         ELSE 0 END
+                 ELSE
+                     CASE tax_kind
+                         WHEN 0 THEN account.tax_rate / (1 + account.tax_rate)
+                         WHEN 1 THEN account.tax_rate
+                         ELSE 0 END
+           END             AS tax_price,
        unit_price * qty * debit_item.alloc_rate
-           * IIF(detail.tax_rate > 0,
-                 CASE tax_kind
-                     WHEN 0 THEN 1 / (1 + detail.tax_rate)
-                     WHEN 1 THEN 1
-                     ELSE 1 END,
-                 CASE tax_kind
-                     WHEN 0 THEN 1 / (1 + account.tax_rate)
-                     WHEN 1 THEN 1
-                     ELSE 1 END)
-                           AS net_price
+           * CASE detail.tax_rate > 0
+                 WHEN TRUE THEN
+                     CASE tax_kind
+                         WHEN 0 THEN 1 / (1 + detail.tax_rate)
+                         WHEN 1 THEN 1
+                         ELSE 1 END
+                 ELSE
+                     CASE tax_kind
+                         WHEN 0 THEN 1 / (1 + account.tax_rate)
+                         WHEN 1 THEN 1
+                         ELSE 1 END
+           END             AS net_price
 FROM detail
          INNER JOIN account ON detail.account_id = account.account_id
          LEFT JOIN item AS debit_item ON debit_item.item_id = account.debit_id
@@ -60,7 +66,7 @@ FROM account
          INNER JOIN detail_calc ON detail_calc.account_id = account.account_id
 GROUP BY account.account_id
 ;
-DROP VIEW  IF EXISTS parent_calc;
+DROP VIEW IF EXISTS parent_calc;
 CREATE VIEW parent_calc AS
 SELECT account.parent_account_id,
        SUM(detail_calc.item_price) AS item_total,
