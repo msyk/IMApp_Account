@@ -80,6 +80,8 @@ DROP VIEW IF EXISTS account_list;
 CREATE VIEW account_list AS
 SELECT account.account_id,
        account.parent_account_id,
+       strftime('%Y-%m', account.issued_date)                             AS ym,
+       strftime('%Y', account.issued_date)                                AS y,
        parent_calc.item_total                                             AS parent_total,
        account_calc.item_total                                            AS item_total,
        account_calc.net_total                                             AS net_total,
@@ -116,4 +118,49 @@ FROM account
          LEFT JOIN item AS credit_item ON credit_item.item_id = account.credit_id
          LEFT JOIN assort_pattern ON account.assort_pattern_id = assort_pattern.assort_pattern_id
 ORDER BY issued_date DESC
+;
+DROP VIEW IF EXISTS monthly_summary_income;
+CREATE VIEW monthly_summary_income AS
+SELECT strftime('%Y-%m', account.issued_date) AS ym,
+       SUM(account_calc.item_total)           AS item_total,
+       SUM(account_calc.net_total)            AS net_total,
+       SUM(account_calc.tax_total)            AS tax_total
+FROM account
+         LEFT JOIN account_calc ON account.account_id = account_calc.account_id
+WHERE account.credit_id = 700 /* 700=売上高 */
+GROUP BY strftime('%Y-%m', account.issued_date)
+;
+DROP VIEW IF EXISTS monthly_summary_purchase;
+CREATE VIEW monthly_summary_purchase AS
+SELECT strftime('%Y-%m', account.issued_date) AS ym,
+       SUM(account_calc.item_total)           AS item_total,
+       SUM(account_calc.net_total)            AS net_total,
+       SUM(account_calc.tax_total)            AS tax_total
+FROM account
+         LEFT JOIN account_calc ON account.account_id = account_calc.account_id
+         LEFT JOIN item ON item.item_id = account.debit_id
+WHERE item.is_purchase = 1
+GROUP BY strftime('%Y-%m', account.issued_date)
+;
+DROP VIEW IF EXISTS monthly_summary;
+CREATE VIEW monthly_summary AS
+SELECT monthly_summary_income.ym           AS ym,
+       monthly_summary_income.item_total   AS income_item_total,
+       monthly_summary_income.net_total    AS income_net_total,
+       monthly_summary_income.tax_total    AS income_tax_total,
+       monthly_summary_purchase.item_total AS purchase_item_total,
+       monthly_summary_purchase.net_total  AS purchase_net_total,
+       monthly_summary_purchase.tax_total  AS purchase_tax_total
+FROM monthly_summary_income
+         LEFT JOIN monthly_summary_purchase ON monthly_summary_income.ym = monthly_summary_purchase.ym
+ORDER BY ym DESC
+;
+DROP VIEW IF EXISTS item_summary_debit;
+CREATE VIEW item_summary_debit AS
+SELECT strftime('%Y', account.issued_date) AS y,
+       debit_id,
+       item.item_name                      AS item_name
+FROM account
+         LEFT JOIN item ON item.item_id = account.debit_id
+GROUP BY strftime('%Y', account.issued_date), debit_id
 ;

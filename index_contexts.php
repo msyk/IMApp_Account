@@ -35,6 +35,8 @@ IM_Entry(
             'button-names' => ['insert' => '新規会計項目作成'],
             'calculation' => [
                 ['field' => "attached", 'expression' => "if(invoice_path='','','証票有')",],
+                ['field' => "alertStyle", 'expression' => "if(parent_total>0 && item_total!=parent_total,'inline','none')",],
+                ['field' => "checkStyle", 'expression' => "if(debit_id=405,'yellow',if(credit_id=141,'papayawhip',if(credit_id=405,'lightyellow',if(debit_id=141,'moccasin',''))))",],
             ],
             'numeric-fields' => ['item_total'],
         ],

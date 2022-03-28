@@ -13,7 +13,7 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
-require_once './vendor/inter-mediator/inter-mediator/INTER-Mediator.php';
+require_once '../vendor/inter-mediator/inter-mediator/INTER-Mediator.php';
 
 IM_Entry(
     [

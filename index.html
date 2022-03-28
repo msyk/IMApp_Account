@@ -28,7 +28,6 @@
     <!-- Loading INTER-Mediator -->
     <script src="index_contexts.php"></script>
     <script src="index.js"></script>
-    <script src="vendor/inter-mediator/inter-mediator/node_modules/inter-mediator-plugin-jqueryfileupload/index.js"></script>
     <style>
         .IM_NAV_insert_button {
             font-size: 1.3em;
@@ -66,10 +65,10 @@
                         <a class="nav-link active" aria-current="page" href="index.html">総勘定元帳</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">科目集計</a>
+                        <a class="nav-link" href="/Summary/summary_item.html">科目集計</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">月次集計</a>
+                        <a class="nav-link" href="/Summary/monthly.html">月次集計</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
@@ -77,15 +76,15 @@
                             マスター処理
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <li><a class="dropdown-item" href="master_item.html">勘定科目</a></li>
-                            <li><a class="dropdown-item" href="master_assort.html">仕訳パターン</a></li>
-                            <li><a class="dropdown-item" href="master_customer.html">顧客</a></li>
-                            <li><a class="dropdown-item" href="master_year.html">年度</a></li>
+                            <li><a class="dropdown-item" href="Master/master_item.html">勘定科目</a></li>
+                            <li><a class="dropdown-item" href="Master/master_assort.html">仕訳パターン</a></li>
+                            <li><a class="dropdown-item" href="Master/master_customer.html">顧客</a></li>
+                            <li><a class="dropdown-item" href="Master/master_year.html">年度</a></li>
                             <li>
                                 <hr>
                             </li>
-                            <li><a class="dropdown-item" href="regulation-0021006-031_e.html">事務処理規程(個人)</a></li>
-                            <li><a class="dropdown-item" href="master_preference.html">設定</a></li>
+                            <li><a class="dropdown-item" href="Doc/regulation-0021006-031_e.html">事務処理規程(個人)</a></li>
+                            <li><a class="dropdown-item" href="Master/master_preference.html">設定</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -152,7 +151,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr style="border-bottom: 1px solid #808080">
+        <tr style="border-bottom: 1px solid #808080" data-im="account_list@checkStyle@style.backgroundColor">
             <td>
                 <a href="index_detail.html?id=" data-im="account_list@account_id@#href">
                     <button class="btn btn-primary">詳細</button>
@@ -179,6 +178,7 @@
             <td style="text-align: right">
                 <span data-im="account_list@item_total" data-im-format="number(0)"
                       data-im-format-options="useseparator"></span><br>
+                <span data-im="account_list@alertStyle@style.display">⚠️</span>
                 <span data-im="account_list@parent_total" data-im-format="number(0)"
                       data-im-format-options="useseparator" style="color: #c75315"></span>
             </td>
