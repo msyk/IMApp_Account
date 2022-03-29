@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<!--
+/*
+ * INTER-Mediator
+ * Copyright (c) INTER-Mediator Directive Committee (http://inter-mediator.org)
+ * This project started at the end of 2009 by Masayuki Nii msyk@msyk.net.
+ *
+ * INTER-Mediator is supplied under MIT License.
+ * Please see the full license for details:
+ * https://github.com/INTER-Mediator/INTER-Mediator/blob/master/dist-docs/License.txt
+ */  -->
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>INTER-Mediator Account</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+    <!-- Loading INTER-Mediator -->
+    <script src="contexts.php"></script>
+    <script src="item_detail.js"></script>
+    <style>
+        td, th {
+            vertical-align: top;
+            border-bottom: solid 1px gray;
+        }
+        td {
+            margin: 0;
+            padding: 0 3px;
+        }
+        #_im_progress {
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+<div id="nonsupportmessage">
+    <div style="text-align:center;color:yellow;background-color:black;">
+        This page is going to show for a moment.
+        If you see this permanently, please enable JavaScript and reload.
+        Otherwise it's possible to use any unsupported web browser.
+    </div>
+    <div style="text-align:center;color:yellow;background-color:black;">
+        現在、ページの構成中です。
+        もし、この表示が長時間表示されているなら、JavaScriptを有効にして再度読み込んでください。
+        サポート対象外のWebブラウザーを使っている場合も、これを表示し続けることがあります。
+    </div>
+</div>
+<div id="container" style="display: none">
+    <nav class="navbar navbar-expand-md navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">INTER-Mediator会計</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+                    aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="../index.html">総勘定元帳</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Summary/item.html">科目集計</a>
+                    </li>
+                    <li class="nav-item　active">
+                        <a class="nav-link" href="/Summary/monthly.html">月次集計</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                           data-toggle="dropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            マスター処理
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <li><a class="dropdown-item" href="../Master/master_item.html">勘定科目</a></li>
+                            <li><a class="dropdown-item" href="../Master/master_assort.html">仕訳パターン</a></li>
+                            <li><a class="dropdown-item" href="../Master/master_customer.html">顧客</a></li>
+                            <li><a class="dropdown-item" href="../Master/master_year.html">年度</a></li>
+                            <li>
+                                <hr>
+                            </li>
+                            <li><a class="dropdown-item" href="../Doc/regulation-0021006-031_e.html">事務処理規程(個人)</a></li>
+                            <li><a class="dropdown-item" href="../Master/master_preference.html">設定</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <h3>科目集計</h3>
+    <div data-im-control="enclosure">
+        <div data-im-control="repeater">
+            <h2><span data-im="year_detail_single@year"></span><span>年度　科目別集計</span></h2>
+            <h3>借方科目</h3>
+            <table>
+                <tbody>
+                <tr>
+                    <th>
+                        [<span data-im="item_debit@debit_id"></span>]
+                    </th>
+                    <th>
+                        <span data-im="item_debit@item_name"></span>
+                    </th>
+                    <th>金額合計：</th>
+                    <th style="text-align: right;" data-im="item_debit@item_total" data-im-format="number(0)"
+                        data-im-format-options="useseparator"></th>
+                    <th>税抜合計金額：</th>
+                    <th style="text-align: right;" data-im="item_debit@net_total" data-im-format="number(0)"
+                        data-im-format-options="useseparator"></th>
+                    <th>消費税合計額：</th>
+                    <th style="text-align: right;" data-im="item_debit@tax_total" data-im-format="number(0)"
+                        data-im-format-options="useseparator"></th>
+                </tr>
+                <tr>
+                    <td colspan="8">
+                        <table>
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <a href="/index_detail.html?id=" data-im="account_debit@account_id@#href">
+                                        <button class="btn btn-primary">詳細</button>
+                                    </a>
+                                </td>
+                                <td>
+                                    <span data-im="account_debit@account_id"></span><br>
+                                    <span data-im="account_debit@parent_account_id" style="color: #c75315"></span>
+                                </td>
+                                <td data-im="account_debit@issued_date"></td>
+                                <td>
+                                    <span data-im="account_debit@kind_str"></span><br>
+                                </td>
+                                <td>
+                                    <span data-im="account_debit@pattern_name" style="font-size: 0.8em"></span><br>
+                                    <span data-im="account_debit@debit_item_name"></span>／<span
+                                        data-im="account_debit@credit_item_name"></span>
+                                </td>
+                                <td>
+                                    <span style="font-size: 0.9em; color: darkgreen"
+                                          data-im="account_debit@company"></span><br>
+                                    <span data-im="account_debit@description"></span>
+                                </td>
+                                <td style="text-align: right">
+                                    <span data-im="account_debit@item_total" data-im-format="number(0)"
+                                          data-im-format-options="useseparator"></span><br>
+                                    <span data-im="account_debit@parent_total" data-im-format="number(0)"
+                                          data-im-format-options="useseparator" style="color: #c75315"></span>
+                                </td>
+                                <td style="text-align: right">
+                                    <span data-im="account_debit@net_total" data-im-format="number(0)"
+                                          data-im-format-options="useseparator"></span><br>
+                                    <span data-im="account_debit@tax_total" data-im-format="number(0)"
+                                          data-im-format-options="useseparator"></span>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <h3>貸方方科目</h3>
+            <table>
+                <tbody>
+                <tr>
+                    <th>
+                        [<span data-im="item_credit@credit_id"></span>]
+                    </th>
+                    <th>
+                        <span data-im="item_credit@item_name"></span>
+                    </th>
+                    <th>金額合計：</th>
+                    <th style="text-align: right;" data-im="item_credit@item_total" data-im-format="number(0)"
+                        data-im-format-options="useseparator"></th>
+                    <th>税抜合計金額：</th>
+                    <th style="text-align: right;" data-im="item_credit@net_total" data-im-format="number(0)"
+                        data-im-format-options="useseparator"></th>
+                    <th>消費税合計額：</th>
+                    <th style="text-align: right;" data-im="item_credit@tax_total" data-im-format="number(0)"
+                        data-im-format-options="useseparator"></th>
+                </tr>
+                <tr>
+                    <td colspan="8">
+                        <table>
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <a href="/index_detail.html?id=" data-im="account_credit@account_id@#href">
+                                        <button class="btn btn-primary">詳細</button>
+                                    </a>
+                                </td>
+                                <td>
+                                    <span data-im="account_credit@account_id"></span><br>
+                                    <span data-im="account_credit@parent_account_id" style="color: #c75315"></span>
+                                </td>
+                                <td data-im="account_credit@issued_date"></td>
+                                <td>
+                                    <span data-im="account_credit@kind_str"></span><br>
+                                </td>
+                                <td>
+                                    <span data-im="account_credit@pattern_name" style="font-size: 0.8em"></span><br>
+                                    <span data-im="account_credit@debit_item_name"></span>／<span
+                                        data-im="account_credit@credit_item_name"></span>
+                                </td>
+                                <td>
+                                    <span style="font-size: 0.9em; color: darkgreen"
+                                          data-im="account_credit@company"></span><br>
+                                    <span data-im="account_credit@description"></span>
+                                </td>
+                                <td style="text-align: right">
+                                    <span data-im="account_credit@item_total" data-im-format="number(0)"
+                                          data-im-format-options="useseparator"></span><br>
+                                    <span data-im="account_credit@parent_total" data-im-format="number(0)"
+                                          data-im-format-options="useseparator" style="color: #c75315"></span>
+                                </td>
+                                <td style="text-align: right">
+                                    <span data-im="account_credit@net_total" data-im-format="number(0)"
+                                          data-im-format-options="useseparator"></span><br>
+                                    <span data-im="account_credit@tax_total" data-im-format="number(0)"
+                                          data-im-format-options="useseparator"></span>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>
