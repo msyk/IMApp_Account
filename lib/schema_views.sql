@@ -159,8 +159,25 @@ DROP VIEW IF EXISTS item_summary_debit;
 CREATE VIEW item_summary_debit AS
 SELECT strftime('%Y', account.issued_date) AS y,
        debit_id,
-       item.item_name                      AS item_name
+       item.item_name                      AS item_name,
+       SUM(account_calc.item_total)        AS item_total,
+       SUM(account_calc.net_total)         AS net_total,
+       SUM(account_calc.tax_total)         AS tax_total
 FROM account
          LEFT JOIN item ON item.item_id = account.debit_id
+         LEFT JOIN account_calc ON account.account_id = account_calc.account_id
 GROUP BY strftime('%Y', account.issued_date), debit_id
+;
+DROP VIEW IF EXISTS item_summary_credit;
+CREATE VIEW item_summary_credit AS
+SELECT strftime('%Y', account.issued_date) AS y,
+       credit_id,
+       item.item_name                      AS item_name,
+       SUM(account_calc.item_total)        AS item_total,
+       SUM(account_calc.net_total)         AS net_total,
+       SUM(account_calc.tax_total)         AS tax_total
+FROM account
+         LEFT JOIN item ON item.item_id = account.credit_id
+         LEFT JOIN account_calc ON account.account_id = account_calc.account_id
+GROUP BY strftime('%Y', account.issued_date), credit_id
 ;
