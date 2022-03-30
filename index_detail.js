@@ -49,11 +49,11 @@ function printDetail(aid) {
   const kind = context.getDataAtLastRecord('title')
   if (parseInt(aid) > 0) {
     if (kind == '請求書') {
-      open(`invoice.html?id=${aid}`)
+      open(`/Print/invoice.html?id=${aid}`)
     } else if (kind == '見積書') {
-      open(`estimate.html?id=${aid}`)
+      open(`/Print/estimate.html?id=${aid}`)
     } else if (kind == '領収書') {
-      open(`receipt.html?id=${aid}`)
+      open(`/Print/receipt.html?id=${aid}`)
     } else {
       alert(`${kind}はまだ実装していません。`)
     }
