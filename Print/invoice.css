@@ -37,6 +37,10 @@ predoc {
     min-height: 20px;
 }
 
+.predoc .comment {
+    padding: 10px 0 0 20px;
+}
+
 .myself {
 }
 
@@ -102,4 +106,9 @@ td {
     color: white;
     background-color: #808080;
     padding: 1px;
+}
+
+.vspace {
+    margin-bottom: 4px;
+    display: block;
 }

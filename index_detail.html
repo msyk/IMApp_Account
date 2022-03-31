@@ -184,6 +184,14 @@
                 <td><input type="text" data-im="account_detail@parent_account_id"></td>
             </tr>
             <tr data-im-control="ignore_enc_rep">
+                <th>追記事項</th>
+                <td colspan="3"><textarea data-im="account_detail@comment" style="width:500px;height: 50px"></textarea></td>
+                <td colspan="2">
+                    追記事項は、書類で説明の下にやや小さく表示されます。<br>
+                    HTMLでの記述が可能です。改行は&lt;br&gt;と記述します。
+                </td>
+            </tr>
+            <tr data-im-control="ignore_enc_rep">
                 <th>仕訳</th>
                 <td>
                     <select data-im="account_detail@assort_pattern_id">
@@ -286,16 +294,17 @@
                     data-im="account_detail@account_id@$onclick account_detail@s3_style@style.display">ファイルをクリア（S3には残る）
             </button>
         </div>
-        <div data-im-control="repeater" style="background-color: #a2a2a2">
+        <div data-im-control="repeater" style="background-color: #a2a2a2;max-width: 380px">
             <h3>CSVデータ読み込み</h3>
             ↓ここにCSVファイルの中身をペーストします。<br>
             <textarea id="csv_data" style="width: 100%;"></textarea><br>
             このテキストエリアの文字列は保存されません。
             <div>
-                <button class="btn btn-info" onclick="csvReadSAISON()">読み込み（セゾンカード）</button>
-                <button class="btn btn-info" onclick="csvReadVpass()">読み込み（Vpass）</button>
+                <button class="btn btn-info" style="margin-bottom: 4px;" onclick="csvReadSAISON()">読み込み（セゾンカード）</button>
+                <button class="btn btn-info" style="margin-bottom: 4px;" onclick="csvReadVpass()">読み込み（Vpass）</button>
             </div>
             <hr>
+            読み込み後に以下のボタンを押すことで、明細の1行を元にした新たな会計項目が作成されます。
             <div>
                 <button class="btn btn-info" onclick="generateDetailToAccount()">明細の各行を会計項目にする</button>
             </div>

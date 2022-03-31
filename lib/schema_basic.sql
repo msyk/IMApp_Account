@@ -38,6 +38,7 @@ CREATE TABLE account
     address           TEXT,
     invoice_path      TEXT,
     title             TEXT,
+    comment           TEXT,
     tax_rate          REAL    DEFAULT 0.1,
     debit_id          INTEGER, /* 借方コード */
     credit_id         INTEGER, /* 貸方コード */
@@ -148,7 +149,7 @@ CREATE UNIQUE INDEX registeredcontext_id
     ON registeredcontext (id);
 CREATE UNIQUE INDEX registeredpks_context_id
     ON registeredpks (context_id);
-CREATE  INDEX registeredpks_pk
+CREATE INDEX registeredpks_pk
     ON registeredpks (pk);
 
 

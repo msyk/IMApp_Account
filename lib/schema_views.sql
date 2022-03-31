@@ -101,6 +101,7 @@ SELECT account.account_id,
        title,
        invoice_path,
        tax_rate,
+       comment,
        account.debit_id, /* 借方コード */
        debit_item.item_name                                               AS debit_item_name,
        debit_item.alloc_rate, /* 組み込み比率 */
