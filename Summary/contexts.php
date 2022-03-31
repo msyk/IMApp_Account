@@ -113,7 +113,7 @@ IM_Entry(
             'key' => 'account_id',
             'records' => 1000000,
             'relation' => [
-                ['foreign-key' => 'credit_id', 'join-field' => 'debit_id', 'operator' => '='],
+                ['foreign-key' => 'credit_id', 'join-field' => 'credit_id', 'operator' => '='],
                 ['foreign-key' => 'y', 'join-field' => 'y', 'operator' => '='],
             ],
             'sort' => [['field' => 'issued_date', 'direction' => 'ASC'],],
