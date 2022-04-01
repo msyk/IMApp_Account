@@ -68,6 +68,14 @@ function csvReadVpass() {
   csvReadImpl(2)
 }
 
+function csvReadRakuten() {
+  csvReadImpl(4)
+}
+
+function csvReadAmazon() {
+  csvReadImpl(6)
+}
+
 function csvReadImpl(pCol) {
   if (!(pCol > 0)) {
     console.log('why!?')
@@ -76,7 +84,11 @@ function csvReadImpl(pCol) {
   const context = IMLibContextPool.contextFromName('account_detail')
   const fvalue = context.getDataAtLastRecord('account_id')
   const src = document.getElementById('csv_data').value
-  const lines = src.split('\n')
+  var srcTemp = src
+  if (src.indexOf("\"") != -1){
+    srcTemp = src.replace(/\"/g,"")
+    }
+  const lines = srcTemp.split('\n')
   for (const line of lines) {
     const items = line.split(',')
     if (parseInt(items[pCol]) > 0) {
