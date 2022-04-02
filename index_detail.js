@@ -85,9 +85,9 @@ function csvReadImpl(pCol) {
   const fvalue = context.getDataAtLastRecord('account_id')
   const src = document.getElementById('csv_data').value
   var srcTemp = src
-  if (src.indexOf("\"") != -1){
-    srcTemp = src.replace(/\"/g,"")
-    }
+  if (src.indexOf("\"") != -1) {
+    srcTemp = src.replace(/\"/g, "")
+  }
   const lines = srcTemp.split('\n')
   for (const line of lines) {
     const items = line.split(',')
