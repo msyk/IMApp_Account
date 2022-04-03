@@ -23,6 +23,7 @@ INTERMediatorOnPage.doAfterConstruct = function () {
 
 INTERMediatorOnPage.doAfterCreateRecord = (newId, contextName) => {
   if (contextName == 'account_list') {
+    /*
     const data = [
       {field: 'unit_price', value: 0},
       {field: 'qty', value: 1},
@@ -37,10 +38,11 @@ INTERMediatorOnPage.doAfterCreateRecord = (newId, contextName) => {
         complete()
       })
     })
+     */
     IMLibQueue.setTask((complete) => {
       complete()
       location.href = `index_detail.html?id=${newId}`
-    })
+    }, false, true)
   }
 }
 

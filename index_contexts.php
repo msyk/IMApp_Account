@@ -31,6 +31,7 @@ IM_Entry(
                 ['field' => 'invoice_path', 'value' => ""],
             ],
             'repeat-control' => 'confirm-insert confirm-delete confirm-copy',
+            //'repeat-control' => 'confirm-insert confirm-delete confirm-copy-detail_list',
             //'navi-control' => 'master-hide',
             'button-names' => ['insert' => '新規会計項目作成'],
             'calculation' => [

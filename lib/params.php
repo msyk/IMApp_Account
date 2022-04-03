@@ -164,11 +164,11 @@ $dbClassLog = $dbClass;
 $dbDSNLog = $dbDSN;
 $dbUserLog = $dbUser;
 $dbPasswordLog = $dbPassword;
-$recordingContexts = false; // false or no-definition: record all context, or an array of context names you want to record.
-$dontRecordTheme = false;
-$dontRecordChallenge = false;
-$dontRecordDownload = false;
-$dontRecordDownloadNoGet = false;
+$recordingContexts = ['account_detail']; // false or no-definition: record all context, or an array of context names you want to record.
+$dontRecordTheme = true;
+$dontRecordChallenge = true;
+$dontRecordDownload = true;
+$dontRecordDownloadNoGet = true;
 
 /* S3 Support
  * =================== */
