@@ -159,12 +159,12 @@ $foreverLog = '/tmp/forever.log';
  * ===================
  * the table named 'operationlog' is required.
  * The schema of the table describes in dist-docs/sample_schema_*.txt files. */
-$accessLogLevel = false;    // false: No logging, 1: without data, 2: with data
+$accessLogLevel = true;    // false: No logging, 1: without data, 2: with data
 $dbClassLog = $dbClass;
 $dbDSNLog = $dbDSN;
 $dbUserLog = $dbUser;
 $dbPasswordLog = $dbPassword;
-$recordingContexts = ['account_detail']; // false or no-definition: record all context, or an array of context names you want to record.
+$recordingContexts = ['account_detail','detail_list']; // false or no-definition: record all context, or an array of context names you want to record.
 $dontRecordTheme = true;
 $dontRecordChallenge = true;
 $dontRecordDownload = true;
