@@ -86,7 +86,7 @@ IMApp_Accountのレポジトリをクローンして運用している場合、`
 
 ### 2022-04-01修正
 
-2022-04-01の```commit fd2f53797d1d6df5583cc0b5045960e6cab0cfde```において、accoutテーブルに変更が発生しました。
+2022-04-01の```commit fd2f53797d1d6df5583cc0b5045960e6cab0cfde```において、accountテーブルに変更が発生しました。
 それ以前のデータベースをそのまま使いたい場合は、以下のコマンドをそのままコピー&amp;ペーストで入力して、フィールドの追加をお願いします。
 
 ```echo "ALTER TABLE account ADD COLUMN comment TEXT"|sqlite3 ~/.im_db/imapp_account.sqlite3```
@@ -95,7 +95,7 @@ IMApp_Accountのレポジトリをクローンして運用している場合、`
 
 ### 2022-04-14修正
 
-2022-04-14の```commit 0ebc142269697422252779a2aaf048005e402fd3```において、accoutテーブルに変更が発生しました。
+2022-04-14の```commit 0ebc142269697422252779a2aaf048005e402fd3```において、account、detail、operationlogテーブルに変更が発生しました。
 それ以前のデータベースをそのまま使いたい場合は、以下のコマンドをそのままコピー&amp;ペーストで入力して、フィールドの追加をお願いします。
 
 ```
