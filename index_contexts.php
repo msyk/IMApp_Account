@@ -24,6 +24,7 @@ IM_Entry(
             'records' => 200,
             'maxrecords' => 100000,
             'paging' => true,
+            'soft-delete' => true,
             'default-values' => [
                 ['field' => 'issued_date', 'value' => IM_TODAY],
                 ['field' => 'debit_id', 'value' => 2],
@@ -46,6 +47,7 @@ IM_Entry(
             'table' => 'dummy',
             'view' => 'account_list',
             'key' => 'account_id',
+            'soft-delete' => true,
             'records' => 100000000,
             'maxrecords' => 100000000,
         ],
@@ -55,6 +57,7 @@ IM_Entry(
             'table' => 'account',
             'key' => 'account_id',
             'records' => 1,
+            'soft-delete' => true,
             //'navi-control' => 'detail-update',
             'calculation' => [
                 ['field' => "item_total_calc", 'expression' => "sum(detail_list@item_price_calc)",],
@@ -73,6 +76,7 @@ IM_Entry(
             'key' => 'detail_id',
             'records' => 100000,
             'maxrecords' => 100000,
+            'soft-delete' => true,
             'repeat-control' => 'confirm-insert confirm-delete confirm-copy',
             'relation' => [['foreign-key' => 'account_id', 'join-field' => 'account_id', 'operator' => '='],],
             'calculation' => [
@@ -140,3 +144,4 @@ IM_Entry(
     ['db-class' => 'PDO',],
     2
 );
+

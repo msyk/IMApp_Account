@@ -36,6 +36,21 @@
         #_im_progress {
             pointer-events: none;
         }
+
+        #funcpanel {
+            position: absolute;
+            display: none;
+            background-color: #d3d3d3;
+            left: 100px;
+            top: 100px;
+            width: 800px;
+            height: 600px;
+            padding: 12px;
+        }
+
+        .explain {
+            font-size: 80%;
+        }
     </style>
 </head>
 <body>
@@ -91,6 +106,28 @@
             </div>
         </div>
     </nav>
+    <div id="funcpanel">
+        <button class="btn btn-primary" onclick="hidePanel()">閉じる</button>
+        <hr>
+        <div style="display: flex">
+            <button class="btn btn-success" style="min-width: 150px" onclick="exportAccount()">エクスポート</button>
+            <span class="explain" style="margin: 0 12px;">検索条件や現在の表示に関係なく、会計項目全てをCSVファイルにエクスポートします。</span>
+        </div>
+        <hr>
+        <div>
+            <h3>CSVデータ読み込み[銀行]</h3>
+            ↓ここにCSVファイルの中身を、そのままペーストします。<br>
+            <textarea id="csv_data" style="width: 100%;"></textarea><br>
+            <span class="explain">ヘッダ行は自動的にスキップするので、ファイルの内容は編集しないで、ここにペーストして下さい。このテキストエリアの文字列は保存されません。</span>
+            <div style="margin-top: 8px;">以下のボタンを押せば、通帳の1項目が、1つの会計項目として追加されます。</div>
+            <div>
+                <button class="btn btn-info" style="margin-bottom: 4px;" onclick="csvReadSMBC()">読み込み（三井住友銀行）</button>
+                <button class="btn btn-info" style="margin-bottom: 4px;" onclick="csvReadMuzuho()">読み込み（みずほ銀行）</button>
+                <button class="btn btn-info" style="margin-bottom: 4px;" onclick="csvReadPayPay()">読み込み（PayPay銀行）</button>
+                </button>
+            </div>
+        </div>
+    </div>
     <h3>総勘定元帳</h3>
     <div id="IM_NAVIGATOR"></div>
     <table>
@@ -146,7 +183,7 @@
             <th>合計金額<br>小項目合計</th>
             <th>税抜金額<br>税額</th>
             <th>
-                <button class="btn btn-success" onclick="exportAccount()">エクスポート</button>
+                <button class="btn btn-success" onclick="showPanel()">各種機能</button>
             </th>
         </tr>
         </thead>

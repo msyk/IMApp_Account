@@ -61,5 +61,5 @@ IM_Entry(
     ],
     [],
     ['db-class' => 'PDO',],
-    2
+    false
 );

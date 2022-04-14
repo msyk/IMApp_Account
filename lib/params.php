@@ -141,7 +141,7 @@ $suppressDefaultValuesOnCopy = true; // If you don't want to set default values 
 /* Service Server Behavior
  * ===================
  * Port number and host name for service server */
-$notUseServiceServer = true;  // Default is FALSE!. If it sets to false, every features with Service Server don't work.
+$notUseServiceServer = true;  // Default is FALSE!. If it sets to true, every feature with Service Server don't work.
 $activateClientService = false;  // Default is TRUE!!.
 $serviceServerProtocol = "ws";  // The Service Server url components to connect from client.
 $serviceServerHost = "";    // "" for public ip address.
@@ -159,16 +159,18 @@ $foreverLog = '/tmp/forever.log';
  * ===================
  * the table named 'operationlog' is required.
  * The schema of the table describes in dist-docs/sample_schema_*.txt files. */
-$accessLogLevel = true;    // false: No logging, 1: without data, 2: with data
+$accessLogLevel = 2;    // false: No logging, 1: without data, 2: with data
 $dbClassLog = $dbClass;
 $dbDSNLog = $dbDSN;
 $dbUserLog = $dbUser;
 $dbPasswordLog = $dbPassword;
-$recordingContexts = ['account_detail','detail_list']; // false or no-definition: record all context, or an array of context names you want to record.
-$dontRecordTheme = true;
-$dontRecordChallenge = true;
-$dontRecordDownload = true;
-$dontRecordDownloadNoGet = true;
+$recordingContexts = ['account_list', 'account_detail', 'detail_list']; // false or no-definition: record all context, or an array of context names you want to record.
+$recordingOperations = ['create', 'update', 'delete']; // false or no-definition: record all operation, or an array of operation names you want to record.
+$dontRecordTheme = false;
+$dontRecordChallenge = false;
+$dontRecordDownload = false;
+$dontRecordDownloadNoGet = false;
+$accessLogExtensionClass = 'LoggingExt'; // Processing for some extending fields.
 
 /* S3 Support
  * =================== */
@@ -259,7 +261,7 @@ $prohibitDebugMode = false;
 /*******/
 
 $myDir = dirname(__FILE__);
-$addingSettings = dirname($myDir). DIRECTORY_SEPARATOR . "private/aws_settings.php";
-if(file_exists($addingSettings)) {
+$addingSettings = dirname($myDir) . DIRECTORY_SEPARATOR . "private/aws_settings.php";
+if (file_exists($addingSettings)) {
     include($addingSettings);
 }

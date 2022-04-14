@@ -51,6 +51,10 @@
         #_im_progress {
             pointer-events: none;
         }
+
+        .explain {
+            font-size: 80%;
+        }
     </style>
 </head>
 <body>
@@ -95,7 +99,9 @@
                             <li><a class="dropdown-item" href="Master/master_assort.html">仕訳パターン</a></li>
                             <li><a class="dropdown-item" href="Master/master_customer.html">顧客</a></li>
                             <li><a class="dropdown-item" href="Master/master_year.html">年度</a></li>
-                            <li><hr></li>
+                            <li>
+                                <hr>
+                            </li>
                             <li><a class="dropdown-item" href="Doc/regulation-0021006-031_e.html">事務処理規程(個人)</a></li>
                             <li><a class="dropdown-item" href="Master/master_preference.html">設定</a></li>
                         </ul>
@@ -185,7 +191,8 @@
             </tr>
             <tr data-im-control="ignore_enc_rep">
                 <th>追記事項</th>
-                <td colspan="3"><textarea data-im="account_detail@comment" style="width:500px;height: 50px"></textarea></td>
+                <td colspan="3"><textarea data-im="account_detail@comment" style="width:500px;height: 50px"></textarea>
+                </td>
                 <td colspan="2" style="font-size: 80%">
                     追記事項は、書類で説明の下にやや小さく表示されます。<br>
                     HTMLでの記述が可能です。改行は&lt;br&gt;と記述します。<br>
@@ -296,15 +303,17 @@
             </button>
         </div>
         <div data-im-control="repeater" style="background-color: #a2a2a2;max-width: 380px">
-            <h3>CSVデータ読み込み</h3>
+            <h3>CSVデータ読み込み[クレジットカード]</h3>
             ↓ここにCSVファイルの中身をペーストします。<br>
             <textarea id="csv_data" style="width: 100%;"></textarea><br>
-            このテキストエリアの文字列は保存されません。
+            <span class="explain">このテキストエリアの全ての行について読み込みを試みます。不要な行は削除する方が良いでしょう。このテキストエリアの文字列は保存されません。</span>
+            <div style="margin-top: 8px;">以下のボタンを押せば、CSVの1行が、この会計項目の1つの明細として追加されます。</div>
             <div>
                 <button class="btn btn-info" style="margin-bottom: 4px;" onclick="csvReadSAISON()">読み込み（セゾンカード）</button>
                 <button class="btn btn-info" style="margin-bottom: 4px;" onclick="csvReadVpass()">読み込み（Vpass）</button>
                 <button class="btn btn-info" style="margin-bottom: 4px;" onclick="csvReadRakuten()">読み込み（楽天）</button>
-                <button class="btn btn-info" style="margin-bottom: 4px;" onclick="csvReadAmazon()">読み込み（Amazon2022）</button>
+                <button class="btn btn-info" style="margin-bottom: 4px;" onclick="csvReadAmazon()">読み込み（Amazon2022）
+                </button>
             </div>
             <hr>
             読み込み後に以下のボタンを押すことで、明細の1行を元にした新たな会計項目が作成されます。

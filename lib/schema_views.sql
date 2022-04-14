@@ -13,6 +13,7 @@ SELECT detail_id,
        account.debit_id, /* 借方コード */
        debit_item.item_name,
        debit_item.alloc_rate, /* 組み込み比率 */
+       detail."delete"     AS "delete",
        unit_price * qty * debit_item.alloc_rate
            * CASE detail.tax_rate > 0
                  WHEN TRUE THEN
@@ -55,6 +56,8 @@ SELECT detail_id,
 FROM detail
          INNER JOIN account ON detail.account_id = account.account_id
          LEFT JOIN item AS debit_item ON debit_item.item_id = account.debit_id
+WHERE detail."delete" <> '1'
+   OR detail."delete" IS NULL
 ;
 DROP VIEW IF EXISTS account_calc;
 CREATE VIEW account_calc AS
@@ -111,7 +114,8 @@ SELECT account.account_id,
        account.assort_pattern_id                                          AS assort_pattern_id, /* 仕訳パターン番号 */
        pattern_name,
        assort_pattern.debit_id, /* 借方コード */
-       assort_pattern.credit_id /* 貸方コード */
+       assort_pattern.credit_id, /* 貸方コード */
+       account."delete"                                                   AS "delete"
 FROM account
          LEFT JOIN account_calc ON account.account_id = account_calc.account_id
          LEFT JOIN parent_calc ON account.account_id = parent_calc.parent_account_id
@@ -182,3 +186,40 @@ FROM account
          LEFT JOIN account_calc ON account.account_id = account_calc.account_id
 GROUP BY strftime('%Y', account.issued_date), credit_id
 ;
+/*
+ operationlog table example
+
+sqlite> select id,dt,user,access,context,key_value,edit_field,edit_value from operationlog order by dt desc limit 5;
+744|2022-04-12 09:35:49||delete|detail_list|21845||
+743|2022-04-12 09:35:46||create|detail_list|13742|account_id|13742
+742|2022-04-12 09:28:34||update|detail_list|21765|qty|3
+
+ */
+ /*
+DROP VIEW IF EXISTS editlog_account;
+CREATE VIEW item_summary_credit AS
+SELECT id,
+       dt,
+       user,
+       access,
+       context,
+       key_value,
+       edit_field,
+       edit_value
+FROM operationlog
+order by dt desc
+;
+DROP VIEW IF EXISTS editlog_detail;
+CREATE VIEW item_summary_credit AS
+SELECT id,
+       dt,
+       user,
+       access,
+       context,
+       key_value,
+       edit_field,
+       edit_value
+FROM operationlog
+order by dt desc
+;
+*/

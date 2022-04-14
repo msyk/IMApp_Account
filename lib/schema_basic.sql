@@ -42,7 +42,8 @@ CREATE TABLE account
     tax_rate          REAL    DEFAULT 0.1,
     debit_id          INTEGER, /* 借方コード */
     credit_id         INTEGER, /* 貸方コード */
-    assort_pattern_id INTEGER /* 仕訳パターン番号 */
+    assort_pattern_id INTEGER, /* 仕訳パターン番号 */
+    "delete"          INTEGER
 );
 
 CREATE UNIQUE INDEX account_account_id
@@ -69,7 +70,8 @@ CREATE TABLE detail
     description TEXT,
     unit_price  REAL NOT NULL DEFAULT 0,
     qty         REAL NOT NULL DEFAULT 0,
-    tax_rate    REAL
+    tax_rate    REAL,
+    "delete"    INTEGER
 );
 
 CREATE UNIQUE INDEX detail_detail_id
@@ -236,7 +238,10 @@ CREATE TABLE operationlog
     get_data      TEXT,
     post_data     TEXT,
     result        TEXT,
-    error         TEXT
+    error         TEXT,
+    key_value     INTEGER,
+    edit_field    VARCHAR(20),
+    edit_value    TEXT
 );
 CREATE UNIQUE INDEX operationlog_id
     ON operationlog (id);

@@ -1,7 +1,7 @@
 {
   "name": "inter-mediator/im-account",
-  "version": "1",
-  "time": "2022-04-02",
+  "version": "2",
+  "time": "2022-04-13",
   "repositories": [
     {
       "type": "git",

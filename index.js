@@ -63,3 +63,99 @@ function setCondition(n) {
     INTERMediator.constructMain()
   }
 }
+
+function showPanel() {
+  document.getElementById('funcpanel').style.display = 'block'
+}
+
+function hidePanel() {
+  document.getElementById('funcpanel').style.display = 'none'
+}
+
+function csvReadSMBC() {
+  csvReadBankImpl(0, 1, 2, 3, 1)
+}
+
+function csvReadMuzuho() {
+  csvReadBankImpl(1, 2, 3, 4, 10)
+}
+
+function csvReadPayPay() {
+  csvReadBankImpl(10000, 8, 9, 7, 1)
+}
+
+let accountId = -1
+
+function csvReadBankImpl(dateCol, outCol, inCol, descCol, skipLine) {
+  if (!(dateCol >= 0) || !(outCol >= 0) || !(inCol >= 0) || !(descCol >= 0) || !(skipLine >= 0)) {
+    console.log('why!?')
+    return
+  }
+  let isSepDate = false
+  if (dateCol > 9999) {
+    isSepDate = true
+    dateCol = dateCol % 10000
+  }
+  const src = document.getElementById('csv_data').value
+  var srcTemp = src
+  if (src.indexOf("\"") != -1) {
+    srcTemp = src.replace(/\"/g, "")
+  }
+  const lines = srcTemp.split('\n')
+  let count = 0
+  for (const line of lines) {
+    const items = line.split(',')
+    if (count >= skipLine && items.length > 4) {
+      const dateComps = (isSepDate
+        ? `${items[dateCol]}/${items[dateCol + 1]}/${items[dateCol + 2]}`
+        : items[dateCol]).split('/')
+      dateComps[1] = `0${dateComps[1]}`
+      dateComps[2] = `0${dateComps[2]}`
+      const dateValue = dateComps[0] + "-" + dateComps[1].substring(dateComps[1].length - 2)
+        + "-" + dateComps[2].substring(dateComps[2].length - 2)
+      IMLibQueue.setTask((complete) => {
+        const data = [
+          {field: 'description', value: items[descCol]},
+          {field: 'issued_date', value: dateValue},
+          {field: 'assort_pattern_id', value: ""},
+          {field: 'debit_id', value: (items[inCol] > 0) ? 115 : 2},
+          {field: 'credit_id', value: (items[inCol] > 0) ? 2 : 115},
+          {field: 'company', value: items[descCol]}
+        ]
+        INTERMediator_DBAdapter.db_createRecord_async({name: 'account_add', dataset: data}, (result) => {
+          accountId = result.dbresult[0]['account_id']
+          INTERMediatorLog.flushMessage()
+          complete()
+        }, () => {
+          INTERMediatorLog.flushMessage()
+          complete()
+        })
+      })
+      IMLibQueue.setTask((complete) => {
+        if (!(parseInt(accountId) > 0)) {
+          complete()
+          return
+        }
+        const data = [
+          {field: 'account_id', value: accountId},
+          {field: 'description', value: items[descCol]},
+          {field: 'unit_price', value: Math.abs(items[outCol] + items[inCol])},
+          {field: 'qty', value: 1}
+        ]
+        INTERMediator_DBAdapter.db_createRecord_async({name: 'detail_add', dataset: data}, (result) => {
+          INTERMediatorLog.flushMessage()
+          complete()
+        }, () => {
+          INTERMediatorLog.flushMessage()
+          complete()
+        })
+      })
+    }
+    count += 1
+  }
+  IMLibQueue.setTask((complete) => {
+    complete()
+    INTERMediator.constructMain()
+  })
+}
+
