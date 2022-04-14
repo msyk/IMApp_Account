@@ -92,6 +92,7 @@ IM_Entry(
             'table' => 'dummy',
             'key' => 'account_id',
             'records' => 1000000,
+            'soft-delete' => true,
             'relation' => [
                 ['foreign-key' => 'debit_id', 'join-field' => 'debit_id', 'operator' => '='],
                 ['foreign-key' => 'y', 'join-field' => 'y', 'operator' => '='],
@@ -112,6 +113,7 @@ IM_Entry(
             'table' => 'dummy',
             'key' => 'account_id',
             'records' => 1000000,
+            'soft-delete' => true,
             'relation' => [
                 ['foreign-key' => 'credit_id', 'join-field' => 'credit_id', 'operator' => '='],
                 ['foreign-key' => 'y', 'join-field' => 'y', 'operator' => '='],

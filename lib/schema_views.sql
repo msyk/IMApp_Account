@@ -132,7 +132,7 @@ SELECT strftime('%Y-%m', account.issued_date) AS ym,
        SUM(account_calc.tax_total)            AS tax_total
 FROM account
          LEFT JOIN account_calc ON account.account_id = account_calc.account_id
-WHERE account.credit_id = 700 /* 700=売上高 */
+WHERE account.credit_id = 700 /* 700=売上高 */ AND ("delete" <> '1' OR "delete" IS NULL)
 GROUP BY strftime('%Y-%m', account.issued_date)
 ;
 DROP VIEW IF EXISTS monthly_summary_purchase;
@@ -144,7 +144,7 @@ SELECT strftime('%Y-%m', account.issued_date) AS ym,
 FROM account
          LEFT JOIN account_calc ON account.account_id = account_calc.account_id
          LEFT JOIN item ON item.item_id = account.debit_id
-WHERE item.is_purchase = 1
+WHERE item.is_purchase = 1 AND ("delete" <> '1' OR "delete" IS NULL)
 GROUP BY strftime('%Y-%m', account.issued_date)
 ;
 DROP VIEW IF EXISTS monthly_summary;
@@ -171,6 +171,7 @@ SELECT strftime('%Y', account.issued_date) AS y,
 FROM account
          LEFT JOIN item ON item.item_id = account.debit_id
          LEFT JOIN account_calc ON account.account_id = account_calc.account_id
+WHERE  "delete" <> '1' OR "delete" IS NULL
 GROUP BY strftime('%Y', account.issued_date), debit_id
 ;
 DROP VIEW IF EXISTS item_summary_credit;
@@ -184,6 +185,7 @@ SELECT strftime('%Y', account.issued_date) AS y,
 FROM account
          LEFT JOIN item ON item.item_id = account.credit_id
          LEFT JOIN account_calc ON account.account_id = account_calc.account_id
+WHERE  "delete" <> '1' OR "delete" IS NULL
 GROUP BY strftime('%Y', account.issued_date), credit_id
 ;
 /*
