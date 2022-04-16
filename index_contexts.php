@@ -38,7 +38,7 @@ IM_Entry(
             'calculation' => [
                 ['field' => "attached", 'expression' => "if(invoice_path='','','証票有')",],
                 ['field' => "alertStyle", 'expression' => "if(parent_total>0 && round(item_total,0)!=round(parent_total,0),'inline','none')",],
-                ['field' => "checkStyle", 'expression' => "if(debit_id=405,'yellow',if(credit_id=141,'papayawhip',if(credit_id=405,'lightyellow',if(debit_id=141,'moccasin',''))))",],
+                ['field' => "checkStyle", 'expression' => "if(debit_id=405||(debit_id=181&&credit_id=117),'yellow',if(credit_id=141,'papayawhip',if(credit_id=405,'lightyellow',if(debit_id=141,'moccasin',''))))",],
             ],
             'numeric-fields' => ['item_total'],
         ],

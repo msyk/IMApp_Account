@@ -287,7 +287,7 @@
             </tr>
             </tbody>
         </table>
-        <div data-im-control="repeater" style="background-color: #d2d2d2">
+        <div data-im-control="repeater" style="background-color: #d2d2d2;max-width: 520px">
             <h3>証票</h3>
             <span data-im="account_detail@invoice_path" data-im-widget="jquery_fileupload"></span>
             <a href="index_contexts.php?media=" target="_blank"
@@ -301,9 +301,14 @@
             <button class="btn btn-info" onclick="clearFile($)"
                     data-im="account_detail@account_id@$onclick account_detail@s3_style@style.display">ファイルをクリア（S3には残る）
             </button>
+            <div data-im="account_detail@s3_style@style.display">
+                <hr>
+                <textarea data-im="account_detail@invoice_path" style="width: 100%;"></textarea><br>
+                <span class="explain">S3のオブジェクトURLで最初のプロトコルをhttpsからs3に置き換えたデータが見えています。通常は手作業で変更する必要はありません。</span>
+            </div>
         </div>
         <div data-im-control="repeater" style="background-color: #a2a2a2;max-width: 380px">
-            <h3>CSVデータ読み込み[クレジットカード]</h3>
+            <h3>CSVデータ読み込み<br>[クレジットカード]</h3>
             ↓ここにCSVファイルの中身をペーストします。<br>
             <textarea id="csv_data" style="width: 100%;"></textarea><br>
             <span class="explain">このテキストエリアの全ての行について読み込みを試みます。不要な行は削除する方が良いでしょう。このテキストエリアの文字列は保存されません。</span>
