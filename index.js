@@ -64,7 +64,7 @@ function setCondition(n) {
   }
 }
 
-function showPanel() {
+function showPanel(button) {
   document.getElementById('funcpanel').style.display = 'block'
 }
 

@@ -38,11 +38,23 @@
         }
 
         #funcpanel {
-            position: absolute;
+            position: fixed;
+            background-color: #FFFFFF7F;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            z-index: 4999;
             display: none;
-            background-color: #d3d3d3;
-            left: 100px;
-            top: 100px;
+        }
+
+        #panelcontent {
+            position: absolute;
+            background-color: #d3d3d3FF;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
             width: 800px;
             height: 600px;
             padding: 12px;
@@ -106,25 +118,30 @@
             </div>
         </div>
     </nav>
-    <div id="funcpanel">
-        <button class="btn btn-primary" onclick="hidePanel()">閉じる</button>
-        <hr>
-        <div style="display: flex">
-            <button class="btn btn-success" style="min-width: 150px" onclick="exportAccount()">エクスポート</button>
-            <span class="explain" style="margin: 0 12px;">検索条件や現在の表示に関係なく、会計項目全てをCSVファイルにエクスポートします。</span>
-        </div>
-        <hr>
-        <div>
-            <h3>CSVデータ読み込み[銀行]</h3>
-            ↓ここにCSVファイルの中身を、そのままペーストします。<br>
-            <textarea id="csv_data" style="width: 100%;"></textarea><br>
-            <span class="explain">ヘッダ行は自動的にスキップするので、ファイルの内容はそのままここにペーストして下さい。通帳の項目部分の削除はかまいません。このテキストエリアの文字列は保存されません。</span>
-            <div style="margin-top: 8px;">以下のボタンを押せば、通帳の1項目が、1つの会計項目として追加されます。</div>
+    <div id="funcpanel" onclick="hidePanel()">
+        <div id="panelcontent">
+            <button class="btn btn-primary" onclick="hidePanel()">閉じる</button>
+            <hr>
+            <div style="display: flex">
+                <button class="btn btn-success" style="min-width: 150px" onclick="exportAccount()">エクスポート</button>
+                <span class="explain" style="margin: 0 12px;">検索条件や現在の表示に関係なく、会計項目全てをCSVファイルにエクスポートします。</span>
+            </div>
+            <hr>
             <div>
-                <button class="btn btn-info" style="margin-bottom: 4px;" onclick="csvReadSMBC()">読み込み（三井住友銀行）</button>
-                <button class="btn btn-info" style="margin-bottom: 4px;" onclick="csvReadMuzuho()">読み込み（みずほ銀行）</button>
-                <button class="btn btn-info" style="margin-bottom: 4px;" onclick="csvReadPayPay()">読み込み（PayPay銀行）</button>
-                </button>
+                <h3>CSVデータ読み込み[銀行]</h3>
+                ↓ここにCSVファイルの中身を、そのままペーストします。<br>
+                <textarea id="csv_data" style="width: 100%;"></textarea><br>
+                <span class="explain">ヘッダ行は自動的にスキップするので、ファイルの内容はそのままここにペーストして下さい。通帳の項目部分の削除はかまいません。このテキストエリアの文字列は保存されません。</span>
+                <div style="margin-top: 8px;">以下のボタンを押せば、通帳の1項目が、1つの会計項目として追加されます。</div>
+                <div>
+                    <button class="btn btn-info" style="margin-bottom: 4px;" onclick="csvReadSMBC()">読み込み（三井住友銀行）
+                    </button>
+                    <button class="btn btn-info" style="margin-bottom: 4px;" onclick="csvReadMuzuho()">読み込み（みずほ銀行）
+                    </button>
+                    <button class="btn btn-info" style="margin-bottom: 4px;" onclick="csvReadPayPay()">読み込み（PayPay銀行）
+                    </button>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -183,7 +200,7 @@
             <th>合計金額<br>小項目合計</th>
             <th>税抜金額<br>税額</th>
             <th>
-                <button class="btn btn-success" onclick="showPanel()">各種機能</button>
+                <button class="btn btn-success" onclick="showPanel(event.target)">各種機能</button>
             </th>
         </tr>
         </thead>
