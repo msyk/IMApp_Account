@@ -26,8 +26,8 @@
             integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
             crossorigin="anonymous"></script>
     <!-- Loading INTER-Mediator -->
-    <script src="index_contexts.php"></script>
-    <script src="index.js"></script>
+    <script src="editlog.php"></script>
+    <script src="editlog.js"></script>
     <style>
         .IM_NAV_insert_button {
             font-size: 1.3em;
@@ -35,29 +35,6 @@
 
         #_im_progress {
             pointer-events: none;
-        }
-
-        #funcpanel {
-            position: fixed;
-            background-color: #FFFFFF7F;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            padding: 0;
-            z-index: 4999;
-            display: none;
-        }
-
-        #panelcontent {
-            position: absolute;
-            background-color: #d3d3d3FF;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            width: 800px;
-            height: 600px;
-            padding: 12px;
         }
 
         .explain {
@@ -89,7 +66,7 @@
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item  active">
-                        <a class="nav-link active" aria-current="page" href="index.html">総勘定元帳</a>
+                        <a class="nav-link" aria-current="page" href="/index.html">総勘定元帳</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/Summary/item.html">科目集計</a>
@@ -97,7 +74,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/Summary/monthly.html">月次集計</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item active">
                         <a class="nav-link" href="/Summary/editlog.html">変更履歴</a>
                     </li>
                     <li class="nav-item dropdown">
@@ -106,51 +83,22 @@
                             マスター処理
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <li><a class="dropdown-item" href="Master/master_item.html">勘定科目</a></li>
-                            <li><a class="dropdown-item" href="Master/master_assort.html">仕訳パターン</a></li>
-                            <li><a class="dropdown-item" href="Master/master_customer.html">顧客</a></li>
-                            <li><a class="dropdown-item" href="Master/master_year.html">年度</a></li>
+                            <li><a class="dropdown-item" href="/Master/master_item.html">勘定科目</a></li>
+                            <li><a class="dropdown-item" href="/Master/master_assort.html">仕訳パターン</a></li>
+                            <li><a class="dropdown-item" href="/Master/master_customer.html">顧客</a></li>
+                            <li><a class="dropdown-item" href="/Master/master_year.html">年度</a></li>
                             <li>
                                 <hr>
                             </li>
-                            <li><a class="dropdown-item" href="Doc/regulation-0021006-031_e.html">事務処理規程(個人)</a></li>
-                            <li><a class="dropdown-item" href="Master/master_preference.html">設定</a></li>
+                            <li><a class="dropdown-item" href="/Doc/regulation-0021006-031_e.html">事務処理規程(個人)</a></li>
+                            <li><a class="dropdown-item" href="/Master/master_preference.html">設定</a></li>
                         </ul>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
-    <div id="funcpanel" onclick="hidePanel()">
-        <div id="panelcontent">
-            <button class="btn btn-primary" onclick="hidePanel()">閉じる</button>
-            <hr>
-            <div style="display: flex">
-                <button class="btn btn-success" style="min-width: 150px" onclick="exportAccount()">エクスポート</button>
-                <span class="explain" style="margin: 0 12px;">検索条件や現在の表示に関係なく、会計項目全てをCSVファイルにエクスポートします。</span>
-            </div>
-            <hr>
-            <div>
-                <h3>CSVデータ読み込み[銀行]</h3>
-                ↓ここにCSVファイルの中身を、そのままペーストします。<br>
-                <textarea id="csv_data" style="width: 100%;"></textarea><br>
-                <span class="explain">ヘッダ行は自動的にスキップするので、ファイルの内容はそのままここにペーストして下さい。通帳の項目部分の削除はかまいません。このテキストエリアの文字列は保存されません。</span>
-                <div style="margin-top: 8px;">以下のボタンを押せば、通帳の1項目が、1つの会計項目として追加されます。</div>
-                <div>
-                    <button class="btn btn-info" style="margin-bottom: 4px;" onclick="csvReadSMBC()">読み込み（三井住友銀行）
-                    </button>
-                    <button class="btn btn-info" style="margin-bottom: 4px;" onclick="csvReadMuzuho()">読み込み（みずほ銀行）
-                    </button>
-                    <button class="btn btn-info" style="margin-bottom: 4px;" onclick="csvReadPayPay()">読み込み（PayPay銀行）
-                    </button>
-                    <button class="btn btn-info" style="margin-bottom: 4px;" onclick="csvReadRakuten()">読み込み（楽天銀行）
-                    </button>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <h3>総勘定元帳</h3>
+    <h3>修正履歴：総勘定元帳</h3>
     <div id="IM_NAVIGATOR"></div>
     <table>
         <thead>
@@ -177,7 +125,7 @@
             <th><input type="text" size="24" placeholder="会社名/勘定科目/説明検索"
                        data-im="_@condition:account_list:company,debit_item_name,credit_item_name,description:*match*">
             </th>
-            <th colspan="3">
+            <th colspan="2">
                 <input type="text" size="7" placeholder="合計金額" data-im="_@condition:account_list:item_total:>=">
                 <span>〜</span>
                 <input type="text" size="7" placeholder="検索" data-im="_@condition:account_list:item_total:<=">
@@ -186,7 +134,8 @@
             </th>
         </tr>
         <tr>
-            <th></th>
+            <th>
+            </th>
             <th>No<br>親No</th>
             <th>日付
                 <span style="cursor: pointer" data-im="_@addorder:account_list:issued_date:asc">▲</span>
@@ -204,18 +153,11 @@
             </th>
             <th>合計金額<br>小項目合計</th>
             <th>税抜金額<br>税額</th>
-            <th>
-                <button class="btn btn-success" onclick="showPanel(event.target)">各種機能</button>
-            </th>
         </tr>
         </thead>
         <tbody>
-        <tr style="border-bottom: 1px solid #808080" data-im="account_list@checkStyle@style.backgroundColor">
-            <td>
-                <a href="index_detail.html?id=" data-im="account_list@account_id@#href">
-                    <button class="btn btn-primary">詳細</button>
-                </a>
-            </td>
+        <tr style="border-bottom: 1px solid #808080" data-im="account_list@deleteStyle@style.backgroundColor">
+            <td></td>
             <td>
                 <span data-im="account_list@account_id"></span><br>
                 <span data-im="account_list@parent_account_id" style="color: #c75315"></span>
@@ -237,7 +179,6 @@
             <td style="text-align: right">
                 <span data-im="account_list@item_total" data-im-format="number(0)"
                       data-im-format-options="useseparator"></span><br>
-                <span data-im="account_list@alertStyle@style.display">⚠️</span>
                 <span data-im="account_list@parent_total" data-im-format="number(0)"
                       data-im-format-options="useseparator" style="color: #c75315"></span>
             </td>
@@ -247,10 +188,136 @@
                 <span data-im="account_list@tax_total" data-im-format="number(0)"
                       data-im-format-options="useseparator"></span>
             </td>
-            <td></td>
         </tr>
         </tbody>
     </table>
+    <div data-im-control="enclosure">
+        <table data-im-control="repeater">
+            <tbody data-im-control="ignore_enc_rep">
+            <tr data-im-control="ignore_enc_rep">
+                <th>管理番号</th>
+                <td data-im="account_detail@account_id"></td>
+                <th rowspan="2">会社名</th>
+                <td colspan="3" rowspan="2">
+                    <span data-im="account_detail@company"></span>
+                    <span data-im="account_detail@section"></span>
+                    <span data-im="account_detail@person"></span><br>
+                    〒<span data-im="account_detail@postal_code"></span>
+                    <span data-im="account_detail@address"></span>
+                </td>
+                <td rowspan="9">
+                    <table>
+                        <tbody>
+                        <tr>
+                            <td data-im="operationlog_account@dt"></td>
+                            <td data-im="operationlog_account@access"></td>
+                            <td data-im="operationlog_account@edit_field@innerHTML"></td>
+                            <td data-im="operationlog_account@edit_value@innerHTML"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            <tr data-im-control="ignore_enc_rep">
+                <th>日付</th>
+                <td data-im="account_detail@issued_date" data-im-format="date(middle)"></td>
+            </tr>
+            <tr data-im-control="ignore_enc_rep">
+                <th>税額計算区分</th>
+                <td data-im="account_detail@kind_str"></td>
+                <th rowspan="3">メモ</th>
+                <td colspan="3" rowspan="3" data-im="account_detail@memo"></td>
+            </tr>
+            <tr data-im-control="ignore_enc_rep">
+                <th>消費税率</th>
+                <td data-im="account_detail@tax_rate" data-im-format="percent(0)"></td>
+            </tr>
+            <tr data-im-control="ignore_enc_rep">
+                <th>書類タイトル</th>
+                <td data-im="account_detail@title"></td>
+            </tr>
+            <tr data-im-control="ignore_enc_rep">
+                <th>説明</th>
+                <td colspan="3" data-im="account_detail@description"></td>
+                <th>元の管理番号</th>
+                <td data-im="account_detail@parent_account_id"></td>
+            </tr>
+            <tr data-im-control="ignore_enc_rep">
+                <th>追記事項</th>
+                <td colspan="3" data-im="account_detail@comment"></td>
+                <td colspan="2" style="font-size: 80%"></td>
+            </tr>
+            <tr data-im-control="ignore_enc_rep">
+                <th>仕訳</th>
+                <td data-im="account_detail@pattern_name"></td>
+                <th>借方科目</th>
+                <td data-im="account_detail@debit_item_name"></td>
+                <th>貸方科目</th>
+                <td data-im="account_detail@credit_item_name"></td>
+            </tr>
+            <tr data-im-control="ignore_enc_rep">
+                <th>合計金額</th>
+                <td data-im="account_detail@item_total_calc" data-im-format="number(0)"
+                    data-im-format-options="useseparator"></td>
+                <th>税抜金額</th>
+                <td data-im="account_detail@net_total_calc" data-im-format="number(0)"
+                    data-im-format-options="useseparator"></td>
+                <th>税額</th>
+                <td data-im="account_detail@tax_total_calc" data-im-format="number(0)"
+                    data-im-format-options="useseparator"></td>
+            </tr>
+            <tr data-im-control="ignore_enc_rep">
+                <td colspan="8">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>説明</th>
+                            <th>単価</th>
+                            <th>個数</th>
+                            <th>合計金額</th>
+                            <th>消費税率</th>
+                            <th>税抜価格</th>
+                            <th>消費税額</th>
+                            <th>修正履歴</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td style="border-bottom: solid 1px gray" data-im="detail_list@description"></td>
+                            <td style="border-bottom: solid 1px gray" data-im="detail_list@unit_price"
+                                style="text-align: right"></td>
+                            <td style="border-bottom: solid 1px gray" data-im="detail_list@qty"
+                                style="text-align: right"></td>
+                            <td data-im="detail_list@item_price_calc"
+                                style="text-align: right; border-bottom: solid 1px gray" data-im-format="number(0)"
+                                data-im-format-options="useseparator"></td>
+                            <td style="border-bottom: solid 1px gray" data-im="detail_list@tax_rate"
+                                data-im-format="percent(0)"></td>
+                            <td data-im="detail_list@net_price_calc" data-im-format="number(2)"
+                                data-im-format-options="useseparator"
+                                style="text-align: right; border-bottom: solid 1px gray"></td>
+                            <td data-im="detail_list@tax_price_calc"
+                                style="text-align: right; border-bottom: solid 1px gray" data-im-format="number(2)"
+                                data-im-format-options="useseparator"></td>
+                            <td rowspan="9">
+                                <table>
+                                    <tbody>
+                                    <tr>
+                                        <td data-im="operationlog_detail@dt"></td>
+                                        <td data-im="operationlog_detail@access"></td>
+                                        <td data-im="operationlog_detail@edit_field@innerHTML"></td>
+                                        <td data-im="operationlog_detail@edit_value@innerHTML"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </td>  </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
 </body>
 </html>

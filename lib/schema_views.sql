@@ -56,8 +56,6 @@ SELECT detail_id,
 FROM detail
          INNER JOIN account ON detail.account_id = account.account_id
          LEFT JOIN item AS debit_item ON debit_item.item_id = account.debit_id
-WHERE detail."delete" <> '1'
-   OR detail."delete" IS NULL
 ;
 DROP VIEW IF EXISTS account_calc;
 CREATE VIEW account_calc AS
