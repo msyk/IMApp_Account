@@ -281,7 +281,7 @@ VALUES (13, '減価償却', 680, 2);
 INSERT INTO assort_pattern
 VALUES (14, '見積もり', 2, 2);
 INSERT INTO assort_pattern
-VALUES (15, '超簿外', 1, 1);
+VALUES (15, '帳簿外', 1, 1);
 INSERT INTO assort_pattern
 VALUES (16, '個人用をクレジット購入', 404, 405);
 INSERT INTO assort_pattern
