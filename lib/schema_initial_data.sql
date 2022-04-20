@@ -259,11 +259,11 @@ VALUES (2, '現金を引き出し', 100, 115);
 INSERT INTO assort_pattern
 VALUES (3, '現金での報酬', 100, 700);
 INSERT INTO assort_pattern
-VALUES (4, '振り込み（請求書あり）', 115, 141);
+VALUES (4, '振込み（請求書あり）', 115, 141);
 INSERT INTO assort_pattern
-VALUES (5, '振り込み（請求書なし）', 115, 700);
+VALUES (5, '振込み（請求書なし）', 115, 700);
 INSERT INTO assort_pattern
-VALUES (6, '引き落とし・支払い', 2, 115);
+VALUES (6, '引落とし・支払い', 2, 115);
 INSERT INTO assort_pattern
 VALUES (7, 'クレジット購入', 2, 405);
 INSERT INTO assort_pattern
@@ -279,7 +279,7 @@ VALUES (12, '源泉徴収（振り込み時）', 980, 115);
 INSERT INTO assort_pattern
 VALUES (13, '減価償却', 680, 2);
 INSERT INTO assort_pattern
-VALUES (14, '見積もり', 2, 2);
+VALUES (14, '見積り', 2, 2);
 INSERT INTO assort_pattern
 VALUES (15, '帳簿外', 1, 1);
 INSERT INTO assort_pattern
