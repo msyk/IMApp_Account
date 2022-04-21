@@ -165,7 +165,7 @@ $dbDSNLog = $dbDSN;
 $dbUserLog = $dbUser;
 $dbPasswordLog = $dbPassword;
 $recordingContexts = ['account_list', 'account_detail', 'detail_list', 'account_add', 'detail_add']; // false or no-definition: record all context, or an array of context names you want to record.
-$recordingOperations = ['create', 'update', 'delete']; // false or no-definition: record all operation, or an array of operation names you want to record.
+$recordingOperations = ['create', 'update', 'delete', 'copy']; // false or no-definition: record all operation, or an array of operation names you want to record.
 $dontRecordTheme = false;
 $dontRecordChallenge = false;
 $dontRecordDownload = false;
@@ -223,8 +223,8 @@ $messages['ja'][1022] = "Internet Explorerは使用できません。Edgeある�
  * =================== */
 // If you don't set the default timezone in the php.ini file,
 //      activate the line below and specify suitable timezone name.
-$defaultTimezone = 'Asia/Tokyo';
-//$followingTimezones = true;
+$defaultTimezone = 'UTC';
+$followingTimezones = true;
 
 // Server side locale for this application. This locale replaces the browser's accepting languages.
 $appLocale = "ja_JP";   // Locale for application has to be specified the language_country code.

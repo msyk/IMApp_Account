@@ -29,8 +29,19 @@
     <script src="editlog.php"></script>
     <script src="editlog.js"></script>
     <style>
-        .IM_NAV_insert_button {
-            font-size: 1.3em;
+        .detail td {
+            vertical-align: top;
+            border-bottom: 2px solid white;
+        }
+
+        .detail th {
+            vertical-align: top;
+            border-bottom: 2px solid white;
+        }
+
+        .log td, .log th {
+            margin: 0;
+            padding: 0 4px;
         }
 
         #_im_progress {
@@ -65,7 +76,7 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item  active">
+                    <li class="nav-item">
                         <a class="nav-link" aria-current="page" href="/index.html">総勘定元帳</a>
                     </li>
                     <li class="nav-item">
@@ -75,7 +86,7 @@
                         <a class="nav-link" href="/Summary/monthly.html">月次集計</a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="/Summary/editlog.html">変更履歴</a>
+                        <a class="nav-link active" href="/Summary/editlog.html">変更履歴</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
@@ -192,7 +203,7 @@
         </tbody>
     </table>
     <div data-im-control="enclosure">
-        <table data-im-control="repeater">
+        <table data-im-control="repeater" class="detail">
             <tbody data-im-control="ignore_enc_rep">
             <tr data-im-control="ignore_enc_rep">
                 <th>管理番号</th>
@@ -206,10 +217,10 @@
                     <span data-im="account_detail@address"></span>
                 </td>
                 <td rowspan="9">
-                    <table>
+                    <table class="log">
                         <tbody>
                         <tr>
-                            <td data-im="operationlog_account@dt"></td>
+                            <td data-im="operationlog_account@dt" data-im-format="datetime(middle)"></td>
                             <td data-im="operationlog_account@access"></td>
                             <td data-im="operationlog_account@edit_field@innerHTML"></td>
                             <td data-im="operationlog_account@edit_value@innerHTML"></td>
@@ -299,18 +310,19 @@
                             <td data-im="detail_list@tax_price_calc"
                                 style="text-align: right; border-bottom: solid 1px gray" data-im-format="number(2)"
                                 data-im-format-options="useseparator"></td>
-                            <td rowspan="9">
-                                <table>
+                            <td style="border-bottom: solid 1px gray">
+                                <table class="log">
                                     <tbody>
                                     <tr>
-                                        <td data-im="operationlog_detail@dt"></td>
+                                        <td data-im="operationlog_detail@dt" data-im-format="datetime(middle)"></td>
                                         <td data-im="operationlog_detail@access"></td>
                                         <td data-im="operationlog_detail@edit_field@innerHTML"></td>
                                         <td data-im="operationlog_detail@edit_value@innerHTML"></td>
                                     </tr>
                                     </tbody>
                                 </table>
-                            </td>  </tr>
+                            </td>
+                        </tr>
                         </tbody>
                     </table>
                 </td>

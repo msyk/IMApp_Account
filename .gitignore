@@ -7,3 +7,4 @@ node_modules/
 db-backup
 private/*.sql
 private/*.php
+private/*.png
