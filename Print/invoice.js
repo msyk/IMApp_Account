@@ -18,4 +18,10 @@ INTERMediatorOnPage.doBeforeConstruct = function () {
 
 INTERMediatorOnPage.doAfterConstruct = function () {
   document.getElementById('container').style.display = 'block'
+
+  const context = IMLibContextPool.contextFromName('account_detail')
+  const aid = context.getDataAtLastRecord('account_id')
+  const title = context.getDataAtLastRecord('title')
+  const nameTable = {請求書: 'invoice', 見積書: 'estimate', 領収書: 'receipt'}
+  document.title = `${nameTable[title]}-${aid}`
 }

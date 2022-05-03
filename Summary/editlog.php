@@ -66,10 +66,12 @@ IM_Entry(
 //            'soft-delete' => true,
 //            'repeat-control' => 'confirm-insert confirm-delete confirm-copy',
             'relation' => [['foreign-key' => 'account_id', 'join-field' => 'account_id', 'operator' => '='],],
+            'sort' => [['field' => 'detail_id', 'direction' => 'asc',],],
             'calculation' => [
                 ['field' => "item_price_calc", 'expression' => "unit_price * qty * alloc_rate * if(tax_rate>0,choice(abs(account_detail@tax_kind+0),1,1 + tax_rate,1),choice(abs(account_detail@tax_kind+0),1,1 + account_detail@tax_rate,1))",],
                 ['field' => "tax_price_calc", 'expression' => "unit_price * qty * alloc_rate * if(tax_rate>0,choice(abs(account_detail@tax_kind+0),tax_rate/(1 + tax_rate),tax_rate,0),choice(abs(account_detail@tax_kind+0),account_detail@tax_rate/(1 + account_detail@tax_rate),account_detail@tax_rate,0))",],
                 ['field' => "net_price_calc", 'expression' => "unit_price * qty * alloc_rate * if(tax_rate>0,choice(abs(account_detail@tax_kind+0),1/(1 + tax_rate),1,1),choice(abs(account_detail@tax_kind+0),1/(1 + account_detail@tax_rate),1,1))",],
+                ['field' => "deleteStyle", 'expression' => "if(delete,'pink','')",],
             ],
         ],
         [
@@ -85,7 +87,7 @@ IM_Entry(
                 ['field' => '__operation__', 'operator' => 'ex',],
             ],
             'relation' => [['foreign-key' => 'key_value', 'join-field' => 'account_id', 'operator' => '='],],
-            'sort' => [['field' => 'dt', 'direction' => 'asc',],['field' => 'id', 'direction' => 'asc',],],
+            'sort' => [['field' => 'dt', 'direction' => 'asc',], ['field' => 'id', 'direction' => 'asc',],],
         ],
         [
             'name' => 'operationlog_detail',
@@ -99,7 +101,7 @@ IM_Entry(
                 ['field' => '__operation__', 'operator' => 'ex',],
             ],
             'relation' => [['foreign-key' => 'key_value', 'join-field' => 'detail_id', 'operator' => '='],],
-            'sort' => [['field' => 'dt', 'direction' => 'asc',],['field' => 'id', 'direction' => 'asc',],],
+            'sort' => [['field' => 'dt', 'direction' => 'asc',], ['field' => 'id', 'direction' => 'asc',],],
         ],
     ],
     [],
