@@ -65,6 +65,8 @@ SELECT account.account_id,
        SUM(detail_calc.tax_price)  AS tax_total
 FROM account
          INNER JOIN detail_calc ON detail_calc.account_id = account.account_id
+WHERE account."delete" <> '1'
+   OR account."delete" IS NULL
 GROUP BY account.account_id
 ;
 DROP VIEW IF EXISTS parent_calc;
@@ -75,6 +77,8 @@ SELECT account.parent_account_id,
        SUM(detail_calc.tax_price)  AS tax_total
 FROM account
          INNER JOIN detail_calc ON detail_calc.account_id = account.account_id
+WHERE account."delete" <> '1'
+   OR account."delete" IS NULL
 GROUP BY account.parent_account_id
 ;
 DROP VIEW IF EXISTS account_list;
@@ -130,7 +134,8 @@ SELECT strftime('%Y-%m', account.issued_date) AS ym,
        SUM(account_calc.tax_total)            AS tax_total
 FROM account
          LEFT JOIN account_calc ON account.account_id = account_calc.account_id
-WHERE account.credit_id = 700 /* 700=売上高 */ AND ("delete" <> '1' OR "delete" IS NULL)
+WHERE account.credit_id = 700 /* 700=売上高 */
+  AND ("delete" <> '1' OR "delete" IS NULL)
 GROUP BY strftime('%Y-%m', account.issued_date)
 ;
 DROP VIEW IF EXISTS monthly_summary_purchase;
@@ -142,7 +147,8 @@ SELECT strftime('%Y-%m', account.issued_date) AS ym,
 FROM account
          LEFT JOIN account_calc ON account.account_id = account_calc.account_id
          LEFT JOIN item ON item.item_id = account.debit_id
-WHERE item.is_purchase = 1 AND ("delete" <> '1' OR "delete" IS NULL)
+WHERE item.is_purchase = 1
+  AND ("delete" <> '1' OR "delete" IS NULL)
 GROUP BY strftime('%Y-%m', account.issued_date)
 ;
 DROP VIEW IF EXISTS monthly_summary;
@@ -169,7 +175,8 @@ SELECT strftime('%Y', account.issued_date) AS y,
 FROM account
          LEFT JOIN item ON item.item_id = account.debit_id
          LEFT JOIN account_calc ON account.account_id = account_calc.account_id
-WHERE  "delete" <> '1' OR "delete" IS NULL
+WHERE "delete" <> '1'
+   OR "delete" IS NULL
 GROUP BY strftime('%Y', account.issued_date), debit_id
 ;
 DROP VIEW IF EXISTS item_summary_credit;
@@ -183,7 +190,8 @@ SELECT strftime('%Y', account.issued_date) AS y,
 FROM account
          LEFT JOIN item ON item.item_id = account.credit_id
          LEFT JOIN account_calc ON account.account_id = account_calc.account_id
-WHERE  "delete" <> '1' OR "delete" IS NULL
+WHERE "delete" <> '1'
+   OR "delete" IS NULL
 GROUP BY strftime('%Y', account.issued_date), credit_id
 ;
 /*
@@ -195,30 +203,30 @@ sqlite> select id,dt,user,access,context,key_value,edit_field,edit_value from op
 742|2022-04-12 09:28:34||update|detail_list|21765|qty|3
 
  */
- /*
+/*
 DROP VIEW IF EXISTS editlog_account;
 CREATE VIEW item_summary_credit AS
 SELECT id,
-       dt,
-       user,
-       access,
-       context,
-       key_value,
-       edit_field,
-       edit_value
+      dt,
+      user,
+      access,
+      context,
+      key_value,
+      edit_field,
+      edit_value
 FROM operationlog
 order by dt desc
 ;
 DROP VIEW IF EXISTS editlog_detail;
 CREATE VIEW item_summary_credit AS
 SELECT id,
-       dt,
-       user,
-       access,
-       context,
-       key_value,
-       edit_field,
-       edit_value
+      dt,
+      user,
+      access,
+      context,
+      key_value,
+      edit_field,
+      edit_value
 FROM operationlog
 order by dt desc
 ;
