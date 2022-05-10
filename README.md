@@ -107,7 +107,15 @@ echo "ALTER TABLE detail ADD COLUMN 'delete' INTEGER"|sqlite3 ~/.im_db/imapp_acc
 ```
 正常に終了したら```composer update```コマンドを実行してください。
 
+### 2022-05-11修正
 
+2022-05-11の```commit 630b9e787b98c4a7f26f4c4b872c0a3688c6d222```において、スキーマ定義に以下のインデックス作成ステートメントを追加しました。
+それ以前のデータベースをそのまま使いたい場合は、以下のコマンドをそのままコピー&amp;ペーストで入力して、フィールドの追加をお願いします。
+
+```
+echo 'CREATE INDEX account_delete ON account ("delete")'|sqlite3 ~/.im_db/imapp_account.sqlite3
+echo 'CREATE INDEX detail_delete ON detail ("delete")'|sqlite3 ~/.im_db/imapp_account.sqlite3
+```
 
 # 独自のレポジトリでの運用
 

@@ -62,6 +62,8 @@ CREATE INDEX account_credit_id
     ON account (credit_id);
 CREATE INDEX account_assort_pattern_id
     ON account (assort_pattern_id);
+CREATE INDEX account_delete
+    ON account ("delete");
 
 CREATE TABLE detail
 (
@@ -78,6 +80,8 @@ CREATE UNIQUE INDEX detail_detail_id
     ON detail (detail_id);
 CREATE INDEX detail_account_id
     ON detail (account_id);
+CREATE INDEX detail_delete
+    ON detail ("delete");
 
 CREATE TABLE item
 (
