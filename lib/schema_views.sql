@@ -65,8 +65,10 @@ SELECT account.account_id,
        SUM(detail_calc.tax_price)  AS tax_total
 FROM account
          INNER JOIN detail_calc ON detail_calc.account_id = account.account_id
-WHERE account."delete" <> '1'
-   OR account."delete" IS NULL
+WHERE (account."delete" <> '1'
+    OR account."delete" IS NULL)
+  AND (detail_calc."delete" <> '1'
+    OR detail_calc."delete" IS NULL)
 GROUP BY account.account_id
 ;
 DROP VIEW IF EXISTS parent_calc;
@@ -79,6 +81,8 @@ FROM account
          INNER JOIN detail_calc ON detail_calc.account_id = account.account_id
 WHERE account."delete" <> '1'
    OR account."delete" IS NULL
+    AND (detail_calc."delete" <> '1'
+        OR detail_calc."delete" IS NULL)
 GROUP BY account.parent_account_id
 ;
 DROP VIEW IF EXISTS account_list;
