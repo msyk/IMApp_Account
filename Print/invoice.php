@@ -23,6 +23,7 @@ IM_Entry(
             'table' => 'account',
             'key' => 'account_id',
             'records' => 1,
+            'soft-delete' => true,
             'calculation' => [
                 ['field' => "section_style", 'expression' => "if(section,'inline','none')",],
                 ['field' => "detail_style", 'expression' => "if(preference@show_tax_detail=1,'table-cell','none')",],
@@ -52,6 +53,7 @@ IM_Entry(
             'key' => 'detail_id',
             'records' => 100000,
             'maxrecords' => 100000,
+            'soft-delete' => true,
             'relation' => [['foreign-key' => 'account_id', 'join-field' => 'account_id', 'operator' => '='],],
             'calculation' => [
                 ['field' => "detail_style", 'expression' => "if(preference@show_tax_detail=1,'table-cell','none')",],

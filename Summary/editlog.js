@@ -32,5 +32,18 @@ function setCondition(n) {
     IMLibLocalContext.setValue('condition:account_list:issued_date:>=', `${y}-01-01`)
     IMLibLocalContext.setValue('condition:account_list:issued_date:<=', `${y}-12-31`)
     INTERMediator.constructMain()
+  } else if (parseInt(n) == 3) {
+    const start = new Date()
+    start.setHours(start.getHours() + 9)
+    start.setDate(1)
+    start.setMonth(start.getMonth() - 2)
+    const end = new Date()
+    end.setHours(end.getHours() + 9)
+    end.setDate(1)
+    end.setMonth(end.getMonth() + 2)
+    end.setDate(0)
+    IMLibLocalContext.setValue('condition:account_list:issued_date:>=', start.toISOString().substring(0, 10))
+    IMLibLocalContext.setValue('condition:account_list:issued_date:<=', end.toISOString().substring(0, 10))
+    INTERMediator.constructMain()
   }
 }
