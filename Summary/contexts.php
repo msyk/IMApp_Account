@@ -24,6 +24,7 @@ IM_Entry(
             'records' => 20,
             'maxrecords' => 100000,
             'paging' => true,
+            'soft-delete' => true,
             'navi-control' => 'master-hide',
         ],
         [
@@ -32,6 +33,7 @@ IM_Entry(
             'table' => 'dummy',
             'key' => 'ym',
             'records' => 1,
+            'soft-delete' => true,
             'navi-control' => 'detail',
         ],
         [
@@ -40,6 +42,7 @@ IM_Entry(
             'table' => 'dummy',
             'key' => 'account_id',
             'records' => 1000000,
+            'soft-delete' => true,
             'relation' => [['foreign-key' => 'ym', 'join-field' => 'ym', 'operator' => '='],],
             'query' => [['field' => 'credit_id', 'operator' => '=', 'value' => '700'],],
             'sort' => [['field' => 'issued_date', 'direction' => 'ASC'],],
@@ -50,6 +53,7 @@ IM_Entry(
             'table' => 'dummy',
             'key' => 'account_id',
             'records' => 1000000,
+            'soft-delete' => true,
             'relation' => [['foreign-key' => 'ym', 'join-field' => 'ym', 'operator' => '='],],
             'query' => [['field' => 'is_purchase', 'operator' => '=', 'value' => '1'],],
             'sort' => [['field' => 'issued_date', 'direction' => 'ASC'],],
