@@ -91,7 +91,7 @@ function csvReadImpl(pCol) {
   const lines = srcTemp.split('\n')
   for (const line of lines) {
     const items = line.split(',')
-    if (parseInt(items[pCol]) > 0) {
+    if (parseInt(items[pCol]) != 0) {
       const data = [
         {field: 'description', value: items[0] + ',' + items[1]},
         {field: 'unit_price', value: parseInt(items[pCol])},
@@ -125,13 +125,13 @@ function generateDetailToAccount() {
   for (const key in context.store) {
     accountId = null
     if (context.store[key].description.indexOf(',') >= 0 && context.store[key].qty == 1) {
-      const itemDate = context.store[key].description.split(',')[0].trim().replaceAll('/', '-')
+      const itemDate = context.store[key].description.split(',')[0].trim()
       const itemDesc = context.store[key].description.split(',')[1].trim()
       const up = context.store[key].unit_price
       IMLibQueue.setTask((complete) => {
         const data = [
           {field: 'description', value: itemDesc},
-          {field: 'issued_date', value: itemDate},
+          {field: 'issued_date', value: (new Date(itemDate)).toISOString().substring(0, 10)},
           {field: 'parent_account_id', value: parentId},
           {field: 'assort_pattern_id', value: 7},
           {field: 'debit_id', value: 2},
