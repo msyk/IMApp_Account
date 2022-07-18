@@ -129,9 +129,11 @@ function generateDetailToAccount() {
       const itemDesc = context.store[key].description.split(',')[1].trim()
       const up = context.store[key].unit_price
       IMLibQueue.setTask((complete) => {
+        const lineDate = new Date(itemDate)
+        lineDate.setHours(lineDate.getHours() + 9)
         const data = [
           {field: 'description', value: itemDesc},
-          {field: 'issued_date', value: (new Date(itemDate)).toISOString().substring(0, 10)},
+          {field: 'issued_date', value: lineDate.toISOString().substring(0,10)},
           {field: 'parent_account_id', value: parentId},
           {field: 'assort_pattern_id', value: 7},
           {field: 'debit_id', value: 2},
