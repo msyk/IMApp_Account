@@ -50,7 +50,7 @@ IM_Entry(
             'view' => 'item',
             'key' => 'item_id',
             'records' => 10000,
-            'query' => [['field' => 'show', 'value' => 1],],
+            'query' => [['field' => 'show', 'operator' => '=', 'value' => 1],],
             'sort' => [['field' => 'item_id', 'direction' => 'asc'],],
         ],
         [

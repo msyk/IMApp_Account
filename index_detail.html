@@ -99,7 +99,8 @@
                             <li>
                                 <hr>
                             </li>
-                            <li><a class="dropdown-item" href="Doc/regulation-0021006-031_e.html">事務処理規程(個人)</a></li>
+                            <li><a class="dropdown-item" href="Doc/regulation-0021006-031_e.html">事務処理規程(個人)</a>
+                            </li>
                             <li><a class="dropdown-item" href="Master/master_preference.html">設定</a></li>
                         </ul>
                     </li>
@@ -311,10 +312,18 @@
             <span class="explain">このテキストエリアの全ての行について読み込みを試みます。不要な行は削除する方が良いでしょう。このテキストエリアの文字列は保存されません。</span>
             <div style="margin-top: 8px;">以下のボタンを押せば、CSVの1行が、この会計項目の1つの明細として追加されます。</div>
             <div>
-                <button class="btn btn-info" style="margin-bottom: 4px;" onclick="csvReadSAISON()">読み込み（セゾンカード）</button>
-                <button class="btn btn-info" style="margin-bottom: 4px;" onclick="csvReadVpass()">読み込み（Vpass）</button>
-                <button class="btn btn-info" style="margin-bottom: 4px;" onclick="csvReadRakuten()">読み込み（楽天）</button>
-                <button class="btn btn-info" style="margin-bottom: 4px;" onclick="csvReadAmazon()">読み込み（Amazon2022）
+                <button class="btn btn-info" style="margin-bottom: 4px;" onclick="csvReadSAISON()">読み込み（セゾンカード）費用が6項目目
+                </button>
+            </div>
+            <div>
+                <button class="btn btn-info" style="margin-bottom: 4px;" onclick="csvReadVpass()">読み込み（Vpass）費用が3項目目</button>
+            </div>
+            <div>
+                <button class="btn btn-info" style="margin-bottom: 4px;" onclick="csvReadRakuten()">読み込み（楽天）費用が5項目目
+                </button>
+            </div>
+            <div>
+                <button class="btn btn-info" style="margin-bottom: 4px;" onclick="csvReadAmazon()">読み込み（Amazon2022）費用が7項目目
                 </button>
             </div>
             <hr>

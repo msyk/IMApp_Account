@@ -91,7 +91,7 @@ function csvReadImpl(pCol) {
   const lines = srcTemp.split('\n')
   for (const line of lines) {
     const items = line.split(',')
-    if (parseInt(items[pCol]) != 0) {
+    if (parseInt(items[pCol]) > 0) {
       const data = [
         {field: 'description', value: items[0] + ',' + items[1]},
         {field: 'unit_price', value: parseInt(items[pCol])},

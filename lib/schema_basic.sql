@@ -70,8 +70,8 @@ CREATE TABLE detail
     detail_id   INTEGER PRIMARY KEY AUTOINCREMENT,
     account_id  INTEGER,
     description TEXT,
-    unit_price  REAL NOT NULL DEFAULT 0,
-    qty         REAL NOT NULL DEFAULT 0,
+    unit_price  REAL NOT NULL,
+    qty         REAL NOT NULL,
     tax_rate    REAL,
     "delete"    INTEGER
 );
@@ -131,7 +131,8 @@ CREATE TABLE preference
     bank_info       TEXT,
     show_tax_detail INTEGER DEFAULT 0 NOT NULL,
     show_label      INTEGER DEFAULT 1 NOT NULL,
-    sender_info     TEXT
+    sender_info     TEXT,
+    copy_detail     INTEGER DEFAULT 0 NOT NULL
 );
 /* Observable */
 CREATE TABLE registeredcontext

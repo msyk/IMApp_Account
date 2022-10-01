@@ -15,6 +15,18 @@ INTERMediatorOnPage.doBeforeConstruct = function () {
   INTERMediatorOnPage.buttonClassInsert = "btn btn-success"
   INTERMediatorOnPage.buttonClassMaster = "btn btn-primary"
   INTERMediatorOnPage.buttonClassBackNavi = "btn btn-primary"
+  INTERMediator.lcConditionsOP1AND = false
+  INTERMediator.lcConditionsOP2AND = true
+  INTERMediator.lcConditionsOP3AND = 'AND'
+  const dataSource = INTERMediatorOnPage.getDataSources()
+  for (const key in dataSource) {
+    if (dataSource[key].name == "account_list" && copyDetail) {
+      dataSource[key]["repeat-control"] = "confirm-insert confirm-delete confirm-copy-detail_copy"
+    }
+  }
+  INTERMediatorOnPage.getDataSources = () => {
+    return dataSource
+  }
 };
 
 INTERMediatorOnPage.doAfterConstruct = function () {
@@ -138,9 +150,10 @@ function csvReadBankImpl(dateCol, outCol, inCol, descCol, skipLine) {
       } else {
         if (items[dateCol].indexOf('/') > 0) {
           dateComps = items[dateCol].split('/')
-        } else  if (items[dateCol].indexOf('.') > 0) {
+        } else if (items[dateCol].indexOf('.') > 0) {
           dateComps = items[dateCol].split('.')
-        } if (items[dateCol].indexOf('-') > 0) {
+        }
+        if (items[dateCol].indexOf('-') > 0) {
           dateComps = items[dateCol].split('-')
         }
       }

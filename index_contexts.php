@@ -58,7 +58,7 @@ IM_Entry(
             'key' => 'account_id',
             'records' => 1,
             'soft-delete' => true,
-            //'navi-control' => 'detail-update',
+             //'navi-control' => 'detail-update',
             'calculation' => [
                 ['field' => "item_total_calc", 'expression' => "sum(detail_list@item_price_calc)",],
                 ['field' => "tax_total_calc", 'expression' => "sum(detail_list@tax_price_calc)",],
@@ -80,11 +80,25 @@ IM_Entry(
             'repeat-control' => 'confirm-insert confirm-delete confirm-copy',
             'relation' => [['foreign-key' => 'account_id', 'join-field' => 'account_id', 'operator' => '='],],
             'sort' => [['field' => 'detail_id', 'direction' => 'asc',],],
+            'default-values'=>[
+                ['field'=>"unit_price",'value'=>"0"],
+                ['field'=>"qty",'value'=>"0"],
+            ],
             'calculation' => [
                 ['field' => "item_price_calc", 'expression' => "unit_price * qty * alloc_rate * if(tax_rate>0,choice(abs(account_detail@tax_kind+0),1,1 + tax_rate,1),choice(abs(account_detail@tax_kind+0),1,1 + account_detail@tax_rate,1))",],
                 ['field' => "tax_price_calc", 'expression' => "unit_price * qty * alloc_rate * if(tax_rate>0,choice(abs(account_detail@tax_kind+0),tax_rate/(1 + tax_rate),tax_rate,0),choice(abs(account_detail@tax_kind+0),account_detail@tax_rate/(1 + account_detail@tax_rate),account_detail@tax_rate,0))",],
                 ['field' => "net_price_calc", 'expression' => "unit_price * qty * alloc_rate * if(tax_rate>0,choice(abs(account_detail@tax_kind+0),1/(1 + tax_rate),1,1),choice(abs(account_detail@tax_kind+0),1/(1 + account_detail@tax_rate),1,1))",],
             ],
+        ],
+        [
+            'name' => 'detail_copy',
+            'view' => 'detail',
+            'table' => 'detail',
+            'key' => 'detail_id',
+            'records' => 100000,
+            'maxrecords' => 100000,
+            'soft-delete' => true,
+            'relation' => [['foreign-key' => 'account_id', 'join-field' => 'account_id', 'operator' => '='],],
         ],
         [
             'name' => 'account_add',
@@ -129,7 +143,7 @@ IM_Entry(
         [
             'name' => 'item',
             'key' => 'item_id',
-            'query' => [['field' => 'show', 'value' => 1],],
+            'query' => [['field' => 'show', 'operator' => '=', 'value' => 1],],
             'sort' => [['field' => 'item_id', 'direction' => 'asc'],],
         ],
         [
@@ -139,6 +153,11 @@ IM_Entry(
             'key' => 'detail_id',
             'records' => 100000,
             'maxrecords' => 100000,
+        ],
+        [
+            'name' => 'preference',
+            'key' => 'preference_id',
+            'records' => 1,
         ],
     ],
     [],

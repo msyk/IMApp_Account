@@ -26,7 +26,8 @@
         #_im_progress {
             pointer-events: none;
         }
-        th{
+
+        th {
             vertical-align: top;
             border-bottom: 2px solid white;
         }
@@ -77,8 +78,11 @@
                             <li><a class="dropdown-item" href="master_assort.html">仕訳パターン</a></li>
                             <li><a class="dropdown-item" href="master_customer.html">顧客</a></li>
                             <li><a class="dropdown-item" href="master_year.html">年度</a></li>
-                            <li><hr></li>
-                            <li><a class="dropdown-item" href="../Doc/regulation-0021006-031_e.html">事務処理規程(個人)</a></li>
+                            <li>
+                                <hr>
+                            </li>
+                            <li><a class="dropdown-item"
+                                   href="../Doc/regulation-0021006-031_e.html">事務処理規程(個人)</a></li>
                             <li><a class="dropdown-item" href="master_preference.html">設定</a></li>
                         </ul>
                     </li>
@@ -86,13 +90,21 @@
             </div>
         </div>
     </nav>
-    <h3>勘定科目マスター</h3>
+    <h3>システム設定</h3>
     <table>
         <tbody>
         <tr>
+            <th>総勘定元帳</th>
+            <td>
+                <label>
+                    <input type="checkbox" data-im="preference@copy_detail" value="1">複製時に明細も複製する
+                </label>
+            </td>
+        </tr>
+        <tr>
             <th>印刷帳票・自分自身</th>
             <td><textarea type="text" data-im="preference@myself" style="width:600px; height:200px"></textarea><br>
-            HTMLで記述可能（改行は&lt;br&gt;）
+                HTMLで記述可能（改行は&lt;br&gt;）
             </td>
         </tr>
         <tr>
@@ -104,8 +116,12 @@
         <tr>
             <th>印刷帳票</th>
             <td>
-                <input type="checkbox" data-im="preference@show_tax_detail" value="1">消費税を詳しく
-                <input type="checkbox" data-im="preference@show_label" value="1">宛名ラベルを表示する
+                <label>
+                    <input type="checkbox" data-im="preference@show_tax_detail" value="1">消費税を詳しく
+                </label>
+                <label>
+                    <input type="checkbox" data-im="preference@show_label" value="1">宛名ラベルを表示する
+                </label>
             </td>
         </tr>
         <tr>
