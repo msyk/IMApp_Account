@@ -154,11 +154,6 @@ IM_Entry(
             'records' => 100000,
             'maxrecords' => 100000,
         ],
-        [
-            'name' => 'preference',
-            'key' => 'preference_id',
-            'records' => 1,
-        ],
     ],
     [],
     ['db-class' => 'PDO',],
