@@ -32,8 +32,6 @@ IM_Entry(
                 ['field' => 'invoice_path', 'value' => ""],
             ],
             'repeat-control' => 'confirm-insert confirm-delete confirm-copy',
-            //'repeat-control' => 'confirm-insert confirm-delete confirm-copy-detail_list',
-            //'navi-control' => 'master-hide',
             'button-names' => ['insert' => '新規会計項目作成'],
             'calculation' => [
                 ['field' => "attached", 'expression' => "if(invoice_path='','','証票有')",],
@@ -41,6 +39,7 @@ IM_Entry(
                 ['field' => "checkStyle", 'expression' => "if(debit_id=405||(debit_id=181&&credit_id=117),'yellow',if(credit_id=141,'papayawhip',if(credit_id=405,'lightyellow',if(debit_id=141,'moccasin',''))))",],
             ],
             'numeric-fields' => ['item_total'],
+            'extending-class' => 'CreateFirstItem',
         ],
         [
             'name' => 'account_all',
@@ -58,7 +57,7 @@ IM_Entry(
             'key' => 'account_id',
             'records' => 1,
             'soft-delete' => true,
-             //'navi-control' => 'detail-update',
+            //'navi-control' => 'detail-update',
             'calculation' => [
                 ['field' => "item_total_calc", 'expression' => "sum(detail_list@item_price_calc)",],
                 ['field' => "tax_total_calc", 'expression' => "sum(detail_list@tax_price_calc)",],
@@ -80,9 +79,9 @@ IM_Entry(
             'repeat-control' => 'confirm-insert confirm-delete confirm-copy',
             'relation' => [['foreign-key' => 'account_id', 'join-field' => 'account_id', 'operator' => '='],],
             'sort' => [['field' => 'detail_id', 'direction' => 'asc',],],
-            'default-values'=>[
-                ['field'=>"unit_price",'value'=>"0"],
-                ['field'=>"qty",'value'=>"0"],
+            'default-values' => [
+                ['field' => "unit_price", 'value' => "0"],
+                ['field' => "qty", 'value' => "0"],
             ],
             'calculation' => [
                 ['field' => "item_price_calc", 'expression' => "unit_price * qty * alloc_rate * if(tax_rate>0,choice(abs(account_detail@tax_kind+0),1,1 + tax_rate,1),choice(abs(account_detail@tax_kind+0),1,1 + account_detail@tax_rate,1))",],

@@ -117,16 +117,13 @@ echo 'CREATE INDEX account_delete ON account ("delete")'|sqlite3 ~/.im_db/imapp_
 echo 'CREATE INDEX detail_delete ON detail ("delete")'|sqlite3 ~/.im_db/imapp_account.sqlite3
 ```
 
-### 2022-10-01修正
+### 2022-09-30修正
 
-2022-10-01の```commit 474955e56533ad0cddab7a779730b4de53dc8787```において、スキーマ定義の一部を変更しました。
-それ以前のデータベースをそのまま使いたい場合は、以下のコマンドをそのままコピー&amp;ペーストで入力して、フィールドの追加とスキーマ変更をお願いします。
-2つ目のコマンドは、このレポジトリのルートがカレントディレクトリであることを前提としています。
-なお、lib/schema_update01.sqlにより、既存のテーブルの定義を修正します。
-必ずデータのバックアップを```composer db-backup```などでとっておいて下さい。
+2022-05-11の```commit 630b9e787b98c4a7f26f4c4b872c0a3688c6d222```において、スキーマ定義に以下のインデックス作成ステートメントを追加しました。
+それ以前のデータベースをそのまま使いたい場合は、以下のコマンドをそのままコピー&amp;ペーストで入力して、フィールドの追加をお願いします。
 
 ```
-echo 'ALTER TABLE preference ADD COLUMN copy_detail INTEGER DEFAULT 0 NOT NULL'|sqlite3 ~/.im_db/imapp_account.sqlite3
+echo ' ALTER TABLE preference ADD COLUMN copy_detail INTEGER DEFAULT 0 NOT NULL'|sqlite3 ~/.im_db/imapp_account.sqlite3
 sqlite3 ~/.im_db/imapp_account.sqlite3 < lib/schema_update01.sql
 ```
 

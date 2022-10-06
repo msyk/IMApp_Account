@@ -39,22 +39,6 @@ INTERMediatorOnPage.doAfterConstruct = function () {
 
 INTERMediatorOnPage.doAfterCreateRecord = (newId, contextName) => {
   if (contextName == 'account_list') {
-    /*
-    const data = [
-      {field: 'unit_price', value: 0},
-      {field: 'qty', value: 1},
-      {field: 'account_id', value: newId}
-    ]
-    IMLibQueue.setTask((complete) => {
-      INTERMediator_DBAdapter.db_createRecord_async({name: 'detail_add', dataset: data}, (result) => {
-        INTERMediatorLog.flushMessage()
-        complete()
-      }, () => {
-        INTERMediatorLog.flushMessage()
-        complete()
-      })
-    })
-     */
     IMLibQueue.setTask((complete) => {
       complete()
       location.href = `index_detail.html?id=${newId}`
