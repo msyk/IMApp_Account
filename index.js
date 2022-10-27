@@ -55,6 +55,11 @@ function exportAccount() {
   location.href = 'index_contexts.php?media=class://AccountCSV/account_all'
 }
 
+function moveDetailPage(aid){
+  aid = parseInt(aid)
+  location.href = `index_detail.html?id=${aid}`
+}
+
 function setCondition(n) {
   if (parseInt(n) > 0 && parseInt(n) < 3) {
     const y = (new Date()).getFullYear() - parseInt(n) + 1
