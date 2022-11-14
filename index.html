@@ -22,6 +22,8 @@
     <!-- Loading INTER-Mediator -->
     <script src="index_contexts.php"></script>
     <script src="/lib/get_prefs.php"></script>
+    <link rel="stylesheet" href="/lib/sticky-header-table.css">
+    <script src="/lib/sticky-header-table.js"></script>
     <script src="index.js"></script>
     <style>
         .IM_NAV_insert_button {
@@ -108,7 +110,8 @@
                             <li>
                                 <hr>
                             </li>
-                            <li><a class="dropdown-item" href="Doc/regulation-0021006-031_e.html">事務処理規程(個人)</a></li>
+                            <li><a class="dropdown-item" href="Doc/regulation-0021006-031_e.html">事務処理規程(個人)</a>
+                            </li>
                             <li><a class="dropdown-item" href="Master/master_preference.html">設定</a></li>
                         </ul>
                     </li>
@@ -122,7 +125,8 @@
             <hr>
             <div style="display: flex">
                 <button class="btn btn-success" style="min-width: 150px" onclick="exportAccount()">エクスポート</button>
-                <span class="explain" style="margin: 0 12px;">検索条件や現在の表示に関係なく、会計項目全てをCSVファイルにエクスポートします。</span>
+                <span class="explain"
+                      style="margin: 0 12px;">検索条件や現在の表示に関係なく、会計項目全てをCSVファイルにエクスポートします。</span>
             </div>
             <hr>
             <div>
@@ -147,106 +151,109 @@
     </div>
     <h3>総勘定元帳</h3>
     <div id="IM_NAVIGATOR"></div>
-    <table>
-        <thead>
-        <tr style="border-bottom: 1px dotted #808080">
-            <th>
-                <select data-im="_@limitnumber:account_list">
-                    <option value="10">10</option>
-                    <option value="50">50</option>
-                    <option value="200">200</option>
-                    <option value="5000">5000</option>
-                </select>
-            </th>
-            <th>
-                <input type="text" size="5" placeholder="No検索"
-                       data-im="_@condition:account_list:account_id,parent_account_id:=">
-            </th>
-            <th colspan="3">
-                <input type="date" style="width:130px" data-im="_@condition:account_list:issued_date:>=">
-                <span>〜</span>
-                <input type="date" style="width:130px" data-im="_@condition:account_list:issued_date:<=">
-                <button class="btn btn-success" onclick="setCondition(1)">今年</button>
-                <button class="btn btn-success" onclick="setCondition(2)">前年</button>
-                <button class="btn btn-success" onclick="setCondition(3)">最近</button>
-            </th>
-            <th><input type="text" size="24" placeholder="会社名/勘定科目/説明検索"
-                       data-im="_@condition:account_list:company,debit_item_name,credit_item_name,description:*match*">
-            </th>
-            <th colspan="3">
-                <input type="text" size="7" placeholder="合計金額" data-im="_@condition:account_list:item_total:>=">
-                <span>〜</span>
-                <input type="text" size="7" placeholder="検索" data-im="_@condition:account_list:item_total:<=">
-                <button class="btn btn-success" data-im="_@update:account_list">検索</button>
-                <button class="btn btn-warning" onclick="clearConditions()">クリア</button>
-            </th>
-        </tr>
-        <tr>
-            <th></th>
-            <th>No<br>親No</th>
-            <th>日付
-                <span style="cursor: pointer" data-im="_@addorder:account_list:issued_date:asc">▲</span>
-                <span style="cursor: pointer" data-im="_@addorder:account_list:issued_date:desc">▼</span>
-            </th>
-            <th>区分</th>
-            <th>仕訳
-                <span style="cursor: pointer" data-im="_@addorder:account_list:pattern_name:asc">▲</span>
-                <span style="cursor: pointer" data-im="_@addorder:account_list:pattern_name:desc">▼</span>
-                <br>借方／貸方科目
-            </th>
-            <th>会社名 <span style="cursor: pointer" data-im="_@addorder:account_list:company:asc">▲</span>
-                <span style="cursor: pointer" data-im="_@addorder:account_list:company:desc">▼</span>
-                <br>説明
-            </th>
-            <th>合計金額<br>小項目合計</th>
-            <th>税抜金額<br>税額</th>
-            <th>
-                <button class="btn btn-success" onclick="showPanel(event.target)">各種機能</button>
-            </th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr style="border-bottom: 1px solid #808080" data-im="account_list@checkStyle@style.backgroundColor">
-            <td>
-                <button onclick="moveDetailPage($)" data-im="account_list@account_id@$onclick" class="btn btn-primary">
-                    詳細
-                </button>
-            </td>
-            <td>
-                <span data-im="account_list@account_id"></span><br>
-                <span data-im="account_list@parent_account_id" style="color: #c75315"></span>
-            </td>
-            <td data-im="account_list@issued_date"></td>
-            <td>
-                <span data-im="account_list@kind_str"></span><br>
-                <span data-im="account_list@attached" style="color: #c75315"></span>
-            </td>
-            <td>
-                <span data-im="account_list@pattern_name" style="font-size: 0.8em"></span><br>
-                <span data-im="account_list@debit_item_name"></span>／<span
-                    data-im="account_list@credit_item_name"></span>
-            </td>
-            <td>
-                <span style="font-size: 0.9em; color: darkgreen" data-im="account_list@company"></span><br>
-                <span data-im="account_list@description"></span>
-            </td>
-            <td style="text-align: right">
+    <div class="sticky-header-table">
+        <table>
+            <thead>
+            <tr>
+                <th>
+                    <select data-im="_@limitnumber:account_list">
+                        <option value="10">10</option>
+                        <option value="50">50</option>
+                        <option value="200">200</option>
+                        <option value="5000">5000</option>
+                    </select>
+                </th>
+                <th>
+                    <input type="text" size="5" placeholder="No検索"
+                           data-im="_@condition:account_list:account_id,parent_account_id:=">
+                </th>
+                <th colspan="3">
+                    <input type="date" style="width:130px" data-im="_@condition:account_list:issued_date:>=">
+                    <span>〜</span>
+                    <input type="date" style="width:130px" data-im="_@condition:account_list:issued_date:<=">
+                    <button class="btn btn-success" onclick="setCondition(1)">今年</button>
+                    <button class="btn btn-success" onclick="setCondition(2)">前年</button>
+                    <button class="btn btn-success" onclick="setCondition(3)">最近</button>
+                </th>
+                <th><input type="text" size="24" placeholder="会社名/勘定科目/説明検索"
+                           data-im="_@condition:account_list:company,debit_item_name,credit_item_name,description:*match*">
+                </th>
+                <th colspan="3">
+                    <input type="text" size="7" placeholder="合計金額" data-im="_@condition:account_list:item_total:>=">
+                    <span>〜</span>
+                    <input type="text" size="7" placeholder="検索" data-im="_@condition:account_list:item_total:<=">
+                    <button class="btn btn-success" data-im="_@update:account_list">検索</button>
+                    <button class="btn btn-warning" onclick="clearConditions()">クリア</button>
+                </th>
+            </tr>
+            <tr>
+                <th></th>
+                <th>No<br>親No</th>
+                <th>日付
+                    <span style="cursor: pointer" data-im="_@addorder:account_list:issued_date:asc">▲</span>
+                    <span style="cursor: pointer" data-im="_@addorder:account_list:issued_date:desc">▼</span>
+                </th>
+                <th>区分</th>
+                <th>仕訳
+                    <span style="cursor: pointer" data-im="_@addorder:account_list:pattern_name:asc">▲</span>
+                    <span style="cursor: pointer" data-im="_@addorder:account_list:pattern_name:desc">▼</span>
+                    <br>借方／貸方科目
+                </th>
+                <th>会社名 <span style="cursor: pointer" data-im="_@addorder:account_list:company:asc">▲</span>
+                    <span style="cursor: pointer" data-im="_@addorder:account_list:company:desc">▼</span>
+                    <br>説明
+                </th>
+                <th>合計金額<br>小項目合計</th>
+                <th>税抜金額<br>税額</th>
+                <th>
+                    <button class="btn btn-success" onclick="showPanel(event.target)">各種機能</button>
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr style="border-bottom: 1px solid #808080" data-im="account_list@checkStyle@style.backgroundColor">
+                <td>
+                    <button onclick="moveDetailPage($)" data-im="account_list@account_id@$onclick"
+                            class="btn btn-primary">
+                        詳細
+                    </button>
+                </td>
+                <td>
+                    <span data-im="account_list@account_id"></span><br>
+                    <span data-im="account_list@parent_account_id" style="color: #c75315"></span>
+                </td>
+                <td data-im="account_list@issued_date"></td>
+                <td>
+                    <span data-im="account_list@kind_str"></span><br>
+                    <span data-im="account_list@attached" style="color: #c75315"></span>
+                </td>
+                <td>
+                    <span data-im="account_list@pattern_name" style="font-size: 0.8em"></span><br>
+                    <span data-im="account_list@debit_item_name"></span>／<span
+                        data-im="account_list@credit_item_name"></span>
+                </td>
+                <td>
+                    <span style="font-size: 0.9em; color: darkgreen" data-im="account_list@company"></span><br>
+                    <span data-im="account_list@description"></span>
+                </td>
+                <td style="text-align: right">
                 <span data-im="account_list@item_total" data-im-format="number(0)"
                       data-im-format-options="useseparator"></span><br>
-                <span data-im="account_list@alertStyle@style.display">⚠️</span>
-                <span data-im="account_list@parent_total" data-im-format="number(0)"
-                      data-im-format-options="useseparator" style="color: #c75315"></span>
-            </td>
-            <td style="text-align: right">
+                    <span data-im="account_list@alertStyle@style.display">⚠️</span>
+                    <span data-im="account_list@parent_total" data-im-format="number(0)"
+                          data-im-format-options="useseparator" style="color: #c75315"></span>
+                </td>
+                <td style="text-align: right">
                 <span data-im="account_list@net_total" data-im-format="number(0)"
                       data-im-format-options="useseparator"></span><br>
-                <span data-im="account_list@tax_total" data-im-format="number(0)"
-                      data-im-format-options="useseparator"></span>
-            </td>
-            <td></td>
-        </tr>
-        </tbody>
-    </table>
+                    <span data-im="account_list@tax_total" data-im-format="number(0)"
+                          data-im-format-options="useseparator"></span>
+                </td>
+                <td></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
 </body>
 </html>

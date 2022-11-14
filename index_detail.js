@@ -76,7 +76,11 @@ function csvReadAmazon() {
   csvReadImpl(6)
 }
 
-function csvReadImpl(pCol) {
+function csvReadOrico() {
+  csvReadImpl(8, 9)
+}
+
+function csvReadImpl(pCol, pColAdd = -1) {
   if (!(pCol > 0)) {
     console.log('why!?')
     return
@@ -84,17 +88,22 @@ function csvReadImpl(pCol) {
   const context = IMLibContextPool.contextFromName('account_detail')
   const fvalue = context.getDataAtLastRecord('account_id')
   const src = document.getElementById('csv_data').value
-  var srcTemp = src
+  let srcTemp = src
   if (src.indexOf("\"") != -1) {
     srcTemp = src.replace(/\"/g, "")
   }
+  let price = 0
   const lines = srcTemp.split('\n')
   for (const line of lines) {
     const items = line.split(',')
-    if (parseInt(items[pCol]) > 0) {
+    if (items[pCol]) {
+      price = items[pCol].match(/[0-9.]+/g).join('')
+      if (pColAdd > -1) {
+        price += items[pColAdd].match(/[0-9.]+/g).join('')
+      }
       const data = [
         {field: 'description', value: items[0] + ',' + items[1]},
-        {field: 'unit_price', value: parseInt(items[pCol])},
+        {field: 'unit_price', value: parseInt(price)},
         {field: 'qty', value: 1},
         {field: 'account_id', value: fvalue}
       ]
@@ -129,11 +138,12 @@ function generateDetailToAccount() {
       const itemDesc = context.store[key].description.split(',')[1].trim()
       const up = context.store[key].unit_price
       IMLibQueue.setTask((complete) => {
-        const lineDate = new Date(itemDate)
+        const dc = itemDate.match(/[0-9]+/g)
+        const lineDate = new Date(`${dc[0]}/${dc[1]}/${dc[2]}`)
         lineDate.setHours(lineDate.getHours() + 9)
         const data = [
           {field: 'description', value: itemDesc},
-          {field: 'issued_date', value: lineDate.toISOString().substring(0,10)},
+          {field: 'issued_date', value: lineDate.toISOString().substring(0, 10)},
           {field: 'parent_account_id', value: parentId},
           {field: 'assort_pattern_id', value: 7},
           {field: 'debit_id', value: 2},

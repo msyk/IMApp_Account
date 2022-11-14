@@ -35,6 +35,7 @@ INTERMediatorOnPage.doAfterConstruct = function () {
     event.stopPropagation()
   })
   document.getElementById('container').style.display = 'block'
+  stickyHeaderTableAdjust()
 }
 
 INTERMediatorOnPage.doAfterCreateRecord = (newId, contextName) => {
