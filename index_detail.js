@@ -99,7 +99,10 @@ function csvReadImpl(pCol, pColAdd = -1) {
     if (items[pCol]) {
       price = items[pCol].match(/[0-9.]+/g).join('')
       if (pColAdd > -1) {
-        price += items[pColAdd].match(/[0-9.]+/g).join('')
+        const re = items[pColAdd].match(/[0-9.]+/g)
+        if(re) {
+          price += re.join('')
+        }
       }
       const data = [
         {field: 'description', value: items[0] + ',' + items[1]},

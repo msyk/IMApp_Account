@@ -12,7 +12,7 @@ VALUES (110, '当座預金', 1.0, 0, 0);
 INSERT INTO item
 VALUES (115, '普通預金', 1.0, 1, 0);
 INSERT INTO item
-VALUES (117, '普通預金_個人口座', 1.0, 1, NULL);
+VALUES (117, '普通預金_個人口座', 1.0, NULL, NULL);
 INSERT INTO item
 VALUES (120, '通知預金', 1.0, 0, 0);
 INSERT INTO item
@@ -90,7 +90,7 @@ VALUES (250, '保険積立', 1.0, 0, 0);
 INSERT INTO item
 VALUES (260, '開業費', 1.0, 0, 0);
 INSERT INTO item
-VALUES (261, '開発費', 1.0, 1, 0);
+VALUES (261, '開発費', 1.0, NULL, 0);
 INSERT INTO item
 VALUES (262, '試験研究費', 1.0, 0, 0);
 INSERT INTO item
@@ -98,7 +98,7 @@ VALUES (264, '新株発行費', 1.0, 0, 0);
 INSERT INTO item
 VALUES (400, '支払手形', 1.0, 0, 0);
 INSERT INTO item
-VALUES (403, '元入金', 1.0, NULL, NULL);
+VALUES (403, '元入金', 1.0, 1, NULL);
 INSERT INTO item
 VALUES (404, '事業主貸', 1.0, 1, NULL);
 INSERT INTO item
@@ -110,17 +110,19 @@ VALUES (407, '未払費用', 1.0, 0, 0);
 INSERT INTO item
 VALUES (410, '短期借入金', 1.0, 0, 0);
 INSERT INTO item
-VALUES (420, '未払金', 1.0, 0, 0);
+VALUES (420, '未払金', 1.0, 1, NULL);
 INSERT INTO item
-VALUES (426, '預り金', 1.0, 1, 0);
+VALUES (423, '専従者給与', 1.0, 1, NULL);
+INSERT INTO item
+VALUES (426, '預り金', 1.0, NULL, 0);
 INSERT INTO item
 VALUES (427, '仮受金', 1.0, 0, 0);
 INSERT INTO item
-VALUES (428, '前受金', 1.0, 1, 0);
+VALUES (428, '前受金', 1.0, NULL, 0);
 INSERT INTO item
 VALUES (430, '割引手形', 1.0, 0, 0);
 INSERT INTO item
-VALUES (440, '仮受消費税', 1.0, 1, 0);
+VALUES (440, '仮受消費税', 1.0, NULL, 0);
 INSERT INTO item
 VALUES (450, '賞与引当金', 1.0, 0, 0);
 INSERT INTO item
@@ -174,7 +176,7 @@ VALUES (660, '消耗品費', 1.0, 1, 0);
 INSERT INTO item
 VALUES (661, '事務用品費', 1.0, 1, 0);
 INSERT INTO item
-VALUES (662, '修繕費', 0.3, 1, 0);
+VALUES (662, '修繕費', 1.0, 1, 0);
 INSERT INTO item
 VALUES (663, '水道光熱費', 0.3, 1, 0);
 INSERT INTO item
@@ -184,7 +186,7 @@ VALUES (665, '諸会費', 1.0, 1, 1);
 INSERT INTO item
 VALUES (666, '支払手数料', 1.0, 1, 0);
 INSERT INTO item
-VALUES (667, '医療費', 0.0, 1, 0);
+VALUES (667, '医療費', 0.0, NULL, 0);
 INSERT INTO item
 VALUES (669, '通信インフラ', 1.0, 1, 1);
 INSERT INTO item
@@ -192,21 +194,21 @@ VALUES (670, '支払保険料', 1.0, 0, 0);
 INSERT INTO item
 VALUES (671, '支払報酬', 1.0, 0, 0);
 INSERT INTO item
-VALUES (672, '寄付金', 1.0, 1, 0);
+VALUES (672, '寄付金', 1.0, NULL, 0);
 INSERT INTO item
 VALUES (680, '減価償却', 1.0, 1, 0);
 INSERT INTO item
-VALUES (681, '地代家賃', 0.3, 1, 0);
+VALUES (681, '地代家賃', 0.3, NULL, 0);
 INSERT INTO item
 VALUES (682, 'リース料', 1.0, 0, 0);
 INSERT INTO item
-VALUES (683, '租税公課', 1.0, 1, 0);
+VALUES (683, '租税公課', 1.0, NULL, 0);
 INSERT INTO item
 VALUES (686, '貸倒損失', 1.0, 0, 0);
 INSERT INTO item
 VALUES (687, '開発費償却', 1.0, 0, 0);
 INSERT INTO item
-VALUES (689, '雑費', 1.0, 1, 0);
+VALUES (689, '雑費', 1.0, NULL, 0);
 INSERT INTO item
 VALUES (700, '売上高', 1.0, 1, 0);
 INSERT INTO item
@@ -226,7 +228,9 @@ VALUES (746, '福利厚生費', 1.0, 0, 0);
 INSERT INTO item
 VALUES (775, '貸倒引当金繰入', 1.0, 0, 0);
 INSERT INTO item
-VALUES (780, '減価償却', 1.0, 0, 0);
+VALUES (779, '少額減価償却資産', 1.0, 1, 0);
+INSERT INTO item
+VALUES (780, '一括償却資産', 1.0, 1, 0);
 INSERT INTO item
 VALUES (781, '地代家賃', 0.3, 1, 0);
 INSERT INTO item
@@ -244,7 +248,7 @@ VALUES (802, '有価証券利息', 1.0, 0, 0);
 INSERT INTO item
 VALUES (816, '雑収入', 1.0, 1, NULL);
 INSERT INTO item
-VALUES (846, '雑損失', 1.0, 1, 0);
+VALUES (846, '雑損失', 1.0, NULL, 0);
 INSERT INTO item
 VALUES (913, 'その他の特別利益', 1.0, 0, 0);
 INSERT INTO item
@@ -253,17 +257,17 @@ INSERT INTO item
 VALUES (980, '法人税等', 1.0, 1, 0);
 
 INSERT INTO assort_pattern
-VALUES (1, '現金で購入', 2, 100);
+VALUES (1, '現金で購入', 2, 181);
 INSERT INTO assort_pattern
 VALUES (2, '現金を引き出し', 100, 115);
 INSERT INTO assort_pattern
 VALUES (3, '現金での報酬', 100, 700);
 INSERT INTO assort_pattern
-VALUES (4, '振込み（請求書あり）', 115, 141);
+VALUES (4, '振り込み（請求書あり）', 115, 141);
 INSERT INTO assort_pattern
-VALUES (5, '振込み（請求書なし）', 115, 700);
+VALUES (5, '振り込み（請求書なし）', 115, 700);
 INSERT INTO assort_pattern
-VALUES (6, '引落とし・支払い', 2, 115);
+VALUES (6, '引き落とし・支払い', 2, 115);
 INSERT INTO assort_pattern
 VALUES (7, 'クレジット購入', 2, 405);
 INSERT INTO assort_pattern
@@ -275,11 +279,11 @@ VALUES (10, '請求された', 2, 405);
 INSERT INTO assort_pattern
 VALUES (11, '請求に対する支払', 405, 115);
 INSERT INTO assort_pattern
-VALUES (12, '源泉徴収（振り込み時）', 980, 115);
+VALUES (12, '源泉徴収（振り込み時）', 404, 115);
 INSERT INTO assort_pattern
-VALUES (13, '減価償却', 680, 2);
+VALUES (13, '減価償却', 680, 206);
 INSERT INTO assort_pattern
-VALUES (14, '見積り', 2, 2);
+VALUES (14, '見積もり', 2, 2);
 INSERT INTO assort_pattern
 VALUES (15, '帳簿外', 1, 1);
 INSERT INTO assort_pattern
@@ -287,7 +291,13 @@ VALUES (16, '個人用をクレジット購入', 404, 405);
 INSERT INTO assort_pattern
 VALUES (17, '個人のクレジットで購入', 2, 181);
 INSERT INTO assort_pattern
-VALUES (18, '個人のクレジット支払い', 181, 117);
+VALUES (18, '個人のクレジット支払い', 1, 1);
+INSERT INTO assort_pattern
+VALUES (19, '振り込み個人口座（請求書あり）', 404, 141);
+INSERT INTO assort_pattern
+VALUES (20, '振り込み個人口座（請求書なし）', 404, 700);
+INSERT INTO assort_pattern
+VALUES (21, '引き落とし・支払い個人口座', 2, 181);
 
 INSERT INTO fiscal_year(year)
 VALUES (2020);
