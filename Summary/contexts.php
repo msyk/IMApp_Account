@@ -24,8 +24,27 @@ IM_Entry(
             'records' => 20,
             'maxrecords' => 100000,
             'paging' => true,
-            'navi-control' => 'master-hide',
             'soft-delete' => true,
+            'relation' => [['foreign-key' => 'y', 'join-field' => 'year', 'operator' => '='],],
+        ],
+        [
+            'name' => 'monthly_summary_total',
+            'view' => 'years',
+            'table' => 'dummy',
+            'key' => 'year',
+            'records' => 100,
+            'maxrecords' => 100,
+            'calculation'=>[
+                ['field' => "income_item_all", 'expression' => "sum(monthly_summary@income_item_total)",],
+                ['field' => "income_net_all", 'expression' => "sum(monthly_summary@income_net_total)",],
+                ['field' => "income_tax_all", 'expression' => "sum(monthly_summary@income_tax_total)",],
+                ['field' => "purchase_item_all", 'expression' => "sum(monthly_summary@purchase_item_total)",],
+                ['field' => "purchase_net_all", 'expression' => "sum(monthly_summary@purchase_net_total)",],
+                ['field' => "purchase_tax_all", 'expression' => "sum(monthly_summary@purchase_tax_total)",],
+                ['field' => "others_item_all", 'expression' => "sum(monthly_summary@others_item_total)",],
+                ['field' => "others_net_all", 'expression' => "sum(monthly_summary@others_net_total)",],
+                ['field' => "others_tax_all", 'expression' => "sum(monthly_summary@others_tax_total)",],
+            ],
         ],
         [
             'name' => 'monthly_detail',
@@ -33,7 +52,6 @@ IM_Entry(
             'table' => 'dummy',
             'key' => 'ym',
             'records' => 1,
-            'navi-control' => 'detail',
             'soft-delete' => true,
         ],
         [
@@ -55,6 +73,17 @@ IM_Entry(
             'records' => 1000000,
             'relation' => [['foreign-key' => 'ym', 'join-field' => 'ym', 'operator' => '='],],
             'query' => [['field' => 'is_purchase', 'operator' => '=', 'value' => '1'],],
+            'sort' => [['field' => 'issued_date', 'direction' => 'ASC'],],
+            'soft-delete' => true,
+        ],
+        [
+            'name' => 'account_others',
+            'view' => 'account_list',
+            'table' => 'dummy',
+            'key' => 'account_id',
+            'records' => 1000000,
+            'relation' => [['foreign-key' => 'ym', 'join-field' => 'ym', 'operator' => '='],],
+            'query' => [['field' => 'is_other_exp', 'operator' => '=', 'value' => '1'],],
             'sort' => [['field' => 'issued_date', 'direction' => 'ASC'],],
             'soft-delete' => true,
         ],
@@ -127,5 +156,5 @@ IM_Entry(
     ],
     [],
     ['db-class' => 'PDO',],
-    false
+2
 );

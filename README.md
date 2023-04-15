@@ -84,6 +84,17 @@ IMApp_Accountのレポジトリをクローンして運用している場合、`
 
 ## スキーマ変更の履歴とDBスキーマの更新方法
 
+### 2023-04-15修正
+
+2022-04-01の```commit fd2f53797d1d6df5583cc0b5045960e6cab0cfde```において、itemテーブルに変更が発生しました。また、ビューについても変更が発生しました。
+それ以前のデータベースをそのまま使いたい場合は、以下のコマンドをそのままコピー&amp;ペーストで入力して、フィールドの追加をお願いします。レポジトリのルートをカレントディレクトにしてコマンドを実行してください。
+
+```
+echo "ALTER TABLE item ADD COLUMN is_other_exp INTEGER"|sqlite3 ~/.im_db/imapp_account.sqlite3
+sqlite3 ~/.im_db/imapp_account.sqlite3 < lib/schema_views.sql
+```
+
+
 ### 2022-04-01修正
 
 2022-04-01の```commit fd2f53797d1d6df5583cc0b5045960e6cab0cfde```において、accountテーブルに変更が発生しました。
@@ -123,7 +134,7 @@ echo 'CREATE INDEX detail_delete ON detail ("delete")'|sqlite3 ~/.im_db/imapp_ac
 それ以前のデータベースをそのまま使いたい場合は、以下のコマンドをそのままコピー&amp;ペーストで入力して、フィールドの追加をお願いします。
 
 ```
-echo ' ALTER TABLE preference ADD COLUMN copy_detail INTEGER DEFAULT 0 NOT NULL'|sqlite3 ~/.im_db/imapp_account.sqlite3
+echo 'ALTER TABLE preference ADD COLUMN copy_detail INTEGER DEFAULT 0 NOT NULL'|sqlite3 ~/.im_db/imapp_account.sqlite3
 sqlite3 ~/.im_db/imapp_account.sqlite3 < lib/schema_update01.sql
 ```
 

@@ -36,7 +36,7 @@ IM_Entry(
             'calculation' => [
                 ['field' => "attached", 'expression' => "if(invoice_path='','','証票有')",],
                 ['field' => "alertStyle", 'expression' => "if(parent_total>0 && round(item_total,0)!=round(parent_total,0),'inline','none')",],
-                ['field' => "checkStyle", 'expression' => "if(debit_id=405||(debit_id=181&&credit_id=117),'yellow',if(credit_id=141,'papayawhip',if(credit_id=405,'lightyellow',if(debit_id=141,'moccasin',''))))",],
+                ['field' => "checkStyle", 'expression' => "if(credit_id=115||credit_id=117,'#DDFFDD',if(credit_id=141,'papayawhip',if(credit_id=405,'lightyellow',if(debit_id=141,'moccasin',''))))",],
             ],
             'numeric-fields' => ['item_total'],
             'extending-class' => 'CreateFirstItem',
@@ -59,9 +59,9 @@ IM_Entry(
             'soft-delete' => true,
             //'navi-control' => 'detail-update',
             'calculation' => [
-                ['field' => "item_total_calc", 'expression' => "sum(detail_list@item_price_calc)",],
-                ['field' => "tax_total_calc", 'expression' => "sum(detail_list@tax_price_calc)",],
-                ['field' => "net_total_calc", 'expression' => "sum(detail_list@net_price_calc)",],
+                ['field' => "item_total_calc", 'expression' => "round(sum(detail_list@item_price_calc),0)",],
+                ['field' => "tax_total_calc", 'expression' => "round(sum(detail_list@tax_price_calc),0)",],
+                ['field' => "net_total_calc", 'expression' => "round(sum(detail_list@net_price_calc),0)",],
                 ['field' => "s3_style", 'expression' => "if(invoice_path,'inline','none')",],
             ],
             'file-upload' => [
@@ -152,6 +152,11 @@ IM_Entry(
             'key' => 'detail_id',
             'records' => 100000,
             'maxrecords' => 100000,
+        ],
+        [
+            'name' => 'preference',
+            'key' => 'preference_id',
+            'records' => 1,
         ],
     ],
     [],

@@ -123,6 +123,12 @@
         <div id="panelcontent">
             <button class="btn btn-primary" onclick="hidePanel()">閉じる</button>
             <hr>
+            <div data-im-control="enclosure">
+                <span data-im-control="repeater">
+                    <input type="checkbox" data-im="preference@copy_detail" value="1">複製時に明細も複製する
+                </span>
+            </div>
+            <hr>
             <div style="display: flex">
                 <button class="btn btn-success" style="min-width: 150px" onclick="exportAccount()">エクスポート</button>
                 <span class="explain"

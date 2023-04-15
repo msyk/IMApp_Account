@@ -85,11 +85,12 @@ CREATE INDEX detail_delete
 
 CREATE TABLE item
 (
-    item_id     INTEGER PRIMARY KEY,
-    item_name   TEXT,
-    alloc_rate  REAL, /* 組み込み比率 */
-    show        INTEGER, /* 1=ポップアップ表示 */
-    is_purchase INTEGER /* 仕入れに入れる項目 */
+    item_id      INTEGER PRIMARY KEY,
+    item_name    TEXT,
+    alloc_rate   REAL, /* 組み込み比率 */
+    show         INTEGER, /* 1=ポップアップ表示 */
+    is_purchase  INTEGER, /* 仕入れに入れる項目 */
+    is_other_exp INTEGER /* 仕入れに入れない経費項目 */
 );
 
 CREATE UNIQUE INDEX item_item_id

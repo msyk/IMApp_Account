@@ -60,9 +60,9 @@ FROM detail
 DROP VIEW IF EXISTS account_calc;
 CREATE VIEW account_calc AS
 SELECT account.account_id,
-       SUM(detail_calc.item_price) AS item_total,
-       SUM(detail_calc.net_price)  AS net_total,
-       SUM(detail_calc.tax_price)  AS tax_total
+       ROUND(SUM(detail_calc.item_price)) AS item_total,
+       ROUND(SUM(detail_calc.net_price))  AS net_total,
+       ROUND(SUM(detail_calc.tax_price))  AS tax_total
 FROM account
          INNER JOIN detail_calc ON detail_calc.account_id = account.account_id
 WHERE (account."delete" <> '1'
@@ -74,9 +74,9 @@ GROUP BY account.account_id
 DROP VIEW IF EXISTS parent_calc;
 CREATE VIEW parent_calc AS
 SELECT account.parent_account_id,
-       SUM(detail_calc.item_price) AS item_total,
-       SUM(detail_calc.net_price)  AS net_total,
-       SUM(detail_calc.tax_price)  AS tax_total
+       ROUND(SUM(detail_calc.item_price)) AS item_total,
+       ROUND(SUM(detail_calc.net_price))  AS net_total,
+       ROUND(SUM(detail_calc.tax_price))  AS tax_total
 FROM account
          INNER JOIN detail_calc ON detail_calc.account_id = account.account_id
 WHERE account."delete" <> '1'
@@ -89,12 +89,12 @@ DROP VIEW IF EXISTS account_list;
 CREATE VIEW account_list AS
 SELECT account.account_id,
        account.parent_account_id,
-       strftime('%Y-%m', account.issued_date)                             AS ym,
-       strftime('%Y', account.issued_date)                                AS y,
-       parent_calc.item_total                                             AS parent_total,
-       account_calc.item_total                                            AS item_total,
-       account_calc.net_total                                             AS net_total,
-       account_calc.tax_total                                             AS tax_total,
+       strftime('%Y-%m', account.issued_date)                                    AS ym,
+       strftime('%Y', account.issued_date)                                       AS y,
+       parent_calc.item_total                                                    AS parent_total,
+       account_calc.item_total                                                   AS item_total,
+       account_calc.net_total                                                    AS net_total,
+       account_calc.tax_total                                                    AS tax_total,
        kind, /* 領収書, 請求書 */
        tax_kind, /* 0=内税, 1=外税 */
        CASE tax_kind WHEN "0" THEN '内税' WHEN "1" THEN '外税' ELSE '非課税' END AS kind_str,
@@ -112,16 +112,17 @@ SELECT account.account_id,
        tax_rate,
        comment,
        account.debit_id, /* 借方コード */
-       debit_item.item_name                                               AS debit_item_name,
+       debit_item.item_name                                                      AS debit_item_name,
        debit_item.alloc_rate, /* 組み込み比率 */
        debit_item.is_purchase,
+       debit_item.is_other_exp,
        account.credit_id, /* 貸方コード */
-       credit_item.item_name                                              AS credit_item_name,
-       account.assort_pattern_id                                          AS assort_pattern_id, /* 仕訳パターン番号 */
+       credit_item.item_name                                                     AS credit_item_name,
+       account.assort_pattern_id                                                 AS assort_pattern_id, /* 仕訳パターン番号 */
        pattern_name,
        assort_pattern.debit_id, /* 借方コード */
        assort_pattern.credit_id, /* 貸方コード */
-       account."delete"                                                   AS "delete"
+       account."delete"                                                          AS "delete"
 FROM account
          LEFT JOIN account_calc ON account.account_id = account_calc.account_id
          LEFT JOIN parent_calc ON account.account_id = parent_calc.parent_account_id
@@ -132,7 +133,8 @@ ORDER BY issued_date DESC
 ;
 DROP VIEW IF EXISTS monthly_summary_income;
 CREATE VIEW monthly_summary_income AS
-SELECT strftime('%Y-%m', account.issued_date) AS ym,
+SELECT strftime('%Y', account.issued_date)    AS y,
+       strftime('%Y-%m', account.issued_date) AS ym,
        SUM(account_calc.item_total)           AS item_total,
        SUM(account_calc.net_total)            AS net_total,
        SUM(account_calc.tax_total)            AS tax_total
@@ -155,17 +157,35 @@ WHERE item.is_purchase = 1
   AND ("delete" <> '1' OR "delete" IS NULL)
 GROUP BY strftime('%Y-%m', account.issued_date)
 ;
+DROP VIEW IF EXISTS monthly_summary_others;
+CREATE VIEW monthly_summary_others AS
+SELECT strftime('%Y-%m', account.issued_date) AS ym,
+       SUM(account_calc.item_total)           AS item_total,
+       SUM(account_calc.net_total)            AS net_total,
+       SUM(account_calc.tax_total)            AS tax_total
+FROM account
+         LEFT JOIN account_calc ON account.account_id = account_calc.account_id
+         LEFT JOIN item ON item.item_id = account.debit_id
+WHERE item.is_other_exp = 1
+  AND ("delete" <> '1' OR "delete" IS NULL)
+GROUP BY strftime('%Y-%m', account.issued_date)
+;
 DROP VIEW IF EXISTS monthly_summary;
 CREATE VIEW monthly_summary AS
-SELECT monthly_summary_income.ym           AS ym,
+SELECT monthly_summary_income.y            AS y,
+       monthly_summary_income.ym           AS ym,
        monthly_summary_income.item_total   AS income_item_total,
        monthly_summary_income.net_total    AS income_net_total,
        monthly_summary_income.tax_total    AS income_tax_total,
        monthly_summary_purchase.item_total AS purchase_item_total,
        monthly_summary_purchase.net_total  AS purchase_net_total,
-       monthly_summary_purchase.tax_total  AS purchase_tax_total
+       monthly_summary_purchase.tax_total  AS purchase_tax_total,
+       monthly_summary_others.item_total   AS others_item_total,
+       monthly_summary_others.net_total    AS others_net_total,
+       monthly_summary_others.tax_total    AS others_tax_total
 FROM monthly_summary_income
          LEFT JOIN monthly_summary_purchase ON monthly_summary_income.ym = monthly_summary_purchase.ym
+         LEFT JOIN monthly_summary_others ON monthly_summary_income.ym = monthly_summary_others.ym
 ORDER BY ym DESC
 ;
 DROP VIEW IF EXISTS item_summary_debit;
@@ -198,6 +218,15 @@ WHERE "delete" <> '1'
    OR "delete" IS NULL
 GROUP BY strftime('%Y', account.issued_date), credit_id
 ;
+DROP VIEW IF EXISTS years;
+CREATE VIEW years AS
+SELECT year
+FROM fiscal_year
+WHERE year <= strftime('%Y', date())
+  AND year > strftime('%Y', date()) - 3
+ORDER BY year DESC
+;
+
 /*
  operationlog table example
 

@@ -24,9 +24,9 @@
     <script src="common.js"></script>
     <style>
         td, th {
-            vertical-align: top;
             border-bottom: solid 1px gray;
         }
+
         #_im_progress {
             pointer-events: none;
         }
@@ -80,7 +80,8 @@
                             <li>
                                 <hr>
                             </li>
-                            <li><a class="dropdown-item" href="../Doc/regulation-0021006-031_e.html">事務処理規程(個人)</a></li>
+                            <li><a class="dropdown-item"
+                                   href="../Doc/regulation-0021006-031_e.html">事務処理規程(個人)</a></li>
                             <li><a class="dropdown-item" href="../Master/master_preference.html">設定</a></li>
                         </ul>
                     </li>
@@ -89,205 +90,109 @@
         </div>
     </nav>
     <h3>月次集計</h3>
-    <div id="IM_NAVIGATOR"></div>
-    <table>
-        <thead>
-        <tr>
-            <th></th>
-            <th>年月</th>
-            <th>収入金額合計</th>
-            <th>（税抜金額）</th>
-            <th>（消費税額）</th>
-            <th>仕入金額合計</th>
-            <th>（税抜金額）</th>
-            <th>（消費税額）</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td></td>
-            <td>
-                <span data-im="monthly_summary@ym"></span><br>
-            </td>
-            <td style="text-align: right">
-                <span data-im="monthly_summary@income_item_total" data-im-format="number(0)"
+    <div data-im-control="enclosure">
+        <div data-im-control="repeater">
+            <h2><span data-im="monthly_summary_total@year"></span></h2>
+            <table>
+                <thead>
+                <tr>
+                    <th></th>
+                    <th>年月</th>
+                    <th>収入金額合計</th>
+                    <th>（税抜金額）</th>
+                    <th>（消費税額）</th>
+                    <th>仕入金額合計</th>
+                    <th>（税抜金額）</th>
+                    <th>（消費税額）</th>
+                    <th>その他経費合計</th>
+                    <th>（税抜金額）</th>
+                    <th>（消費税額）</th>
+                </tr>
+                </thead>
+                <tfoot>
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th style="text-align: right"><span data-im="monthly_summary_total@income_item_all"
+                                                        data-im-format="number(0)"
+                                                        data-im-format-options="useseparator"></span></th>
+                    <th style="text-align: right"><span data-im="monthly_summary_total@income_net_all"
+                                                        data-im-format="number(0)"
+                                                        data-im-format-options="useseparator"></span></th>
+                    <th style="text-align: right"><span data-im="monthly_summary_total@income_tax_all"
+                                                        data-im-format="number(0)"
+                                                        data-im-format-options="useseparator"></span></th>
+                    <th style="text-align: right"><span data-im="monthly_summary_total@purchase_item_all"
+                                                        data-im-format="number(0)"
+                                                        data-im-format-options="useseparator"></span></th>
+                    <th style="text-align: right"><span data-im="monthly_summary_total@purchase_net_all"
+                                                        data-im-format="number(0)"
+                                                        data-im-format-options="useseparator"></span></th>
+                    <th style="text-align: right"><span data-im="monthly_summary_total@purchase_tax_all"
+                                                        data-im-format="number(0)"
+                                                        data-im-format-options="useseparator"></span></th>
+                    <th style="text-align: right"><span data-im="monthly_summary_total@others_item_all"
+                                                        data-im-format="number(0)"
+                                                        data-im-format-options="useseparator"></span></th>
+                    <th style="text-align: right"><span data-im="monthly_summary_total@others_net_all"
+                                                        data-im-format="number(0)"
+                                                        data-im-format-options="useseparator"></span></th>
+                    <th style="text-align: right"><span data-im="monthly_summary_total@others_tax_all"
+                                                        data-im-format="number(0)"
+                                                        data-im-format-options="useseparator"></span></th>
+                </tr>
+                </tfoot>
+                <tbody>
+                <tr>
+                    <td>
+                        <button class="btn btn-primary"
+                                onclick="INTERMediator.moveAnotherURL('monthly-detail.html?ym=$')"
+                                data-im="monthly_summary@ym@$onclick">詳細</button>
+                    </td>
+                    <td>
+                        <span data-im="monthly_summary@ym"></span><br>
+                    </td>
+                    <td style="text-align: right; background-color: #d3e3d3">
+                        <span data-im="monthly_summary@income_item_total" data-im-format="number(0)"
                       data-im-format-options="useseparator"></span><br>
-            </td>
-            <td style="text-align: right">
-                <span data-im="monthly_summary@income_net_total" data-im-format="number(0)"
+                    </td>
+                    <td style="text-align: right">
+                        <span data-im="monthly_summary@income_net_total" data-im-format="number(0)"
                       data-im-format-options="useseparator"></span><br>
-            </td>
-            <td style="text-align: right">
-                <span data-im="monthly_summary@income_tax_total" data-im-format="number(0)"
+                    </td>
+                    <td style="text-align: right">
+                        <span data-im="monthly_summary@income_tax_total" data-im-format="number(0)"
                       data-im-format-options="useseparator"></span><br>
-            </td>
-            <td style="text-align: right">
-                <span data-im="monthly_summary@purchase_item_total" data-im-format="number(0)"
+                    </td>
+                    <td style="text-align: right; background-color: #d3e3d3">
+                        <span data-im="monthly_summary@purchase_item_total" data-im-format="number(0)"
                       data-im-format-options="useseparator"></span><br>
-            </td>
-            <td style="text-align: right">
-                <span data-im="monthly_summary@purchase_net_total" data-im-format="number(0)"
+                    </td>
+                    <td style="text-align: right">
+                        <span data-im="monthly_summary@purchase_net_total" data-im-format="number(0)"
                       data-im-format-options="useseparator"></span><br>
-            </td>
-            <td style="text-align: right">
-                <span data-im="monthly_summary@purchase_tax_total" data-im-format="number(0)"
+                    </td>
+                    <td style="text-align: right">
+                        <span data-im="monthly_summary@purchase_tax_total" data-im-format="number(0)"
                       data-im-format-options="useseparator"></span><br>
-            </td>
-            <td></td>
-        </tr>
-        </tbody>
-    </table>
-    <table>
-        <thead>
-        <tr>
-            <th>年月</th>
-            <th>収入金額合計</th>
-            <th>（税抜金額）</th>
-            <th>（消費税額）</th>
-            <th>仕入金額合計</th>
-            <th>（税抜金額）</th>
-            <th>（消費税額）</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td>
-                <span data-im="monthly_detail@ym"></span><br>
-            </td>
-            <td style="text-align: right">
-                <span data-im="monthly_detail@income_item_total" data-im-format="number(0)"
+                    </td>
+                    <td style="text-align: right; background-color: #d3e3d3">
+                        <span data-im="monthly_summary@others_item_total" data-im-format="number(0)"
                       data-im-format-options="useseparator"></span><br>
-            </td>
-            <td style="text-align: right">
-                <span data-im="monthly_detail@income_net_total" data-im-format="number(0)"
+                    </td>
+                    <td style="text-align: right">
+                        <span data-im="monthly_summary@others_net_total" data-im-format="number(0)"
                       data-im-format-options="useseparator"></span><br>
-            </td>
-            <td style="text-align: right">
-                <span data-im="monthly_detail@income_tax_total" data-im-format="number(0)"
+                    </td>
+                    <td style="text-align: right">
+                        <span data-im="monthly_summary@others_tax_total" data-im-format="number(0)"
                       data-im-format-options="useseparator"></span><br>
-            </td>
-            <td style="text-align: right">
-                <span data-im="monthly_detail@purchase_item_total" data-im-format="number(0)"
-                      data-im-format-options="useseparator"></span><br>
-            </td>
-            <td style="text-align: right">
-                <span data-im="monthly_detail@purchase_net_total" data-im-format="number(0)"
-                      data-im-format-options="useseparator"></span><br>
-            </td>
-            <td style="text-align: right">
-                <span data-im="monthly_detail@purchase_tax_total" data-im-format="number(0)"
-                      data-im-format-options="useseparator"></span><br>
-            </td>
-            <td></td>
-        </tr>
-        <tr>
-            <td colspan="7">
-                <h2>収入項目明細</h2>
-                <table>
-                    <thead>
-                    <tr style="border-bottom: 1px dotted #808080">
-                    <tr>
-                        <th>No<br>親No</th>
-                        <th>日付</th>
-                        <th>区分</th>
-                        <th>仕訳<br>借方／貸方科目</th>
-                        <th>会社名<br>説明</th>
-                        <th>合計金額<br>小項目合計</th>
-                        <th>税抜金額<br>税額</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr style="border-bottom: 1px solid #808080">
-                        <td>
-                            <span data-im="account_income@account_id"></span><br>
-                            <span data-im="account_income@parent_account_id" style="color: #c75315"></span>
-                        </td>
-                        <td data-im="account_income@issued_date"></td>
-                        <td>
-                            <span data-im="account_income@kind_str"></span><br>
-                        </td>
-                        <td>
-                            <span data-im="account_income@pattern_name" style="font-size: 0.8em"></span><br>
-                            <span data-im="account_income@debit_item_name"></span>／<span
-                                data-im="account_income@credit_item_name"></span>
-                        </td>
-                        <td>
-                            <span style="font-size: 0.9em; color: darkgreen"
-                                  data-im="account_income@company"></span><br>
-                            <span data-im="account_income@description"></span>
-                        </td>
-                        <td style="text-align: right">
-                <span data-im="account_income@item_total" data-im-format="number(0)"
-                      data-im-format-options="useseparator"></span><br>
-                            <span data-im="account_income@parent_total" data-im-format="number(0)"
-                                  data-im-format-options="useseparator" style="color: #c75315"></span>
-                        </td>
-                        <td style="text-align: right">
-                <span data-im="account_income@net_total" data-im-format="number(0)"
-                      data-im-format-options="useseparator"></span><br>
-                            <span data-im="account_income@tax_total" data-im-format="number(0)"
-                                  data-im-format-options="useseparator"></span>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="7">
-                <h2>仕入項目明細</h2>
-                <table>
-                    <thead>
-                    <tr style="border-bottom: 1px dotted #808080">
-                    <tr>
-                        <th>No<br>親No</th>
-                        <th>日付</th>
-                        <th>区分</th>
-                        <th>仕訳<br>借方／貸方科目</th>
-                        <th>会社名<br>説明</th>
-                        <th>合計金額<br>小項目合計</th>
-                        <th>税抜金額<br>税額</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr style="border-bottom: 1px solid #808080">
-                        <td>
-                            <span data-im="account_purchase@account_id"></span><br>
-                            <span data-im="account_purchase@parent_account_id" style="color: #c75315"></span>
-                        </td>
-                        <td data-im="account_purchase@issued_date"></td>
-                        <td>
-                            <span data-im="account_purchase@kind_str"></span><br>
-                        </td>
-                        <td>
-                            <span data-im="account_purchase@pattern_name" style="font-size: 0.8em"></span><br>
-                            <span data-im="account_purchase@debit_item_name"></span>／<span
-                                data-im="account_purchase@credit_item_name"></span>
-                        </td>
-                        <td>
-                            <span style="font-size: 0.9em; color: darkgreen"
-                                  data-im="account_purchase@company"></span><br>
-                            <span data-im="account_purchase@description"></span>
-                        </td>
-                        <td style="text-align: right">
-                <span data-im="account_purchase@item_total" data-im-format="number(0)"
-                      data-im-format-options="useseparator"></span><br>
-                            <span data-im="account_purchase@parent_total" data-im-format="number(0)"
-                                  data-im-format-options="useseparator" style="color: #c75315"></span>
-                        </td>
-                        <td style="text-align: right">
-                <span data-im="account_purchase@net_total" data-im-format="number(0)"
-                      data-im-format-options="useseparator"></span><br>
-                            <span data-im="account_purchase@tax_total" data-im-format="number(0)"
-                                  data-im-format-options="useseparator"></span>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 </body>
 </html>
