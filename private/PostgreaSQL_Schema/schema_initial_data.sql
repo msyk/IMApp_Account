@@ -1,3 +1,5 @@
+SET search_path TO imapp_account,public;
+
 INSERT INTO authuser(id, username, hashedpasswd)
 VALUES (1, 'account', '24a53d4379c9313b192d5af524ccfa814087d3187844e1154611d2a8ecfc652e6d48555a'); /* Leyc291#B */
 
@@ -56,7 +58,7 @@ VALUES (176, '仮払金', 1.0, 0, 0, 0);
 INSERT INTO item
 VALUES (180, '仮払消費税', 1.0, 0, 0, 0);
 INSERT INTO item
-VALUES (181, '事業主借', 1.0, 1, 0, 0);
+VALUES (181, '事業主借', 1.0, 1, NULL, 0);
 INSERT INTO item
 VALUES (199, '貸倒引当金', 1.0, 0, 0, 0);
 INSERT INTO item
@@ -90,7 +92,7 @@ VALUES (250, '保険積立', 1.0, 0, 0, 0);
 INSERT INTO item
 VALUES (260, '開業費', 1.0, 0, 0, 0);
 INSERT INTO item
-VALUES (261, '開発費', 1.0, 0, 0, 0);
+VALUES (261, '開発費', 1.0, NULL, 0, 0);
 INSERT INTO item
 VALUES (262, '試験研究費', 1.0, 0, 0, 0);
 INSERT INTO item
@@ -98,9 +100,9 @@ VALUES (264, '新株発行費', 1.0, 0, 0, 0);
 INSERT INTO item
 VALUES (400, '支払手形', 1.0, 0, 0, 0);
 INSERT INTO item
-VALUES (403, '元入金', 1.0, 1, 0, 0);
+VALUES (403, '元入金', 1.0, 1, NULL, 0);
 INSERT INTO item
-VALUES (404, '事業主貸', 1.0, 1, 0, 0);
+VALUES (404, '事業主貸', 1.0, 1, NULL, 0);
 INSERT INTO item
 VALUES (405, '買掛金', 1.0, 1, 0, 0);
 INSERT INTO item
@@ -110,19 +112,19 @@ VALUES (407, '未払費用', 1.0, 0, 0, 0);
 INSERT INTO item
 VALUES (410, '短期借入金', 1.0, 0, 0, 0);
 INSERT INTO item
-VALUES (420, '未払金', 1.0, 1, 0, 0);
+VALUES (420, '未払金', 1.0, 1, NULL, 0);
 INSERT INTO item
-VALUES (423, '専従者給与', 1.0, 1, 0, 0);
+VALUES (423, '専従者給与', 1.0, 1, NULL, 0);
 INSERT INTO item
-VALUES (426, '預り金', 1.0, 0, 0, 0);
+VALUES (426, '預り金', 1.0, NULL, 0, 0);
 INSERT INTO item
 VALUES (427, '仮受金', 1.0, 0, 0, 0);
 INSERT INTO item
-VALUES (428, '前受金', 1.0, 0, 0, 0);
+VALUES (428, '前受金', 1.0, NULL, 0, 0);
 INSERT INTO item
 VALUES (430, '割引手形', 1.0, 0, 0, 0);
 INSERT INTO item
-VALUES (440, '仮受消費税', 1.0, 0, 0, 0);
+VALUES (440, '仮受消費税', 1.0, NULL, 0, 0);
 INSERT INTO item
 VALUES (450, '賞与引当金', 1.0, 0, 0, 0);
 INSERT INTO item
