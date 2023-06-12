@@ -66,6 +66,9 @@ CREATE INDEX account_assort_pattern_id
 CREATE INDEX account_delete
     ON account ("delete");
 
+GRANT ALL PRIVILEGES ON imapp_account.account TO web;
+GRANT ALL PRIVILEGES ON imapp_account.account_account_id_seq TO web;
+
 CREATE TABLE detail
 (
     detail_id   SERIAL PRIMARY KEY,
@@ -82,6 +85,9 @@ CREATE INDEX detail_account_id
 CREATE INDEX detail_delete
     ON detail ("delete");
 
+GRANT ALL PRIVILEGES ON imapp_account.detail TO web;
+GRANT ALL PRIVILEGES ON imapp_account.detail_detail_id_seq TO web;
+
 CREATE TABLE item
 (
     item_id      INTEGER PRIMARY KEY,
@@ -92,6 +98,9 @@ CREATE TABLE item
     is_other_exp INTEGER /* 仕入れに入れない経費項目 */
 );
 
+GRANT ALL PRIVILEGES ON imapp_account.item TO web;
+GRANT ALL PRIVILEGES ON imapp_account.item_item_id_seq TO web;
+
 CREATE TABLE assort_pattern
 (
     assort_pattern_id SERIAL PRIMARY KEY, /* 仕訳パターン番号 */
@@ -100,10 +109,15 @@ CREATE TABLE assort_pattern
     credit_id         INTEGER /* 貸方コード */
 );
 
+GRANT ALL PRIVILEGES ON imapp_account.assort_pattern TO web;
+GRANT ALL PRIVILEGES ON imapp_account.assort_pattern_assort_pattern_id_seq TO web;
+
 CREATE TABLE fiscal_year
 (
     year INTEGER PRIMARY KEY
 );
+
+GRANT ALL PRIVILEGES ON imapp_account.fiscal_year TO web;
 
 CREATE TABLE company
 (
@@ -115,6 +129,9 @@ CREATE TABLE company
     address     TEXT
 );
 
+GRANT ALL PRIVILEGES ON imapp_account.company TO web;
+GRANT ALL PRIVILEGES ON imapp_account.company_company_id_seq TO web;
+
 CREATE TABLE preference
 (
     preference_id   SERIAL PRIMARY KEY,
@@ -125,6 +142,10 @@ CREATE TABLE preference
     sender_info     TEXT,
     copy_detail     INTEGER DEFAULT 0 NOT NULL
 );
+
+GRANT ALL PRIVILEGES ON imapp_account.preference TO web;
+GRANT ALL PRIVILEGES ON imapp_account.preference_preference_id_seq TO web;
+
 /* Observable */
 CREATE TABLE registeredcontext
 (
@@ -134,6 +155,9 @@ CREATE TABLE registeredcontext
     conditions   TEXT,
     registereddt TIMESTAMP
 );
+
+GRANT ALL PRIVILEGES ON imapp_account.registeredcontext TO web;
+GRANT ALL PRIVILEGES ON imapp_account.registeredcontext_id_seq TO web;
 
 CREATE TABLE registeredpks
 (
@@ -148,6 +172,7 @@ CREATE UNIQUE INDEX registeredpks_context_id
 CREATE INDEX registeredpks_pk
     ON registeredpks (pk);
 
+GRANT ALL PRIVILEGES ON imapp_account.registeredpks TO web;
 
 CREATE TABLE authuser
 (
@@ -166,11 +191,17 @@ CREATE INDEX authuser_email
 CREATE INDEX authuser_limitdt
     ON authuser (limitdt);
 
+GRANT ALL PRIVILEGES ON imapp_account.authuser TO web;
+GRANT ALL PRIVILEGES ON imapp_account.authuser_id_seq TO web;
+
 CREATE TABLE authgroup
 (
     id        SERIAL PRIMARY KEY,
     groupname TEXT
 );
+
+GRANT ALL PRIVILEGES ON imapp_account.authgroup TO web;
+GRANT ALL PRIVILEGES ON imapp_account.authgroup_id_seq TO web;
 
 CREATE TABLE authcor
 (
@@ -187,6 +218,9 @@ CREATE INDEX authcor_group_id
     ON authcor (group_id);
 CREATE INDEX authcor_dest_group_id
     ON authcor (dest_group_id);
+
+GRANT ALL PRIVILEGES ON imapp_account.authcor TO web;
+GRANT ALL PRIVILEGES ON imapp_account.authcor_id_seq TO web;
 
 CREATE TABLE issuedhash
 (
@@ -205,6 +239,9 @@ CREATE INDEX issuedhash_clienthost
     ON issuedhash (clienthost);
 CREATE INDEX issuedhash_user_id_clienthost
     ON issuedhash (user_id, clienthost);
+
+GRANT ALL PRIVILEGES ON imapp_account.issuedhash TO web;
+GRANT ALL PRIVILEGES ON imapp_account.issuedhash_id_seq TO web;
 
 /* Operation Log Store */
 CREATE TABLE operationlog
@@ -228,3 +265,6 @@ CREATE TABLE operationlog
     edit_field    VARCHAR(20),
     edit_value    TEXT
 );
+
+GRANT ALL PRIVILEGES ON imapp_account.operationlog TO web;
+GRANT ALL PRIVILEGES ON imapp_account.operationlog_id_seq TO web;
