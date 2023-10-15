@@ -27,10 +27,7 @@ INTERMediatorOnPage.doAfterConstruct = function () {
 }
 
 function backToList() {
-  IMLibQueue.setTask((complete) => {
-    complete()
-    location.href = "index.html"
-  }, false, true)
+  INTERMediator.moveAnotherURL('/index.html')
 }
 
 function clearFile(aid) {

@@ -98,6 +98,10 @@ IM_Entry(
             'maxrecords' => 100000,
             'soft-delete' => true,
             'relation' => [['foreign-key' => 'account_id', 'join-field' => 'account_id', 'operator' => '='],],
+            'default-values' => [
+                ['field' => 'unit_price', 'value' => 0],
+                ['field' => 'qty', 'value' => 0],
+            ],
         ],
         [
             'name' => 'account_add',

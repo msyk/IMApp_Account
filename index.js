@@ -20,7 +20,7 @@ INTERMediatorOnPage.doBeforeConstruct = function () {
   INTERMediator.lcConditionsOP3AND = 'AND'
   const dataSource = INTERMediatorOnPage.getDataSources()
   for (const key in dataSource) {
-    if (dataSource[key].name == "account_list" && copyDetail) {
+    if (dataSource[key].name === "account_list" && copyDetail) {
       dataSource[key]["repeat-control"] = "confirm-insert confirm-delete confirm-copy-detail_copy"
     }
   }
@@ -38,12 +38,17 @@ INTERMediatorOnPage.doAfterConstruct = function () {
   stickyHeaderTableAdjust()
 }
 
+INTERMediatorOnPage.doAfterValueChange = (idValue) => {
+  const targetNode = document.getElementById(idValue)
+  const targetSpec = targetNode.getAttribute('data-im')
+  if(targetSpec.indexOf('preference@copy_detail')===0){
+    INTERMediator.constructMain();
+  }
+}
+
 INTERMediatorOnPage.doAfterCreateRecord = (newId, contextName) => {
-  if (contextName == 'account_list') {
-    IMLibQueue.setTask((complete) => {
-      complete()
-      location.href = `index_detail.html?id=${newId}`
-    }, false, true)
+  if (contextName === 'account_list') {
+    INTERMediator.moveAnotherURL(`index_detail.html?id=${newId}`)
   }
 }
 
@@ -53,12 +58,12 @@ function clearConditions() {
 }
 
 function exportAccount() {
-  location.href = 'index_contexts.php?media=class://AccountCSV/account_all'
+  INTERMediator.moveAnotherURL('index_contexts.php?media=class://AccountCSV/account_all')
 }
 
 function moveDetailPage(aid){
   aid = parseInt(aid)
-  location.href = `index_detail.html?id=${aid}`
+  INTERMediator.moveAnotherURL(`index_detail.html?id=${aid}`)
 }
 
 function setCondition(n) {
@@ -67,7 +72,7 @@ function setCondition(n) {
     IMLibLocalContext.setValue('condition:account_list:issued_date:>=', `${y}-01-01`)
     IMLibLocalContext.setValue('condition:account_list:issued_date:<=', `${y}-12-31`)
     INTERMediator.constructMain()
-  } else if (parseInt(n) == 3) {
+  } else if (parseInt(n) === 3) {
     const start = new Date()
     start.setMonth(start.getMonth() - 2)
     start.setDate(1)
@@ -124,7 +129,7 @@ function csvReadBankImpl(dateCol, outCol, inCol, descCol, skipLine) {
   }
   const src = document.getElementById('csv_data').value
   var srcTemp = src
-  if (src.indexOf("\"") != -1) {
+  if (src.indexOf("\"") !== -1) {
     srcTemp = src.replace(/\"/g, "")
   }
   const lines = srcTemp.split('\n')
@@ -177,7 +182,7 @@ function csvReadBankImpl(dateCol, outCol, inCol, descCol, skipLine) {
         const data = [
           {field: 'account_id', value: accountId},
           {field: 'description', value: items[descCol]},
-          {field: 'unit_price', value: Math.abs(outCol == inCol ? items[outCol] : items[outCol] + items[inCol])},
+          {field: 'unit_price', value: Math.abs(outCol === inCol ? items[outCol] : items[outCol] + items[inCol])},
           {field: 'qty', value: 1}
         ]
         INTERMediator_DBAdapter.db_createRecord_async({name: 'detail_add', dataset: data}, (result) => {

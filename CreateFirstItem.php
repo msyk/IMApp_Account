@@ -10,14 +10,19 @@ class CreateFirstItem extends UseSharedObjects implements AfterCreate
 
     public function doAfterCreateToDB($result)
     {
-        $this->dbCreate('detail', ['account_id' => $result[0]['account_id']], [[
-            'name' => 'detail',
-            'key' => 'detail_id',
-            'default-values' => [
-                ['field' => "unit_price", 'value' => "0"],
-                ['field' => "qty", 'value' => "0"],
-            ],
-        ],]);
+        $this->dbCreate('detail',
+            [
+                'account_id' => $result[0]['account_id'],
+                "unit_price" => 0,
+                "qty" => 0,
+            ]/*, [[
+                'name' => 'detail',
+                'key' => 'detail_id',
+                'default-values' => [
+                    ['field' => "unit_price", 'value' => "0"],
+                    ['field' => "qty", 'value' => "0"],
+                ],
+            ],]*/);
         return $result;
     }
 }

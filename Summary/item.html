@@ -57,16 +57,20 @@
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="../index.html">総勘定元帳</a>
+                        <a class="nav-link" aria-current="page"
+                           href="javascript:INTERMediator.moveAnotherURL('/index.html')">総勘定元帳</a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link active" href="/Summary/item.html">科目集計</a>
+                        <a class="nav-link"
+                           href="javascript:INTERMediator.moveAnotherURL('/Summary/item.html')">科目集計</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/Summary/monthly.html">月次集計</a>
+                        <a class="nav-link"
+                           href="javascript:INTERMediator.moveAnotherURL('/Summary/monthly.html')">月次集計</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/Summary/editlog.html">変更履歴</a>
+                        <a class="nav-link"
+                           href="javascript:INTERMediator.moveAnotherURL('/Summary/editlog.html')">変更履歴</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
@@ -74,15 +78,27 @@
                             マスター処理
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <li><a class="dropdown-item" href="../Master/master_item.html">勘定科目</a></li>
-                            <li><a class="dropdown-item" href="../Master/master_assort.html">仕訳パターン</a></li>
-                            <li><a class="dropdown-item" href="../Master/master_customer.html">顧客</a></li>
-                            <li><a class="dropdown-item" href="../Master/master_year.html">年度</a></li>
+                            <li><a class="dropdown-item"
+                                   href="javascript:INTERMediator.moveAnotherURL('/Master/master_item.html')">勘定科目</a>
+                            </li>
+                            <li><a class="dropdown-item"
+                                   href="javascript:INTERMediator.moveAnotherURL('/Master/master_assort.html')">仕訳パターン</a>
+                            </li>
+                            <li><a class="dropdown-item"
+                                   href="javascript:INTERMediator.moveAnotherURL('/Master/master_customer.html')">顧客</a>
+                            </li>
+                            <li><a class="dropdown-item"
+                                   href="javascript:INTERMediator.moveAnotherURL('/Master/master_year.html')">年度</a>
+                            </li>
                             <li>
                                 <hr>
                             </li>
-                            <li><a class="dropdown-item" href="../Doc/regulation-0021006-031_e.html">事務処理規程(個人)</a></li>
-                            <li><a class="dropdown-item" href="../Master/master_preference.html">設定</a></li>
+                            <li><a class="dropdown-item"
+                                   href="javascript:INTERMediator.moveAnotherURL('Doc/regulation-0021006-031_e.html')">事務処理規程(個人)</a>
+                            </li>
+                            <li><a class="dropdown-item"
+                                   href="javascript:INTERMediator.moveAnotherURL('/Master/master_preference.html')">設定</a>
+                            </li>
                         </ul>
                     </li>
                 </ul>
@@ -100,7 +116,7 @@
         <div data-im-control="repeater">
             <h2>
                 <span data-im="year_detail@year"></span><span>年度　科目別集計</span>
-                <button class="btn btn-success" onclick="location.href='item_detail.html?year=$';"
+                <button class="btn btn-success" onclick="javascript:INTERMediator.moveAnotherURL('item_detail.html?year=$')"
                         data-im="year_detail@year@$onclick">各科目の明細表示</button>
             </h2>
             <h3>借方科目</h3>
