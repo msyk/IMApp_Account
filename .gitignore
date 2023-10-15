@@ -4,3 +4,4 @@
 .vagrant
 vendor/
 node_modules/
+docker/mysql/db/*
