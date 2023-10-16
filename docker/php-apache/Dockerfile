@@ -21,9 +21,8 @@ FROM php:8.1-apache
     && docker-php-ext-install pdo_mysql \
     && docker-php-ext-install exif
 
-  RUN rm -rf /var/www/html/* && git clone https://github.com/msyk/IMApp_Account /var/www/html
-  RUN chown -R www-data /var/www
+  RUN rm -rf /var/www/html/* && git clone https://github.com/msyk/IMApp_Account /var/www/html && chown -R www-data /var/www
   RUN cd /var/www/html; composer update
   RUN echo "/* Added by Dockerfile */" >> /var/www/html/lib/params.php; \
-    echo "\$dbDSN = 'mysql:host=db;port=3306;dbname=test_db;charset=utf8mb4';" >> /var/www/html/lib/params.php
-  RUN cp /var/www/html/private/apache-deny-files.conf /etc/apache2/conf-enabled
+    echo "\$dbDSN = 'mysql:host=db;port=3306;dbname=imapp_account;charset=utf8mb4';" >> /var/www/html/lib/params.php
+  RUN cp /var/www/html/private/apache-deny-files.conf /etc/apache2/conf-available && a2enconf apache-deny-files

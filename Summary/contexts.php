@@ -154,7 +154,13 @@ IM_Entry(
             'sort' => [['field' => 'issued_date', 'direction' => 'ASC'],],
         ],
     ],
-    [],
+    [
+//        'authentication' => [
+//            'authexpired' => '7200',
+//            'storing' => 'credential',
+//        ],
+
+    ],
     ['db-class' => 'PDO',],
 2
 );

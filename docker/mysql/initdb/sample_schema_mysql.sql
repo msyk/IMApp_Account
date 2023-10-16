@@ -18,14 +18,14 @@ mysql -uroot imapp_account < schema_initial_data.sql
 */
 SET NAMES 'utf8mb4';
 
-DROP USER IF EXISTS 'web'@'localhost';
-CREATE USER 'web'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';
+#DROP USER IF EXISTS 'web'@'localhost';
+#CREATE USER 'web'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';
 ######### Moreover add descriptions to the [mysqld] section of any cnf file.
 ######### default_authentication_plugin = mysql_native_password
 
 # Grant to All operations for all objects with web account
-GRANT SELECT, INSERT, DELETE, UPDATE ON TABLE imapp_account.* TO 'web'@'localhost';
-GRANT SHOW VIEW ON TABLE imapp_account.* TO 'web'@'localhost';
+#GRANT SELECT, INSERT, DELETE, UPDATE ON TABLE imapp_account.* TO 'web'@'localhost';
+#GRANT SHOW VIEW ON TABLE imapp_account.* TO 'web'@'localhost';
 # For mysqldump, the SHOW VIEW privilege is just required, and use options --single-transaction and --no-tablespaces.
 
 DROP DATABASE IF EXISTS imapp_account;

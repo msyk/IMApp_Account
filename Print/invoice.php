@@ -74,7 +74,12 @@ IM_Entry(
             'records' => 1,
         ],
     ],
-    [],
+    [
+//        'authentication' => [
+//            'authexpired' => '7200',
+//            'storing' => 'credential',
+//        ],
+    ],
     ['db-class' => 'PDO',],
     false
 );
