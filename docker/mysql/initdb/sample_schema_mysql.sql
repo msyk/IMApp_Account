@@ -241,6 +241,16 @@ CREATE TABLE operationlog
     edit_value    TEXT
 );
 
+/*
+ operationlog table example
+
+sqlite> select id,dt,user,access,context,key_value,edit_field,edit_value from operationlog order by dt desc limit 5;
+744|2022-04-12 09:35:49||delete|detail_list|21845||
+743|2022-04-12 09:35:46||create|detail_list|13742|account_id|13742
+742|2022-04-12 09:28:34||update|detail_list|21765|qty|3
+
+ */
+
 DROP VIEW IF EXISTS detail_calc;
 CREATE VIEW detail_calc AS
 SELECT detail_id,
@@ -393,7 +403,7 @@ FROM account
          LEFT JOIN account_calc ON account.account_id = account_calc.account_id
 WHERE (account.credit_id = 700 OR account.debit_id = 700) /* 700=売上高 */
   AND (`delete` <> '1' OR `delete` IS NULL)
-GROUP BY DATE_FORMAT(account.issued_date, '%Y-%m')
+GROUP BY DATE_FORMAT(account.issued_date, '%Y'), DATE_FORMAT(account.issued_date, '%Y-%m')
 ;
 DROP VIEW IF EXISTS monthly_summary_purchase;
 CREATE VIEW monthly_summary_purchase AS
@@ -479,44 +489,6 @@ WHERE `year` <= DATE_FORMAT(CURDATE(), '%Y')
   AND `year` > DATE_FORMAT(CURDATE(), '%Y') - 3
 ORDER BY `year` DESC
 ;
-
-/*
- operationlog table example
-
-sqlite> select id,dt,user,access,context,key_value,edit_field,edit_value from operationlog order by dt desc limit 5;
-744|2022-04-12 09:35:49||delete|detail_list|21845||
-743|2022-04-12 09:35:46||create|detail_list|13742|account_id|13742
-742|2022-04-12 09:28:34||update|detail_list|21765|qty|3
-
- */
-/*
-DROP VIEW IF EXISTS editlog_account;
-CREATE VIEW item_summary_credit AS
-SELECT id,
-      dt,
-      user,
-      access,
-      context,
-      key_value,
-      edit_field,
-      edit_value
-FROM operationlog
-order by dt desc
-;
-DROP VIEW IF EXISTS editlog_detail;
-CREATE VIEW item_summary_credit AS
-SELECT id,
-      dt,
-      user,
-      access,
-      context,
-      key_value,
-      edit_field,
-      edit_value
-FROM operationlog
-order by dt desc
-;
-*/
 
 INSERT INTO authuser(id, username, hashedpasswd)
 VALUES (1, 'account', '24a53d4379c9313b192d5af524ccfa814087d3187844e1154611d2a8ecfc652e6d48555a'); /* Leyc291#B */

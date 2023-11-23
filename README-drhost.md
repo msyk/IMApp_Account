@@ -88,6 +88,9 @@ IMApp_Accountのレポジトリをクローンして運用している場合、`
 
 ### 2023-11-23修正
 
+2023-11-23の```4c16aa7907364570245394b4c5260fb26daf6a66```において、accountとassort_patternテーブルに変更が発生しました。また、ビューについても変更が発生しました。
+それ以前のデータベースをそのまま使いたい場合は、以下のコマンドをそのままコピー&amp;ペーストで入力して、フィールドの追加をお願いします。レポジトリのルートをカレントディレクトにしてコマンドを実行してください。
+
 ```
 echo "ALTER TABLE account ADD COLUMN 'minus' INTEGER"|sqlite3 ~/.im_db/imapp_account.sqlite3
 echo "ALTER TABLE assort_pattern ADD COLUMN 'order' INTEGER"|sqlite3 ~/.im_db/imapp_account.sqlite3

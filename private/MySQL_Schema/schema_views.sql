@@ -150,7 +150,7 @@ FROM account
          LEFT JOIN account_calc ON account.account_id = account_calc.account_id
 WHERE (account.credit_id = 700 OR account.debit_id = 700) /* 700=売上高 */
   AND (`delete` <> '1' OR `delete` IS NULL)
-GROUP BY DATE_FORMAT(account.issued_date, '%Y-%m')
+GROUP BY DATE_FORMAT(account.issued_date, '%Y'), DATE_FORMAT(account.issued_date, '%Y-%m')
 ;
 DROP VIEW IF EXISTS monthly_summary_purchase;
 CREATE VIEW monthly_summary_purchase AS
