@@ -289,7 +289,7 @@ VALUES (15, '帳簿外', 1, 1, 1000);
 INSERT INTO assort_pattern
 VALUES (16, '個人用をクレジット購入', 404, 420, 1400);
 INSERT INTO assort_pattern
-VALUES (17, '個人のクレジットで購入', 2, 181, 1500, 2600);
+VALUES (17, '個人のクレジットで購入', 2, 181, 2600);
 INSERT INTO assort_pattern
 VALUES (18, '個人のクレジット支払い', 1, 1, 2600);
 INSERT INTO assort_pattern

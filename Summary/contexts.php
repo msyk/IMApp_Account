@@ -24,7 +24,7 @@ IM_Entry(
             'records' => 20,
             'maxrecords' => 100000,
             'paging' => true,
-            'soft-delete' => true,
+//            'soft-delete' => true,
             'relation' => [['foreign-key' => 'y', 'join-field' => 'year', 'operator' => '='],],
         ],
         [
@@ -168,5 +168,5 @@ IM_Entry(
     ],
     [],
     ['db-class' => 'PDO',],
-    2
+    0
 );
