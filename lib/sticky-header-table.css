@@ -10,6 +10,7 @@
 .sticky-header-table table {
     margin: 0;
     border-spacing: 0;
+    border-collapse: separate;
 }
 
 .sticky-header-table td {
@@ -18,6 +19,7 @@
     /*border-bottom: 1px solid #999;*/
     /*background: #FFF;*/
     /*padding: 5px;*/
+    border-top: none;
 }
 
 .sticky-header-table th {

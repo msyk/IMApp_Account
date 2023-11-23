@@ -21,7 +21,7 @@ IM_Entry(
             'name' => 'assort_pattern',
             'key' => 'assort_pattern_id',
             'records' => 10000,
-            'sort' => [['field' => 'assort_pattern_id', 'direction' => 'asc'],],
+            'sort' => [['field' => 'order', 'direction' => 'asc'],],
             'repeat-control' => 'confirm-insert-top confirm-delete confirm-copy',
         ],
         [
@@ -59,13 +59,7 @@ IM_Entry(
             'records' => 1,
         ],
     ],
-    [
-//        'authentication' => [
-//            'authexpired' => '7200',
-//            'storing' => 'credential',
-//        ],
-
-    ],
+    [],
     ['db-class' => 'PDO',],
     false
 );

@@ -57,8 +57,38 @@
             padding: 12px;
         }
 
+        #funcpanel2 {
+            position: fixed;
+            background-color: #FFFFFF7F;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            z-index: 4999;
+            display: none;
+        }
+
+        #panelcontent2 {
+            position: absolute;
+            background-color: #d3d3d3FF;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 800px;
+            height: 600px;
+            padding: 12px;
+        }
+
         .explain {
             font-size: 80%;
+        }
+
+        .searchbutton {
+            cursor: pointer;
+            background-color: #c2c2c2;
+            border-radius: 8pt;
+            padding: 2px;
         }
     </style>
 </head>
@@ -170,6 +200,37 @@
             </div>
         </div>
     </div>
+    <div id="funcpanel2" onclick="hidePanel2()">
+        <div id="panelcontent2">
+            <button class="btn btn-primary" onclick="hidePanel2()">閉じる</button>
+            <hr>
+            <h3>検索オプション</h3>
+            <div>
+                <labe><input type="checkbox" id="option-clear">検索条件をクリアしてから該当する検索を行う</labe>
+            </div>
+            <hr>
+            <p>
+                <button class="btn btn-secondary" onclick="codeSearch(420,115,'typeA')">事業用クレジットの請求</button>
+                <button class="btn btn-secondary" onclick="codeSearch(420,115,'typeB')">分割払いの引き落とし</button>
+            </p>
+            <p>
+                <button class="btn btn-secondary" onclick="codeSearch(141,700)">売上の請求</button>
+                売掛金に関して
+                <button class="btn btn-secondary" onclick="codeSearch(null,141)">支払全て</button>
+                <button class="btn btn-secondary" onclick="codeSearch(115,141)">普通預金</button>
+                <button class="btn btn-secondary" onclick="codeSearch(404,141)">個人口座</button>
+            </p>
+            <p>
+                <button class="btn btn-secondary" onclick="codeSearch(null,181)">事業主借</button>
+                <button class="btn btn-secondary" onclick="codeSearch(404,null)">事業主貸</button>
+                <button class="btn btn-secondary" onclick="codeSearch(null, 117)">個人の普通預金より出金</button>
+                個人用クレジットの請求
+            </p>
+            <p>
+                <button class="btn btn-secondary" onclick="codeSearch(null,null,'typeC')">関連項目の合計と金額が不一致</button>
+            </p>
+        </div>
+    </div>
     <h3>総勘定元帳</h3>
     <div id="IM_NAVIGATOR"></div>
     <div class="sticky-header-table">
@@ -195,6 +256,7 @@
                     <button class="btn btn-success" onclick="setCondition(1)">今年</button>
                     <button class="btn btn-success" onclick="setCondition(2)">前年</button>
                     <button class="btn btn-success" onclick="setCondition(3)">最近</button>
+                    <button class="btn btn-warning" onclick="showPanel2()">検索処理</button>
                 </th>
                 <th><input type="text" size="24" placeholder="会社名/勘定科目/説明検索"
                            data-im="_@condition:account_list:company,debit_item_name,credit_item_name,description:*match*">
@@ -224,10 +286,10 @@
                     <span style="cursor: pointer" data-im="_@addorder:account_list:company:desc">▼</span>
                     <br>説明
                 </th>
-                <th>合計金額<br>小項目合計</th>
-                <th>税抜金額<br>税額</th>
+                <th style="text-align: right">合計金額<br>小項目合計</th>
+                <th style="text-align: right">税抜金額<br>税額</th>
                 <th>
-                    <button class="btn btn-success" onclick="showPanel(event.target)">各種機能</button>
+                    <button class="btn btn-success" onclick="showPanel()">各種機能</button>
                 </th>
             </tr>
             </thead>
@@ -239,9 +301,13 @@
                         詳細
                     </button>
                 </td>
-                <td>
-                    <span data-im="account_list@account_id"></span><br>
+                <td style="white-space: nowrap">
+                    <span data-im="account_list@account_id"></span>
+                    <span class="searchbutton" onclick="uiIdSearch($)"
+                          data-im="account_list@account_id@$onclick">◀</span><br>
                     <span data-im="account_list@parent_account_id" style="color: #c75315"></span>
+                    <span class="searchbutton" onclick="uiIdSearch($)"
+                          data-im="account_list@parent_account_id@$onclick account_list@parent_account_style@style.display">◀</span>
                 </td>
                 <td data-im="account_list@issued_date"></td>
                 <td>

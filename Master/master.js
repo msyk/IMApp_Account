@@ -20,3 +20,11 @@ INTERMediatorOnPage.doBeforeConstruct = function () {
 INTERMediatorOnPage.doAfterConstruct = function () {
   document.getElementById('container').style.display = 'block'
 }
+
+INTERMediatorOnPage.doAfterValueChange = (idValue) => {
+  const targetNode = document.getElementById(idValue)
+  const targetSpec = targetNode.getAttribute('data-im')
+  if (targetSpec.indexOf('item@item_id') === 0) {
+    INTERMediator.constructMain();
+  }
+}

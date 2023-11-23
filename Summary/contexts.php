@@ -34,7 +34,7 @@ IM_Entry(
             'key' => 'year',
             'records' => 100,
             'maxrecords' => 100,
-            'calculation'=>[
+            'calculation' => [
                 ['field' => "income_item_all", 'expression' => "sum(monthly_summary@income_item_total)",],
                 ['field' => "income_net_all", 'expression' => "sum(monthly_summary@income_net_total)",],
                 ['field' => "income_tax_all", 'expression' => "sum(monthly_summary@income_tax_total)",],
@@ -61,7 +61,11 @@ IM_Entry(
             'key' => 'account_id',
             'records' => 1000000,
             'relation' => [['foreign-key' => 'ym', 'join-field' => 'ym', 'operator' => '='],],
-            'query' => [['field' => 'credit_id', 'operator' => '=', 'value' => '700'],],
+            'query' => [
+                ['field' => 'credit_id', 'operator' => '=', 'value' => '700'],
+                ['field' => 'debit_id', 'operator' => '=', 'value' => '700'],
+                ['field' => '__operation__', 'operator' => 'ex'],
+            ],
             'sort' => [['field' => 'issued_date', 'direction' => 'ASC'],],
             'soft-delete' => true,
         ],
@@ -72,7 +76,11 @@ IM_Entry(
             'key' => 'account_id',
             'records' => 1000000,
             'relation' => [['foreign-key' => 'ym', 'join-field' => 'ym', 'operator' => '='],],
-            'query' => [['field' => 'is_purchase', 'operator' => '=', 'value' => '1'],],
+            'query' => [
+                ['field' => 'is_purchase', 'operator' => '=', 'value' => '1'],
+                ['field' => 'credit_is_purchase', 'operator' => '=', 'value' => '1'],
+                ['field' => '__operation__', 'operator' => 'ex'],
+            ],
             'sort' => [['field' => 'issued_date', 'direction' => 'ASC'],],
             'soft-delete' => true,
         ],
@@ -83,7 +91,11 @@ IM_Entry(
             'key' => 'account_id',
             'records' => 1000000,
             'relation' => [['foreign-key' => 'ym', 'join-field' => 'ym', 'operator' => '='],],
-            'query' => [['field' => 'is_other_exp', 'operator' => '=', 'value' => '1'],],
+            'query' => [
+                ['field' => 'is_other_exp', 'operator' => '=', 'value' => '1'],
+                ['field' => 'credit_is_other_exp', 'operator' => '=', 'value' => '1'],
+                ['field' => '__operation__', 'operator' => 'ex'],
+            ],
             'sort' => [['field' => 'issued_date', 'direction' => 'ASC'],],
             'soft-delete' => true,
         ],
@@ -154,13 +166,7 @@ IM_Entry(
             'sort' => [['field' => 'issued_date', 'direction' => 'ASC'],],
         ],
     ],
-    [
-//        'authentication' => [
-//            'authexpired' => '7200',
-//            'storing' => 'credential',
-//        ],
-
-    ],
+    [],
     ['db-class' => 'PDO',],
-2
+    2
 );

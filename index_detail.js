@@ -20,10 +20,22 @@ INTERMediatorOnPage.doBeforeConstruct = function () {
   if (params['id']) {
     INTERMediator.addCondition('account_detail', {field: 'account_id', operator: '=', value: parseInt(params['id'])})
   }
-};
+  if (params['back']) {
+    backURL = params['back'];
+  }
+}
+
+let backURL = null;
 
 INTERMediatorOnPage.doAfterConstruct = function () {
+  if (backURL) {
+    document.getElementById("back-button").style.display = "inline"
+  }
   document.getElementById('container').style.display = 'block'
+}
+
+function backWithParameter() {
+  INTERMediator.moveAnotherURL(backURL)
 }
 
 function backToList() {
@@ -97,7 +109,7 @@ function csvReadImpl(pCol, pColAdd = -1) {
       price = items[pCol].match(/[0-9.]+/g).join('')
       if (pColAdd > -1) {
         const re = items[pColAdd].match(/[0-9.]+/g)
-        if(re) {
+        if (re) {
           price += re.join('')
         }
       }
@@ -147,7 +159,7 @@ function generateDetailToAccount() {
           {field: 'parent_account_id', value: parentId},
           {field: 'assort_pattern_id', value: 7},
           {field: 'debit_id', value: 2},
-          {field: 'credit_id', value: 405},
+          {field: 'credit_id', value: 420},
           {field: 'company', value: itemDesc}
         ]
         INTERMediator_DBAdapter.db_createRecord_async({name: 'account_add', dataset: data}, (result) => {

@@ -56,7 +56,8 @@ CREATE TABLE account
     debit_id          INTEGER, /* 借方コード */
     credit_id         INTEGER, /* 貸方コード */
     assort_pattern_id INTEGER, /* 仕訳パターン番号 */
-    `delete`          INTEGER
+    `delete`          INTEGER,
+    minus             INTEGER
 );
 
 CREATE INDEX account_parent_account_id
@@ -107,7 +108,8 @@ CREATE TABLE assort_pattern
     assort_pattern_id INTEGER PRIMARY KEY AUTO_INCREMENT, /* 仕訳パターン番号 */
     pattern_name      TEXT,
     debit_id          INTEGER, /* 借方コード */
-    credit_id         INTEGER /* 貸方コード */
+    credit_id         INTEGER, /* 貸方コード */
+    "order"           INTEGER
 );
 
 CREATE TABLE fiscal_year

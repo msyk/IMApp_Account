@@ -86,6 +86,14 @@ IMApp_Accountのレポジトリをクローンして運用している場合、`
 
 ## スキーマ変更の履歴とDBスキーマの更新方法
 
+### 2023-11-23修正
+
+```
+echo "ALTER TABLE account ADD COLUMN 'minus' INTEGER"|sqlite3 ~/.im_db/imapp_account.sqlite3
+echo "ALTER TABLE assort_pattern ADD COLUMN 'order' INTEGER"|sqlite3 ~/.im_db/imapp_account.sqlite3
+sqlite3 ~/.im_db/imapp_account.sqlite3 < lib/schema_views.sql
+```
+
 ### 2023-04-15修正
 
 2023-04-15の```commit dccbf42c60ac7d1dc443b6ec4f0dd158d3c235ad```において、itemテーブルに変更が発生しました。また、ビューについても変更が発生しました。

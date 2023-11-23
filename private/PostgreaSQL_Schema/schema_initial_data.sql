@@ -259,47 +259,45 @@ INSERT INTO item
 VALUES (980, '法人税等', 1.0, 1, 0, 0);
 
 INSERT INTO assort_pattern
-VALUES (1, '現金で購入', 2, 181);
+VALUES (1, '現金で購入', 2, 181, 1100);
 INSERT INTO assort_pattern
-VALUES (2, '現金を引き出し', 100, 115);
+VALUES (2, '現金を引き出し', 100, 115, 1200);
 INSERT INTO assort_pattern
-VALUES (3, '現金での報酬', 100, 700);
+VALUES (3, '現金での報酬', 100, 700, 1600);
 INSERT INTO assort_pattern
-VALUES (4, '振り込み（請求書あり）', 115, 141);
+VALUES (4, '振り込み（請求書あり）', 115, 141, 1800);
 INSERT INTO assort_pattern
-VALUES (5, '振り込み（請求書なし）', 115, 700);
+VALUES (5, '振り込み（請求書なし）', 115, 700, 2000);
 INSERT INTO assort_pattern
-VALUES (6, '引き落とし・支払い', 2, 115);
+VALUES (6, '引き落とし・支払い', 2, 115, 2200);
 INSERT INTO assort_pattern
-VALUES (7, 'クレジット購入', 2, 405);
+VALUES (7, 'クレジット購入', 2, 420, 1300);
 INSERT INTO assort_pattern
-VALUES (8, '請求した', 141, 700);
+VALUES (8, '請求した', 141, 700, 1700);
 INSERT INTO assort_pattern
-VALUES (9, 'クレジットの支払い', 405, 115);
+VALUES (9, 'クレジットの支払い', 420, 115, 2500);
 INSERT INTO assort_pattern
-VALUES (10, '請求された', 2, 405);
+VALUES (10, '請求された', 2, 405, 2700);
 INSERT INTO assort_pattern
-VALUES (11, '請求に対する支払', 405, 115);
+VALUES (11, '請求に対する支払', 405, 115, 2800);
 INSERT INTO assort_pattern
-VALUES (12, '源泉徴収（振り込み時）', 404, 115);
+VALUES (13, '減価償却', 680, 206, 2900);
 INSERT INTO assort_pattern
-VALUES (13, '減価償却', 680, 206);
+VALUES (14, '見積もり', 2, 2, 3000);
 INSERT INTO assort_pattern
-VALUES (14, '見積もり', 2, 2);
+VALUES (15, '帳簿外', 1, 1, 1000);
 INSERT INTO assort_pattern
-VALUES (15, '帳簿外', 1, 1);
+VALUES (16, '個人用をクレジット購入', 404, 420, 1400);
 INSERT INTO assort_pattern
-VALUES (16, '個人用をクレジット購入', 404, 405);
+VALUES (17, '個人のクレジットで購入', 2, 181, 1500, 2600);
 INSERT INTO assort_pattern
-VALUES (17, '個人のクレジットで購入', 2, 181);
+VALUES (18, '個人のクレジット支払い', 1, 1, 2600);
 INSERT INTO assort_pattern
-VALUES (18, '個人のクレジット支払い', 1, 1);
+VALUES (19, '振り込み個人口座（請求書あり）', 404, 141, 1900);
 INSERT INTO assort_pattern
-VALUES (19, '振り込み個人口座（請求書あり）', 404, 141);
+VALUES (20, '振り込み個人口座（請求書なし）', 404, 700, 2100);
 INSERT INTO assort_pattern
-VALUES (20, '振り込み個人口座（請求書なし）', 404, 700);
-INSERT INTO assort_pattern
-VALUES (21, '引き落とし・支払い個人口座', 2, 181);
+VALUES (21, '引き落とし・支払い個人口座', 2, 181, 2300);
 
 INSERT INTO fiscal_year(year)
 VALUES (2020);

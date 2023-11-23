@@ -14,6 +14,7 @@ SELECT detail_id,
        debit_item.item_name,
        debit_item.alloc_rate, /* 組み込み比率 */
        detail."delete"     AS "delete",
+       IIF(minus = 1, -1, 1) *
        unit_price * qty * debit_item.alloc_rate
            * CASE detail.tax_rate > 0
                  WHEN TRUE THEN
@@ -27,6 +28,7 @@ SELECT detail_id,
                          WHEN 1 THEN 1 + account.tax_rate
                          ELSE 1 END
            END             AS item_price,
+       IIF(minus = 1, -1, 1) *
        unit_price * qty * debit_item.alloc_rate
            * CASE detail.tax_rate > 0
                  WHEN TRUE THEN
@@ -40,6 +42,7 @@ SELECT detail_id,
                          WHEN 1 THEN account.tax_rate
                          ELSE 0 END
            END             AS tax_price,
+       IIF(minus = 1, -1, 1) *
        unit_price * qty * debit_item.alloc_rate
            * CASE detail.tax_rate > 0
                  WHEN TRUE THEN
@@ -113,23 +116,28 @@ SELECT account.account_id,
        comment,
        account.debit_id, /* 借方コード */
        debit_item.item_name                                                      AS debit_item_name,
-       debit_item.alloc_rate, /* 組み込み比率 */
-       debit_item.is_purchase,
-       debit_item.is_other_exp,
+       debit_item.alloc_rate /* 組み込み比率 */                                  AS alloc_rate,
+       debit_item.is_purchase                                                    AS is_purchase,
+       debit_item.is_other_exp                                                   AS is_other_exp,
        account.credit_id, /* 貸方コード */
        credit_item.item_name                                                     AS credit_item_name,
+       credit_item.alloc_rate /* 組み込み比率 */                                 AS credit_alloc_rate,
+       credit_item.is_purchase                                                   AS credit_is_purchase,
+       credit_item.is_other_exp                                                  AS credit_is_other_exp,
        account.assort_pattern_id                                                 AS assort_pattern_id, /* 仕訳パターン番号 */
        pattern_name,
        assort_pattern.debit_id, /* 借方コード */
        assort_pattern.credit_id, /* 貸方コード */
-       account."delete"                                                          AS "delete"
+       account."delete"                                                          AS "delete",
+       account.minus                                                             AS minus
 FROM account
          LEFT JOIN account_calc ON account.account_id = account_calc.account_id
          LEFT JOIN parent_calc ON account.account_id = parent_calc.parent_account_id
          LEFT JOIN item AS debit_item ON debit_item.item_id = account.debit_id
          LEFT JOIN item AS credit_item ON credit_item.item_id = account.credit_id
          LEFT JOIN assort_pattern ON account.assort_pattern_id = assort_pattern.assort_pattern_id
-ORDER BY issued_date DESC
+ORDER BY issued_date
+        DESC
 ;
 DROP VIEW IF EXISTS monthly_summary_income;
 CREATE VIEW monthly_summary_income AS
@@ -140,7 +148,8 @@ SELECT strftime('%Y', account.issued_date)    AS y,
        SUM(account_calc.tax_total)            AS tax_total
 FROM account
          LEFT JOIN account_calc ON account.account_id = account_calc.account_id
-WHERE account.credit_id = 700 /* 700=売上高 */
+WHERE (account.credit_id = 700 /* 700=売上高 */
+    OR account.debit_id = 700)
   AND ("delete" <> '1' OR "delete" IS NULL)
 GROUP BY strftime('%Y-%m', account.issued_date)
 ;
@@ -152,8 +161,9 @@ SELECT strftime('%Y-%m', account.issued_date) AS ym,
        SUM(account_calc.tax_total)            AS tax_total
 FROM account
          LEFT JOIN account_calc ON account.account_id = account_calc.account_id
-         LEFT JOIN item ON item.item_id = account.debit_id
-WHERE item.is_purchase = 1
+         LEFT JOIN item AS item_debit ON item_debit.item_id = account.debit_id
+         LEFT JOIN item AS item_credit ON item_credit.item_id = account.credit_id
+WHERE (item_debit.is_purchase = 1 OR item_credit.is_purchase = 1)
   AND ("delete" <> '1' OR "delete" IS NULL)
 GROUP BY strftime('%Y-%m', account.issued_date)
 ;
@@ -165,8 +175,9 @@ SELECT strftime('%Y-%m', account.issued_date) AS ym,
        SUM(account_calc.tax_total)            AS tax_total
 FROM account
          LEFT JOIN account_calc ON account.account_id = account_calc.account_id
-         LEFT JOIN item ON item.item_id = account.debit_id
-WHERE item.is_other_exp = 1
+         LEFT JOIN item AS item_debit ON item_debit.item_id = account.debit_id
+         LEFT JOIN item AS item_credit ON item_credit.item_id = account.credit_id
+WHERE (item_debit.is_other_exp = 1 OR item_credit.is_other_exp = 1)
   AND ("delete" <> '1' OR "delete" IS NULL)
 GROUP BY strftime('%Y-%m', account.issued_date)
 ;
@@ -193,9 +204,9 @@ CREATE VIEW item_summary_debit AS
 SELECT strftime('%Y', account.issued_date) AS y,
        debit_id,
        item.item_name                      AS item_name,
-       SUM(account_calc.item_total)        AS item_total,
-       SUM(account_calc.net_total)         AS net_total,
-       SUM(account_calc.tax_total)         AS tax_total
+       SUM(ABS(account_calc.item_total))   AS item_total,
+       SUM(ABS(account_calc.net_total))    AS net_total,
+       SUM(ABS(account_calc.tax_total))    AS tax_total
 FROM account
          LEFT JOIN item ON item.item_id = account.debit_id
          LEFT JOIN account_calc ON account.account_id = account_calc.account_id
@@ -208,9 +219,9 @@ CREATE VIEW item_summary_credit AS
 SELECT strftime('%Y', account.issued_date) AS y,
        credit_id,
        item.item_name                      AS item_name,
-       SUM(account_calc.item_total)        AS item_total,
-       SUM(account_calc.net_total)         AS net_total,
-       SUM(account_calc.tax_total)         AS tax_total
+       SUM(ABS(account_calc.item_total))   AS item_total,
+       SUM(ABS(account_calc.net_total))    AS net_total,
+       SUM(ABS(account_calc.tax_total))    AS tax_total
 FROM account
          LEFT JOIN item ON item.item_id = account.credit_id
          LEFT JOIN account_calc ON account.account_id = account_calc.account_id

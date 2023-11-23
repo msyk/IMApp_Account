@@ -24,3 +24,8 @@ INTERMediatorOnPage.doBeforeConstruct = function () {
 INTERMediatorOnPage.doAfterConstruct = function () {
   document.getElementById('container').style.display = 'block'
 }
+
+function moveAccountItem(id) {
+  const myURL = encodeURIComponent(location.href)
+  INTERMediator.moveAnotherURL(`/index_detail.html?id=${id}&back=${myURL}`)
+}

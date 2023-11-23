@@ -56,7 +56,8 @@ CREATE TABLE account
     debit_id          INTEGER, /* 借方コード */
     credit_id         INTEGER, /* 貸方コード */
     assort_pattern_id INTEGER, /* 仕訳パターン番号 */
-    `delete`          INTEGER
+    `delete`          INTEGER,
+    minus             INTEGER
 );
 
 CREATE INDEX account_parent_account_id
@@ -97,7 +98,7 @@ CREATE TABLE item
     item_id      INTEGER PRIMARY KEY,
     item_name    TEXT,
     alloc_rate   REAL, /* 組み込み比率 */
-    `show`         INTEGER, /* 1=ポップアップ表示 */
+    `show`       INTEGER, /* 1=ポップアップ表示 */
     is_purchase  INTEGER, /* 仕入れに入れる項目 */
     is_other_exp INTEGER /* 仕入れに入れない経費項目 */
 );
@@ -107,7 +108,8 @@ CREATE TABLE assort_pattern
     assort_pattern_id INTEGER PRIMARY KEY AUTO_INCREMENT, /* 仕訳パターン番号 */
     pattern_name      TEXT,
     debit_id          INTEGER, /* 借方コード */
-    credit_id         INTEGER /* 貸方コード */
+    credit_id         INTEGER, /* 貸方コード */
+    `order`           INTEGER
 );
 
 CREATE TABLE fiscal_year
@@ -255,7 +257,8 @@ SELECT detail_id,
        debit_item.item_name,
        debit_item.alloc_rate, /* 組み込み比率 */
        detail.`delete`     AS `delete`,
-       unit_price * qty * debit_item.alloc_rate
+       IF(minus = 1, -1, 1)
+           * unit_price * qty * debit_item.alloc_rate
            * CASE detail.tax_rate > 0
                  WHEN TRUE THEN
                      CASE tax_kind
@@ -268,7 +271,8 @@ SELECT detail_id,
                          WHEN 1 THEN 1 + account.tax_rate
                          ELSE 1 END
            END             AS item_price,
-       unit_price * qty * debit_item.alloc_rate
+       IF(minus = 1, -1, 1)
+           * unit_price * qty * debit_item.alloc_rate
            * CASE detail.tax_rate > 0
                  WHEN TRUE THEN
                      CASE tax_kind
@@ -281,7 +285,8 @@ SELECT detail_id,
                          WHEN 1 THEN account.tax_rate
                          ELSE 0 END
            END             AS tax_price,
-       unit_price * qty * debit_item.alloc_rate
+       IF(minus = 1, -1, 1)
+           * unit_price * qty * debit_item.alloc_rate
            * CASE detail.tax_rate > 0
                  WHEN TRUE THEN
                      CASE tax_kind
@@ -353,17 +358,21 @@ SELECT account.account_id,
        tax_rate,
        comment,
        account.debit_id                                                          AS debit_id,
-       debit_item.item_name /* 借方コード */                                        AS debit_item_name,
+       debit_item.item_name /* 借方コード */                                     AS debit_item_name,
        debit_item.alloc_rate, /* 組み込み比率 */
        debit_item.is_purchase,
        debit_item.is_other_exp,
-       account.credit_id /* 貸方コード */                                           AS credit_id,
+       account.credit_id /* 貸方コード */                                        AS credit_id,
        credit_item.item_name                                                     AS credit_item_name,
-       account.assort_pattern_id /* 仕訳パターン番号 */                              AS assort_pattern_id,
+       credit_item.alloc_rate /* 組み込み比率 */                                 AS credit_alloc_rate,
+       credit_item.is_purchase                                                   AS credit_is_purchase,
+       credit_item.is_other_exp                                                  AS credit_is_other_exp,
+       account.assort_pattern_id /* 仕訳パターン番号 */                          AS assort_pattern_id,
        pattern_name,
-       assort_pattern.debit_id /* 借方コード */                                     AS debit_id_assort,
-       assort_pattern.credit_id /* 貸方コード */                                    AS credit_id_assort,
-       account.`delete`                                                          AS `delete`
+       assort_pattern.debit_id /* 借方コード */                                  AS debit_id_assort,
+       assort_pattern.credit_id /* 貸方コード */                                 AS credit_id_assort,
+       account.`delete`                                                          AS `delete`,
+       account.minus                                                             AS minus
 FROM account
          LEFT JOIN account_calc ON account.account_id = account_calc.account_id
          LEFT JOIN parent_calc ON account.account_id = parent_calc.parent_account_id
@@ -382,7 +391,7 @@ SELECT DATE_FORMAT(account.issued_date, '%Y')    AS y,
        SUM(account_calc.tax_total)               AS tax_total
 FROM account
          LEFT JOIN account_calc ON account.account_id = account_calc.account_id
-WHERE account.credit_id = 700 /* 700=売上高 */
+WHERE (account.credit_id = 700 OR account.debit_id = 700) /* 700=売上高 */
   AND (`delete` <> '1' OR `delete` IS NULL)
 GROUP BY DATE_FORMAT(account.issued_date, '%Y-%m')
 ;
@@ -394,8 +403,9 @@ SELECT DATE_FORMAT(account.issued_date, '%Y-%m') AS ym,
        SUM(account_calc.tax_total)               AS tax_total
 FROM account
          LEFT JOIN account_calc ON account.account_id = account_calc.account_id
-         LEFT JOIN item ON item.item_id = account.debit_id
-WHERE item.is_purchase = 1
+         LEFT JOIN item AS item_debit ON item_debit.item_id = account.debit_id
+         LEFT JOIN item AS item_credit ON item_credit.item_id = account.credit_id
+WHERE (item_debit.is_purchase = 1 OR item_credit.is_purchase = 1)
   AND (`delete` <> '1' OR `delete` IS NULL)
 GROUP BY DATE_FORMAT(account.issued_date, '%Y-%m')
 ;
@@ -407,8 +417,9 @@ SELECT DATE_FORMAT(account.issued_date, '%Y-%m') AS ym,
        SUM(account_calc.tax_total)               AS tax_total
 FROM account
          LEFT JOIN account_calc ON account.account_id = account_calc.account_id
-         LEFT JOIN item ON item.item_id = account.debit_id
-WHERE item.is_other_exp = 1
+         LEFT JOIN item AS item_debit ON item_debit.item_id = account.debit_id
+         LEFT JOIN item AS item_credit ON item_credit.item_id = account.credit_id
+WHERE (item_debit.is_other_exp = 1 AND item_credit.is_other_exp = 1)
   AND (`delete` <> '1' OR `delete` IS NULL)
 GROUP BY DATE_FORMAT(account.issued_date, '%Y-%m')
 ;
@@ -435,9 +446,9 @@ CREATE VIEW item_summary_debit AS
 SELECT DATE_FORMAT(account.issued_date, '%Y') AS y,
        debit_id,
        item.item_name                         AS item_name,
-       SUM(account_calc.item_total)           AS item_total,
-       SUM(account_calc.net_total)            AS net_total,
-       SUM(account_calc.tax_total)            AS tax_total
+       SUM(ABS(account_calc.item_total))      AS item_total,
+       SUM(ABS(account_calc.net_total))       AS net_total,
+       SUM(ABS(account_calc.tax_total))       AS tax_total
 FROM account
          LEFT JOIN item ON item.item_id = account.debit_id
          LEFT JOIN account_calc ON account.account_id = account_calc.account_id
@@ -450,9 +461,9 @@ CREATE VIEW item_summary_credit AS
 SELECT DATE_FORMAT(account.issued_date, '%Y') AS y,
        credit_id,
        item.item_name                         AS item_name,
-       SUM(account_calc.item_total)           AS item_total,
-       SUM(account_calc.net_total)            AS net_total,
-       SUM(account_calc.tax_total)            AS tax_total
+       SUM(ABS(account_calc.item_total))      AS item_total,
+       SUM(ABS(account_calc.net_total))       AS net_total,
+       SUM(ABS(account_calc.tax_total))       AS tax_total
 FROM account
          LEFT JOIN item ON item.item_id = account.credit_id
          LEFT JOIN account_calc ON account.account_id = account_calc.account_id
@@ -766,47 +777,45 @@ INSERT INTO item
 VALUES (980, '法人税等', 1.0, 1, 0, 0);
 
 INSERT INTO assort_pattern
-VALUES (1, '現金で購入', 2, 181);
+VALUES (1, '現金で購入', 2, 181, 1100);
 INSERT INTO assort_pattern
-VALUES (2, '現金を引き出し', 100, 115);
+VALUES (2, '現金を引き出し', 100, 115, 1200);
 INSERT INTO assort_pattern
-VALUES (3, '現金での報酬', 100, 700);
+VALUES (3, '現金での報酬', 100, 700, 1600);
 INSERT INTO assort_pattern
-VALUES (4, '振り込み（請求書あり）', 115, 141);
+VALUES (4, '振り込み（請求書あり）', 115, 141, 1800);
 INSERT INTO assort_pattern
-VALUES (5, '振り込み（請求書なし）', 115, 700);
+VALUES (5, '振り込み（請求書なし）', 115, 700, 2000);
 INSERT INTO assort_pattern
-VALUES (6, '引き落とし・支払い', 2, 115);
+VALUES (6, '引き落とし・支払い', 2, 115, 2200);
 INSERT INTO assort_pattern
-VALUES (7, 'クレジット購入', 2, 405);
+VALUES (7, 'クレジット購入', 2, 420, 1300);
 INSERT INTO assort_pattern
-VALUES (8, '請求した', 141, 700);
+VALUES (8, '請求した', 141, 700, 1700);
 INSERT INTO assort_pattern
-VALUES (9, 'クレジットの支払い', 405, 115);
+VALUES (9, 'クレジットの支払い', 420, 115, 2500);
 INSERT INTO assort_pattern
-VALUES (10, '請求された', 2, 405);
+VALUES (10, '請求された', 2, 405, 2700);
 INSERT INTO assort_pattern
-VALUES (11, '請求に対する支払', 405, 115);
+VALUES (11, '請求に対する支払', 405, 115, 2800);
 INSERT INTO assort_pattern
-VALUES (12, '源泉徴収（振り込み時）', 404, 115);
+VALUES (13, '減価償却', 680, 206, 2900);
 INSERT INTO assort_pattern
-VALUES (13, '減価償却', 680, 206);
+VALUES (14, '見積もり', 2, 2, 3000);
 INSERT INTO assort_pattern
-VALUES (14, '見積もり', 2, 2);
+VALUES (15, '帳簿外', 1, 1, 1000);
 INSERT INTO assort_pattern
-VALUES (15, '帳簿外', 1, 1);
+VALUES (16, '個人用をクレジット購入', 404, 420, 1400);
 INSERT INTO assort_pattern
-VALUES (16, '個人用をクレジット購入', 404, 405);
+VALUES (17, '個人のクレジットで購入', 2, 181, 1500, 2600);
 INSERT INTO assort_pattern
-VALUES (17, '個人のクレジットで購入', 2, 181);
+VALUES (18, '個人のクレジット支払い', 1, 1, 2600);
 INSERT INTO assort_pattern
-VALUES (18, '個人のクレジット支払い', 1, 1);
+VALUES (19, '振り込み個人口座（請求書あり）', 404, 141, 1900);
 INSERT INTO assort_pattern
-VALUES (19, '振り込み個人口座（請求書あり）', 404, 141);
+VALUES (20, '振り込み個人口座（請求書なし）', 404, 700, 2100);
 INSERT INTO assort_pattern
-VALUES (20, '振り込み個人口座（請求書なし）', 404, 700);
-INSERT INTO assort_pattern
-VALUES (21, '引き落とし・支払い個人口座', 2, 181);
+VALUES (21, '引き落とし・支払い個人口座', 2, 181, 2300);
 
 INSERT INTO fiscal_year(year)
 VALUES (2020);

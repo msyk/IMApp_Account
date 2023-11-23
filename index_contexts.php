@@ -19,6 +19,7 @@ IM_Entry(
     [
         [
             'name' => 'account_list',
+            'view' => 'account_list',
             'table' => 'account',
             'key' => 'account_id',
             'records' => 200,
@@ -36,7 +37,12 @@ IM_Entry(
             'calculation' => [
                 ['field' => "attached", 'expression' => "if(invoice_path='','','証票有')",],
                 ['field' => "alertStyle", 'expression' => "if(parent_total>0 && round(item_total,0)!=round(parent_total,0),'inline','none')",],
-                ['field' => "checkStyle", 'expression' => "if(credit_id=115||credit_id=117,'#DDFFDD',if(credit_id=141,'papayawhip',if(credit_id=405,'lightyellow',if(debit_id=141,'moccasin',''))))",],
+                ['field' => "checkStyle",
+                    'expression' => "if(credit_id=115||credit_id=117,'#DDFFDD',"
+                        . "if(credit_id=141,'papayawhip',"
+                        . "if(credit_id=405||credit_id=420,'lightyellow'"
+                        . ",if(debit_id=141,'moccasin',''))))",],
+                ['field'=>"parent_account_style","expression"=>"if(parent_account_id,'','none')"]
             ],
             'numeric-fields' => ['item_total'],
             'extending-class' => 'CreateFirstItem',
@@ -124,6 +130,7 @@ IM_Entry(
             'view' => 'assort_pattern',
             'key' => 'assort_pattern_id',
             'records' => 10000,
+            'sort' => [['field' => 'order', 'direction' => 'asc'],],
         ],
         [
             'name' => 'assort_pattern_lookup',
@@ -163,12 +170,7 @@ IM_Entry(
             'records' => 1,
         ],
     ],
-    [
-//        'authentication' => [
-//            'authexpired' => '7200',
-//            'storing' => 'credential',
-//        ],
-    ],
+    [],
     ['db-class' => 'PDO',],
     2
 );

@@ -21,7 +21,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
     <!-- Loading INTER-Mediator -->
     <script src="contexts.php"></script>
-    <script src="common.js"></script>
+    <script src="item.js"></script>
     <style>
         td, th {
             vertical-align: top;
@@ -116,13 +116,20 @@
         <div data-im-control="repeater">
             <h2>
                 <span data-im="year_detail@year"></span><span>年度　科目別集計</span>
-                <button class="btn btn-success" onclick="javascript:INTERMediator.moveAnotherURL('item_detail.html?year=$')"
-                        data-im="year_detail@year@$onclick">各科目の明細表示</button>
+                <button class="btn btn-success"
+                        onclick="javascript:INTERMediator.moveAnotherURL('item_detail.html?year=$')"
+                        data-im="year_detail@year@$onclick">各科目の明細表示
+                </button>
             </h2>
             <h3>借方科目</h3>
             <table>
                 <tbody>
                 <tr>
+                    <td>
+                        <button class="btn btn-primary" onclick="showMoreDetail('debit',$)"
+                                data-im="item_debit@debit_id@$onclick">明細
+                        </button>
+                    </td>
                     <td>
                         [<span data-im="item_debit@debit_id"></span>]
                     </td>
@@ -145,6 +152,11 @@
             <table>
                 <tbody>
                 <tr>
+                    <td>
+                        <button class="btn btn-primary" onclick="showMoreDetail('credit',$)"
+                                data-im="item_credit@credit_id@$onclick">明細
+                        </button>
+                    </td>
                     <td>
                         [<span data-im="item_credit@credit_id"></span>]
                     </td>

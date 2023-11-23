@@ -30,18 +30,24 @@ INTERMediatorOnPage.doBeforeConstruct = function () {
 };
 
 INTERMediatorOnPage.doAfterConstruct = function () {
-  const visiblePanel = document.getElementById("panelcontent")
-  visiblePanel.addEventListener('click', (event) => {
+  document.getElementById("panelcontent").addEventListener('click', (event) => {
+    event.stopPropagation()
+  })
+  document.getElementById("panelcontent2").addEventListener('click', (event) => {
+    event.stopPropagation()
+  })
+  document.getElementById("option-clear").addEventListener('click', (event) => {
     event.stopPropagation()
   })
   document.getElementById('container').style.display = 'block'
   stickyHeaderTableAdjust()
+  INTERMediator.scrollBack(-125 - 157, document.querySelector(".sticky-header-table"))
 }
 
 INTERMediatorOnPage.doAfterValueChange = (idValue) => {
   const targetNode = document.getElementById(idValue)
   const targetSpec = targetNode.getAttribute('data-im')
-  if(targetSpec.indexOf('preference@copy_detail')===0){
+  if (targetSpec.indexOf('preference@copy_detail') === 0) {
     INTERMediator.constructMain();
   }
 }
@@ -54,6 +60,7 @@ INTERMediatorOnPage.doAfterCreateRecord = (newId, contextName) => {
 
 function clearConditions() {
   IMLibLocalContext.clearAllConditions()
+  INTERMediator.clearCondition('account_list')
   INTERMediator.constructMain(IMLibContextPool.contextFromName('account_list'))
 }
 
@@ -61,8 +68,9 @@ function exportAccount() {
   INTERMediator.moveAnotherURL('index_contexts.php?media=class://AccountCSV/account_all')
 }
 
-function moveDetailPage(aid){
+function moveDetailPage(aid) {
   aid = parseInt(aid)
+  INTERMediator.prepareToScrollBack('account_list', aid)
   INTERMediator.moveAnotherURL(`index_detail.html?id=${aid}`)
 }
 
@@ -87,12 +95,20 @@ function setCondition(n) {
   }
 }
 
-function showPanel(button) {
+function showPanel() {
   document.getElementById('funcpanel').style.display = 'block'
 }
 
 function hidePanel() {
   document.getElementById('funcpanel').style.display = 'none'
+}
+
+function showPanel2() {
+  document.getElementById('funcpanel2').style.display = 'block'
+}
+
+function hidePanel2() {
+  document.getElementById('funcpanel2').style.display = 'none'
 }
 
 function csvReadSMBC() {
@@ -202,3 +218,37 @@ function csvReadBankImpl(dateCol, outCol, inCol, descCol, skipLine) {
   })
 }
 
+function uiIdSearch(id) {
+  id = parseInt(id)
+  if (id > 0) {
+    INTERMediator.clearCondition('account_list')
+    IMLibLocalContext.clearAllConditions()
+    IMLibLocalContext.setValue('condition:account_list:account_id,parent_account_id:=', id)
+    INTERMediator.constructMain(IMLibContextPool.contextFromName('account_list'))
+  }
+}
+
+function codeSearch(debit, credit, mode = null) {
+  hidePanel2()
+  if (document.getElementById("option-clear").checked) {
+    IMLibLocalContext.clearAllConditions()
+  }
+  INTERMediator.clearCondition('account_list')
+  if (debit) {
+    INTERMediator.addCondition('account_list', {field: 'debit_id', value: debit})
+  }
+  if (credit) {
+    INTERMediator.addCondition('account_list', {field: 'credit_id', value: credit})
+  }
+  if (mode === "typeA") {
+    INTERMediator.addCondition('account_list', {field: 'parent_account_id', operator: "IS NULL"})
+  }
+  if (mode === "typeB") {
+    INTERMediator.addCondition('account_list', {field: 'parent_account_id', operator: "IS NOT NULL"})
+  }
+  if (mode === "typeC") {
+    INTERMediator.addCondition('account_list', {field: 'item_total', operator: "<>", value: "@parent_total@"})
+  }
+  INTERMediator.constructMain(IMLibContextPool.contextFromName('account_list'))
+
+}

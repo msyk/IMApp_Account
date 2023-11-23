@@ -15,12 +15,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>INTER-Mediator Account</title>
     <!-- Loading JQuery -->
-    <script src="./vendor/inter-mediator/inter-mediator/node_modules/jquery/dist/jquery.min.js"></script> <!-- Don't use 'slim' -->
+    <script src="./vendor/inter-mediator/inter-mediator/node_modules/jquery/dist/jquery.min.js"></script>
+    <!-- Don't use 'slim' -->
     <!-- Loading Bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
     <!-- Loading JQuery UI FileUpload -->
-    <link rel="stylesheet" href="./vendor/inter-mediator/inter-mediator/node_modules/blueimp-file-upload/css/jquery.fileupload.css">
+    <link rel="stylesheet"
+          href="./vendor/inter-mediator/inter-mediator/node_modules/blueimp-file-upload/css/jquery.fileupload.css">
     <script src="./vendor/inter-mediator/inter-mediator/node_modules/jquery-ui/dist/jquery-ui.min.js"></script>
     <script src="./vendor/inter-mediator/inter-mediator/node_modules/blueimp-file-upload/js/jquery.fileupload.js"></script>
     <!-- Loading INTER-Mediator -->
@@ -125,6 +127,9 @@
             <tr>
                 <td colspan="9">
                     <button class="btn btn-primary" onclick="backToList()">総勘定元帳に戻る</button>
+                    <button id="back-button" class="btn btn-primary" style="display: none"
+                            onclick="backWithParameter()">元のページに戻る
+                    </button>
                 </td>
             </tr>
             </thead>
@@ -198,9 +203,16 @@
                 <td><input type="text" data-im="account_detail@parent_account_id"></td>
             </tr>
             <tr data-im-control="ignore_enc_rep">
-                <th>追記事項</th>
-                <td colspan="3"><textarea data-im="account_detail@comment" style="width:500px;height: 50px"></textarea>
+                <th rowspan="2">追記事項</th>
+                <td rowspan="2" colspan="3">
+                    <textarea data-im="account_detail@comment" style="width:500px;height: 50px"></textarea>
                 </td>
+                <th>関連項目の加算時にマイナス</th>
+                <td>
+                    <input type="checkbox" data-im="account_detail@minus" value="1">
+                </td>
+            </tr>
+            <tr data-im-control="ignore_enc_rep">
                 <td colspan="2" style="font-size: 80%">
                     追記事項は、書類で説明の下にやや小さく表示されます。<br>
                     HTMLでの記述が可能です。改行は&lt;br&gt;と記述します。<br>
@@ -320,10 +332,12 @@
             ↓ここにCSVファイルの中身をペーストします。<br>
             <textarea id="csv_data" style="width: 100%;"></textarea><br>
             <span class="explain">このテキストエリアの全ての行について読み込みを試みます。不要な行は削除する方が良いでしょう。このテキストエリアの文字列は保存されません。</span>
-            <div style="margin-top: 8px;">以下のボタンを押せば、CSVの1行が、この会計項目の1つの明細として追加されます。</div>
+            <div style="margin-top: 8px;">以下のボタンを押せば、CSVの1行が、この会計項目の1つの明細として追加されます。
+            </div>
             <div>
                 <button class="btn btn-info" style="margin-bottom: 4px;" onclick="csvReadVpass()">読み込み-費用が3項目目
-                </button>（Vpass）
+                </button>
+                （Vpass）
             </div>
             <div>
                 <button class="btn btn-info" style="margin-bottom: 4px;" onclick="csvReadImpl(4)">読み込み-費用が4項目目
@@ -331,15 +345,18 @@
             </div>
             <div>
                 <button class="btn btn-info" style="margin-bottom: 4px;" onclick="csvReadRakuten()">読み込み-費用が5項目目
-                </button>（楽天,PayPay）
+                </button>
+                （楽天,PayPay）
             </div>
             <div>
                 <button class="btn btn-info" style="margin-bottom: 4px;" onclick="csvReadSAISON()">読み込み-費用が6項目目
-                </button>（セゾンカード）
+                </button>
+                （セゾンカード）
             </div>
             <div>
                 <button class="btn btn-info" style="margin-bottom: 4px;" onclick="csvReadAmazon()">読み込み-費用が7項目目
-                </button>（Amazon2022）
+                </button>
+                （Amazon2022）
             </div>
             <div>
                 <button class="btn btn-info" style="margin-bottom: 4px;" onclick="csvReadImpl(8)">読み込み-費用が8項目目
@@ -347,7 +364,8 @@
             </div>
             <div>
                 <button class="btn btn-info" style="margin-bottom: 4px;" onclick="csvReadOrico()">読み込み-費用が9項目目
-                </button>（オリコ：9項目も数値に追加）
+                </button>
+                （オリコ：9項目も数値に追加）
             </div>
             <hr>
             読み込み後に以下のボタンを押すことで、明細の1行を元にした新たな会計項目が作成されます。

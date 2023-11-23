@@ -118,6 +118,9 @@
     <div data-im-control="enclosure">
         <div data-im-control="repeater">
             <h2><span data-im="year_detail_single@year"></span><span>年度　科目別集計</span></h2>
+            <p>
+                <button class="btn btn-primary" onclick="backToAllSummary()">全科目の集計ページに戻る</button>
+            </p>
             <h3>借方科目</h3>
             <table>
                 <tbody>
@@ -144,9 +147,9 @@
                             <tbody>
                             <tr>
                                 <td style="white-space: nowrap">
-                                    <a href="/index_detail.html?id=" data-im="account_debit@account_id@#href">
-                                        <button class="btn btn-secondary">詳細</button>
-                                    </a>
+                                    <button class="btn btn-secondary" onclick="moveAccountItem($)"
+                                            data-im="account_debit@account_id@$onclick">詳細
+                                    </button>
                                 </td>
                                 <td style="white-space: nowrap">
                                     <span data-im="account_debit@account_id"></span><br>
@@ -211,9 +214,9 @@
                             <tbody>
                             <tr>
                                 <td style="white-space: nowrap">
-                                    <a href="/index_detail.html?id=" data-im="account_credit@account_id@#href">
-                                        <button class="btn btn-secondary">詳細</button>
-                                    </a>
+                                    <button class="btn btn-secondary" onclick="moveAccountItem($)"
+                                            data-im="account_credit@account_id@$onclick">詳細
+                                    </button>
                                 </td>
                                 <td style="white-space: nowrap">
                                     <span data-im="account_credit@account_id"></span><br>

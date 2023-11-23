@@ -104,13 +104,7 @@ IM_Entry(
             'sort' => [['field' => 'dt', 'direction' => 'asc',], ['field' => 'id', 'direction' => 'asc',],],
         ],
     ],
-    [
-//        'authentication' => [
-//            'authexpired' => '7200',
-//            'storing' => 'credential',
-//        ],
-
-    ],
+    [],
     ['db-class' => 'PDO',],
     2
 );
